@@ -1,0 +1,21 @@
+# Build output, release archives, and synthetic test records
+artifacts/
+bin/
+obj/
+.vs/
+*.exe
+*.pdb
+*.zip
+*.user
+*.suo
+
+# Local reading history, settings, vocabulary, and notes
+词表/
+reading-data.xml*
+settings.xml*
+本轮笔记.txt
+本轮汇总.txt
+中英词表.csv
+中英词表.tsv
+纯单词-扇贝用.txt
+*.tmp
