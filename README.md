@@ -41,7 +41,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 # 隔离运行核心检查、组件流程检查与专注保护检查
 powershell -NoProfile -ExecutionPolicy Bypass -File .\test.ps1
 
-# 仅含程序、使用说明和发行说明的发行包
+# 含程序、使用说明、发行说明和许可证的发行包
 powershell -NoProfile -ExecutionPolicy Bypass -File .\package.ps1
 ```
 
@@ -68,4 +68,4 @@ artifacts/           本地生成内容，不提交仓库
 
 ## 许可证
 
-项目许可证待作者指定，当前未附加开源许可证。
+本项目以 [GNU 通用公共许可证第 3 版（GPL-3.0）](LICENSE) 授权发布：可以自由使用、修改和再分发，分发修改版或程序时须以相同协议提供源代码。
