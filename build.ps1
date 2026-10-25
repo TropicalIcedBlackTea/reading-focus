@@ -30,6 +30,7 @@ New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force | Out-Nul
 
 $sourceRoot = Join-Path $PSScriptRoot 'src'
 $icon = Join-Path $PSScriptRoot 'assets\FocusTimer.ico'
+$dictionary = Join-Path $PSScriptRoot 'assets\academic-words.tsv'
 $arguments = @(
     '/nologo', '/target:winexe', '/platform:anycpu', '/optimize+',
     '/langversion:5', '/codepage:65001', '/warn:4',
@@ -37,13 +38,13 @@ $arguments = @(
     ('/win32manifest:' + (Join-Path $sourceRoot 'app.manifest')),
     ('/win32icon:' + $icon),
     ('/resource:' + $icon + ',FocusTimer.ico'),
+    ('/resource:' + $dictionary + ',academic-words.tsv'),
     ('/reference:' + (Join-Path $framework 'WPF\PresentationFramework.dll')),
     ('/reference:' + (Join-Path $framework 'WPF\PresentationCore.dll')),
     ('/reference:' + (Join-Path $framework 'WPF\WindowsBase.dll')),
     ('/reference:' + (Join-Path $framework 'System.Xaml.dll')),
     '/reference:System.Core.dll', '/reference:System.Xml.dll',
-    '/reference:System.Drawing.dll', '/reference:System.Windows.Forms.dll',
-    '/reference:System.Web.Extensions.dll'
+    '/reference:System.Drawing.dll', '/reference:System.Windows.Forms.dll'
 )
 $arguments += @(Get-ChildItem -LiteralPath $sourceRoot -Filter '*.cs' -File |
     Sort-Object Name | ForEach-Object { $_.FullName })

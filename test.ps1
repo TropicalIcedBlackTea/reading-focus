@@ -7,15 +7,27 @@ Set-StrictMode -Version Latest
 $testExe = Join-Path $PSScriptRoot 'artifacts\tests\ReadingFocus.Tests.exe'
 $resultsRoot = Join-Path $PSScriptRoot 'artifacts\test-results'
 
+# 专注保护检查只最小化这个一次性窗口，不触碰其他应用。
+$framework = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319'
+if (-not (Test-Path -LiteralPath (Join-Path $framework 'csc.exe'))) {
+    $framework = Join-Path $env:WINDIR 'Microsoft.NET\Framework\v4.0.30319'
+}
+$probe = Join-Path $PSScriptRoot 'artifacts\tests\FocusGuardProbe.exe'
+& (Join-Path $framework 'csc.exe') /nologo /target:winexe /codepage:65001 ('/out:' + $probe) `
+    /reference:System.Drawing.dll /reference:System.Windows.Forms.dll `
+    (Join-Path $PSScriptRoot 'tests\probe\FocusGuardProbe.cs') | Out-Host
+if ($LASTEXITCODE -ne 0) { throw ('检查窗口编译失败，退出码：' + $LASTEXITCODE) }
+
 function Invoke-IsolatedCheck {
-    param([string]$Mode, [string]$FolderName, [string]$ReportName)
+    param([string]$Mode, [string]$FolderName, [string]$ReportName, [string[]]$Extra = @())
 
     $resultFolder = Join-Path $resultsRoot $FolderName
     New-Item -ItemType Directory -Path $resultFolder -Force | Out-Null
     $report = Join-Path $resultFolder $ReportName
     if (Test-Path -LiteralPath $report) { Remove-Item -LiteralPath $report -Force }
     Write-Host ('正在运行 ' + $Mode + '，使用独立合成数据。')
-    $process = Start-Process -FilePath $testExe -ArgumentList @($Mode, ('"' + $resultFolder + '"')) -WindowStyle Hidden -PassThru
+    $arguments = @($Mode, ('"' + $resultFolder + '"')) + @($Extra | ForEach-Object { '"' + $_ + '"' })
+    $process = Start-Process -FilePath $testExe -ArgumentList $arguments -WindowStyle Hidden -PassThru
     if (-not $process.WaitForExit(60000)) {
         Stop-Process -Id $process.Id -Force
         throw ($Mode + ' 超过 60 秒，已停止测试进程。')
@@ -33,4 +45,5 @@ function Invoke-IsolatedCheck {
 
 Invoke-IsolatedCheck '--self-test' 'core' 'timer-test-results.txt'
 Invoke-IsolatedCheck '--flow-test' 'flow' 'flow-test-results.txt'
+Invoke-IsolatedCheck '--sweep-test' 'sweep' 'sweep-test-results.txt' @($probe)
 Write-Host ('全部检查通过。报告和组件渲染位于：' + $resultsRoot)

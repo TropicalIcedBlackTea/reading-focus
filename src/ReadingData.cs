@@ -4,11 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -27,7 +23,7 @@ namespace ReadingFocus
     public sealed class WordRecord : INotifyPropertyChanged
     {
         public string Word { get; set; }
-        private string meaning = "翻译中…";
+        private string meaning = "";
         public string Meaning { get { return meaning; } set { meaning = value; Changed("Meaning"); } }
         public string Status { get; set; }
         public int Paper { get; set; }
@@ -93,30 +89,26 @@ namespace ReadingFocus
             return true;
         }
         public void NextPaper() { Papers.Add(new PaperRecord { Number = CurrentPaper.Number + 1 }); }
-        public WordRecord AddWord(SessionRecord session, string word, DateTime now)
+        public WordRecord AddWord(SessionRecord session, string word, string meaning, DateTime now)
         {
             WordRecord existing = session.Words.Find(w => w.Word == word);
             if (existing != null) { existing.Copies++; return null; }
-            WordRecord item = new WordRecord { Word = word, Status = "pending", Paper = CurrentPaper.Number, CollectedAt = now, Copies = 1 };
+            WordRecord item = new WordRecord { Word = word, Status = meaning != null ? "ok" : "missing", Meaning = meaning ?? "", Paper = CurrentPaper.Number, CollectedAt = now, Copies = 1 };
             session.Words.Add(item);
             return item;
         }
-        public string Cached(string word)
+        // Older records and words the dictionary did not know are looked up
+        // again, so a larger dictionary fills them in.
+        public void Resolve(AcademicDictionary dictionary)
         {
-            foreach (SessionRecord s in Sessions.AsEnumerable().Reverse())
-            {
-                WordRecord w = s.Words.Find(x => x.Word == word && x.Status == "ok");
-                if (w != null) return w.Meaning;
-            }
-            return null;
-        }
-        public static string NormalizeWord(string text)
-        {
-            if (text == null || text.Length > 100) return null;
-            string word = text.Trim().Trim('"', '“', '”', '‘', '’', '.', ',', ';', ':', '!', '?', '(', ')', '[', ']', '{', '}');
-            word = word.Replace('’', '\'').Replace('‐', '-').Replace('‑', '-');
-            if (word.Length < 1 || word.Length > 48 || !Regex.IsMatch(word, "^[A-Za-z]+(?:['-][A-Za-z]+)*$")) return null;
-            return word.ToLowerInvariant();
+            foreach (SessionRecord s in Sessions)
+                foreach (WordRecord w in s.Words)
+                {
+                    if (w.Status == "ok") continue;
+                    DictionaryHit hit = dictionary.Lookup(w.Word);
+                    w.Status = hit != null ? "ok" : "missing";
+                    w.Meaning = hit != null ? hit.Meaning : "";
+                }
         }
     }
     internal sealed class DataStore
@@ -138,11 +130,7 @@ namespace ReadingFocus
                 Error = "历史文件损坏，已备份；从新的记录继续。";
             }
             foreach (SessionRecord s in Data.Sessions)
-            {
                 if (s.Status == "进行中") { s.Status = "意外退出"; s.EndedAt = DateTime.Now; }
-                foreach (WordRecord w in s.Words)
-                    if (w.Status == "pending") { w.Status = "failed"; w.Meaning = "上次翻译中断，可重试"; }
-            }
             foreach (PaperRecord paper in Data.Papers)
                 if (paper.MarkDates == null || paper.MarkDates.Length != 3) paper.MarkDates = new string[3];
         }
@@ -187,17 +175,17 @@ namespace ReadingFocus
         {
             string folder = System.IO.Path.Combine(root, session.StartedAt.ToString("yyyy-MM-dd"), session.StartedAt.ToString("HHmmss") + "-" + session.Id.Substring(0, 6));
             Directory.CreateDirectory(folder);
-            StringBuilder csv = new StringBuilder("单词,中文释义,状态,论文序号,收集时间\r\n");
+            StringBuilder csv = new StringBuilder("单词,中文释义,词典,论文序号,收集时间\r\n");
             StringBuilder tsv = new StringBuilder();
             StringBuilder words = new StringBuilder();
             StringBuilder summary = new StringBuilder("文献专注 · 本轮词表\r\n" + session.StartedAt.ToString("yyyy-MM-dd HH:mm") + "\r\n专注 " + (session.Milliseconds / 60000.0).ToString("0.0") + " 分钟\r\n\r\n");
             foreach (WordRecord w in session.Words)
             {
-                string status = w.Status == "ok" ? "已翻译" : w.Status == "pending" ? "翻译中" : "待重试";
-                csv.AppendLine(Csv(w.Word) + "," + Csv(w.Meaning) + "," + Csv(status) + "," + w.Paper + "," + Csv(w.CollectedAt.ToString("s")));
-                if (w.Status == "ok") tsv.AppendLine(Flat(w.Word) + "\t" + Flat(w.Meaning));
+                bool found = w.Status == "ok";
+                csv.AppendLine(Csv(w.Word) + "," + Csv(found ? w.Meaning : "") + "," + Csv(found ? "已收录" : "未收录") + "," + w.Paper + "," + Csv(w.CollectedAt.ToString("s")));
+                if (found) tsv.AppendLine(Flat(w.Word) + "\t" + Flat(w.Meaning));
                 words.AppendLine(w.Word);
-                summary.AppendLine(w.Word + " — " + w.Meaning + "  [" + status + "]");
+                summary.AppendLine(found ? w.Word + " — " + w.Meaning : w.Word);
             }
             AtomicText(System.IO.Path.Combine(folder, "中英词表.csv"), csv.ToString(), true);
             AtomicText(System.IO.Path.Combine(folder, "中英词表.tsv"), tsv.ToString(), false);
@@ -213,74 +201,6 @@ namespace ReadingFocus
             string temp = file + ".tmp";
             File.WriteAllText(temp, text, new UTF8Encoding(bom));
             if (File.Exists(file)) File.Replace(temp, file, null); else File.Move(temp, file);
-        }
-    }
-    internal sealed class TranslationResult
-    {
-        public bool Success;
-        public string Text;
-    }
-    internal static class Translator
-    {
-        public static TranslationResult Translate(string word)
-        {
-            try
-            {
-                ServicePointManager.SecurityProtocol |= (SecurityProtocolType)3072;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.mymemory.translated.net/get?q=" + Uri.EscapeDataString(word) + "&langpair=en%7Czh-CN");
-                request.Timeout = 8000;
-                request.ReadWriteTimeout = 8000;
-                request.UserAgent = "ReadingFocusTimer/2.0";
-                request.AllowAutoRedirect = false;
-                string json;
-                using (WebResponse response = request.GetResponse())
-                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                    json = reader.ReadToEnd();
-                return Parse(json);
-            }
-            catch { return new TranslationResult { Text = "网络暂不可用，点击重试" }; }
-        }
-        internal static TranslationResult Parse(string json)
-        {
-            try
-            {
-                var root = new JavaScriptSerializer().DeserializeObject(json) as Dictionary<string, object>;
-                if (root == null || !root.ContainsKey("responseStatus") || Convert.ToInt32(root["responseStatus"]) != 200)
-                    return new TranslationResult { Text = "翻译服务限额或繁忙，可稍后重试" };
-                var data = root["responseData"] as Dictionary<string, object>;
-                string text = WebUtility.HtmlDecode(Convert.ToString(data["translatedText"])).Trim();
-                if (text.Length < 1 || text.Length > 500 || !Regex.IsMatch(text, "[\u3400-\u9fff]"))
-                    return new TranslationResult { Text = "未取得中文释义，可重试" };
-                return new TranslationResult { Success = true, Text = text };
-            }
-            catch { return new TranslationResult { Text = "翻译响应异常，可重试" }; }
-        }
-    }
-    internal sealed class TranslationQueue
-    {
-        private readonly Queue<Action> queue = new Queue<Action>();
-        private bool working;
-        public void Add(Action work)
-        {
-            lock (queue)
-            {
-                queue.Enqueue(work);
-                if (working) return;
-                working = true;
-            }
-            ThreadPool.QueueUserWorkItem(delegate
-            {
-                while (true)
-                {
-                    Action next;
-                    lock (queue)
-                    {
-                        if (queue.Count == 0) { working = false; return; }
-                        next = queue.Dequeue();
-                    }
-                    try { next(); } catch { }
-                }
-            });
         }
     }
 }

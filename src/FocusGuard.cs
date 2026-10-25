@@ -23,6 +23,15 @@ namespace ReadingFocus
         internal delegate void WinEvent(IntPtr hook, uint ev, IntPtr hwnd, int objectId, int childId, uint threadId, uint milliseconds);
         [DllImport("user32.dll")] internal static extern IntPtr SetWinEventHook(uint min, uint max, IntPtr module, WinEvent callback, uint processId, uint threadId, uint flags);
         [DllImport("user32.dll")] internal static extern bool UnhookWinEvent(IntPtr hook);
+        internal delegate bool EnumProc(IntPtr hwnd, IntPtr lParam);
+        [DllImport("user32.dll")] private static extern bool EnumWindows(EnumProc callback, IntPtr lParam);
+        [DllImport("user32.dll")] private static extern IntPtr GetWindow(IntPtr h, uint command);
+        [DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr h, int index);
+        [DllImport("user32.dll")] private static extern int GetWindowTextLength(IntPtr h);
+        [DllImport("user32.dll")] private static extern bool GetWindowRect(IntPtr h, out Rect rect);
+        [DllImport("dwmapi.dll")] private static extern int DwmGetWindowAttribute(IntPtr h, int attribute, out int value, int size);
+        [StructLayout(LayoutKind.Sequential)] private struct Rect { public int Left, Top, Right, Bottom; }
+        private static readonly int OwnId = Process.GetCurrentProcess().Id;
         public static long Now { get { return unchecked((long)GetTickCount64()); } }
         public static string ProcessName(IntPtr handle)
         {
@@ -35,11 +44,45 @@ namespace ReadingFocus
             }
             catch { return ""; }
         }
+        public static string AppName(IntPtr handle)
+        {
+            try
+            {
+                uint id;
+                GetWindowThreadProcessId(handle, out id);
+                using (Process p = Process.GetProcessById((int)id))
+                {
+                    string description = p.MainModule.FileVersionInfo.FileDescription;
+                    return string.IsNullOrWhiteSpace(description) ? p.ProcessName : description.Trim();
+                }
+            }
+            catch { return ProcessName(handle); }
+        }
         public static bool IsOwn(IntPtr handle)
         {
             uint id;
             GetWindowThreadProcessId(handle, out id);
-            return id == Process.GetCurrentProcess().Id;
+            return id == OwnId;
+        }
+        // Top-level windows a user would see as open apps: visible, restorable,
+        // titled, not tool or click-through overlays, not owned dialogs, and not
+        // cloaked on another virtual desktop.
+        public static List<IntPtr> AppWindows()
+        {
+            List<IntPtr> windows = new List<IntPtr>();
+            EnumWindows(delegate(IntPtr h, IntPtr l) { if (IsAppWindow(h)) windows.Add(h); return true; }, IntPtr.Zero);
+            return windows;
+        }
+        private static bool IsAppWindow(IntPtr h)
+        {
+            if (!IsWindowVisible(h) || IsIconic(h) || GetWindowTextLength(h) == 0) return false;
+            int ex = GetWindowLong(h, -20);
+            if ((ex & 0x80) != 0 || (ex & 0x20) != 0 || (ex & 0x08000000) != 0) return false;
+            if ((ex & 0x40000) == 0 && GetWindow(h, 4) != IntPtr.Zero) return false;
+            Rect r;
+            if (!GetWindowRect(h, out r) || r.Right <= r.Left || r.Bottom <= r.Top) return false;
+            int cloaked;
+            return DwmGetWindowAttribute(h, 14, out cloaked, 4) != 0 || cloaked == 0;
         }
     }
     internal static class WindowPolicy

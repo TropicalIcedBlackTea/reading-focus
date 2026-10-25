@@ -12,6 +12,7 @@ using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Path = System.Windows.Shapes.Path;
@@ -24,10 +25,10 @@ namespace ReadingFocus
         private readonly FocusClock clock;
         private readonly Preferences prefs;
         private readonly DataStore store;
+        private readonly AcademicDictionary dictionary;
         private readonly DispatcherTimer ticker;
-        private readonly TranslationQueue translations = new TranslationQueue();
-        private Func<string, TranslationResult> translateWord = Translator.Translate;
         private readonly Queue<WordRecord> toastQueue = new Queue<WordRecord>();
+        private WordRecord toastWord;
         private SessionRecord activeSession;
         private SessionRecord displayedSession;
         private readonly bool qa;
@@ -41,169 +42,292 @@ namespace ReadingFocus
         private int clipboardRetries;
         private long clipboardRetryAt;
         private IntPtr hook, blockedHandle;
+        private string blockedName;
         private Native.WinEvent foregroundEvent;
         private bool clipboardListening;
         private HwndSource source;
         private string exportFolder;
-        private readonly Brush forest = B("#315C48"), amber = B("#AD742D"), subtle = B("#718274");
-        private static Brush B(string s) { return (Brush)new BrushConverter().ConvertFromString(s); }
+        private readonly Brush ink = B("#1C2420"), muted = B("#5F6A64"), faint = B("#98A19C"), accent = B("#2E5B49"), amber = B("#A86E1F"), alert = B("#C2413B");
+        private readonly Brush cardLine = B("#E2E5E1"), cardDone = B("#D9C6A2");
+        private readonly Effect raised = new DropShadowEffect { Color = Color.FromRgb(0x1C, 0x24, 0x20), BlurRadius = 4, ShadowDepth = 1, Direction = 270, Opacity = 0.14 };
+        private static Brush B(string s) { Brush b = (Brush)new BrushConverter().ConvertFromString(s); b.Freeze(); return b; }
         private T F<T>(string name) where T : class { return window.FindName(name) as T; }
 
         private const string Markup = @"
 <Window xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
- Title='文献专注 · 悬浮倒计时器' Width='354' SizeToContent='Height' WindowStyle='None' AllowsTransparency='True'
- Background='Transparent' ResizeMode='NoResize' Topmost='True' FontFamily='Microsoft YaHei UI, Segoe UI'
- FontSize='12' Foreground='#293F33' UseLayoutRounding='True' SnapsToDevicePixels='True'
+ Title='文献专注' Width='336' SizeToContent='Height' WindowStyle='None' AllowsTransparency='True'
+ Background='Transparent' ResizeMode='NoResize' Topmost='True' FontFamily='Segoe UI, Microsoft YaHei UI'
+ FontSize='12' Foreground='#1C2420' UseLayoutRounding='True' SnapsToDevicePixels='True'
  TextOptions.TextFormattingMode='Display' TextOptions.TextRenderingMode='Grayscale'>
  <Window.Resources>
-  <Style TargetType='Button'>
-   <Setter Property='Cursor' Value='Hand'/><Setter Property='Background' Value='#EEF2EC'/><Setter Property='Foreground' Value='#53675B'/>
-   <Setter Property='BorderBrush' Value='Transparent'/><Setter Property='BorderThickness' Value='1'/><Setter Property='Padding' Value='6,0'/>
-   <Setter Property='HorizontalContentAlignment' Value='Center'/><Setter Property='VerticalContentAlignment' Value='Center'/>
-   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='Button'>
-    <Border x:Name='B' Background='{TemplateBinding Background}' BorderBrush='{TemplateBinding BorderBrush}' BorderThickness='{TemplateBinding BorderThickness}' CornerRadius='8' Padding='{TemplateBinding Padding}'>
-     <ContentPresenter HorizontalAlignment='{TemplateBinding HorizontalContentAlignment}' VerticalAlignment='{TemplateBinding VerticalContentAlignment}'/>
-    </Border>
-    <ControlTemplate.Triggers>
-     <Trigger Property='IsMouseOver' Value='True'><Setter TargetName='B' Property='Opacity' Value='0.75'/></Trigger>
-     <Trigger Property='IsPressed' Value='True'><Setter TargetName='B' Property='Opacity' Value='0.5'/></Trigger>
-     <Trigger Property='IsEnabled' Value='False'><Setter TargetName='B' Property='Opacity' Value='0.35'/></Trigger>
-     <Trigger Property='IsKeyboardFocused' Value='True'><Setter TargetName='B' Property='BorderBrush' Value='#95AE9A'/></Trigger>
-    </ControlTemplate.Triggers>
+  <FontFamily x:Key='Icons'>Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+  <FontFamily x:Key='Digits'>Segoe UI</FontFamily>
+  <SolidColorBrush x:Key='Ink' Color='#1C2420'/>
+  <SolidColorBrush x:Key='Muted' Color='#5F6A64'/>
+  <SolidColorBrush x:Key='Faint' Color='#98A19C'/>
+  <SolidColorBrush x:Key='Line' Color='#E7E9E6'/>
+  <SolidColorBrush x:Key='Fill' Color='#F3F4F2'/>
+  <SolidColorBrush x:Key='Accent' Color='#2E5B49'/>
+  <SolidColorBrush x:Key='AccentSoft' Color='#E5EEE9'/>
+  <SolidColorBrush x:Key='Alert' Color='#C2413B'/>
+  <Style x:Key='FocusRing'>
+   <Setter Property='Control.Template'><Setter.Value><ControlTemplate>
+    <Border Margin='-2' BorderBrush='{StaticResource Accent}' BorderThickness='1.5' CornerRadius='9'/>
    </ControlTemplate></Setter.Value></Setter>
   </Style>
-  <Style x:Key='Chrome' TargetType='Button' BasedOn='{StaticResource {x:Type Button}}'>
-   <Setter Property='Width' Value='26'/><Setter Property='Height' Value='26'/><Setter Property='Padding' Value='0'/><Setter Property='Background' Value='Transparent'/>
-  </Style>
-  <Style TargetType='CheckBox'>
-   <Setter Property='Width' Value='29'/><Setter Property='Height' Value='28'/><Setter Property='Cursor' Value='Hand'/>
-   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='CheckBox'>
-    <Grid Width='21' Height='21'>
-     <Border x:Name='Box' CornerRadius='5' BorderThickness='1.4' BorderBrush='#A7BAA1' Background='#F2F6EE'/>
-     <Path x:Name='Tick' Data='M 5,10 L 9,14 L 16,6' Stroke='White' StrokeThickness='2' Visibility='Collapsed'/>
+  <Style TargetType='Button'>
+   <Setter Property='Cursor' Value='Hand'/><Setter Property='Background' Value='Transparent'/><Setter Property='Foreground' Value='{StaticResource Ink}'/>
+   <Setter Property='BorderBrush' Value='Transparent'/><Setter Property='BorderThickness' Value='1'/><Setter Property='Padding' Value='10,0'/>
+   <Setter Property='HorizontalContentAlignment' Value='Center'/><Setter Property='VerticalContentAlignment' Value='Center'/>
+   <Setter Property='FocusVisualStyle' Value='{StaticResource FocusRing}'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='Button'>
+    <Grid>
+     <Border Background='{TemplateBinding Background}' BorderBrush='{TemplateBinding BorderBrush}' BorderThickness='{TemplateBinding BorderThickness}' CornerRadius='7'/>
+     <Border x:Name='Shade' Background='#1C2420' Opacity='0' CornerRadius='7'/>
+     <ContentPresenter Margin='{TemplateBinding Padding}' HorizontalAlignment='{TemplateBinding HorizontalContentAlignment}' VerticalAlignment='{TemplateBinding VerticalContentAlignment}'/>
     </Grid>
     <ControlTemplate.Triggers>
-     <Trigger Property='IsChecked' Value='True'><Setter TargetName='Box' Property='Background' Value='#5D825C'/><Setter TargetName='Box' Property='BorderBrush' Value='#5D825C'/><Setter TargetName='Tick' Property='Visibility' Value='Visible'/></Trigger>
-     <Trigger Property='IsMouseOver' Value='True'><Setter TargetName='Box' Property='BorderBrush' Value='#315C48'/></Trigger>
-     <Trigger Property='IsKeyboardFocused' Value='True'><Setter TargetName='Box' Property='BorderBrush' Value='#315C48'/><Setter TargetName='Box' Property='BorderThickness' Value='2'/></Trigger>
-     <Trigger Property='IsEnabled' Value='False'><Setter Property='Opacity' Value='0.45'/></Trigger>
+     <Trigger Property='IsMouseOver' Value='True'><Setter TargetName='Shade' Property='Opacity' Value='0.05'/></Trigger>
+     <Trigger Property='IsPressed' Value='True'><Setter TargetName='Shade' Property='Opacity' Value='0.1'/></Trigger>
+     <Trigger Property='IsEnabled' Value='False'><Setter Property='Opacity' Value='0.38'/></Trigger>
     </ControlTemplate.Triggers>
    </ControlTemplate></Setter.Value></Setter>
   </Style>
+  <Style x:Key='Primary' TargetType='Button' BasedOn='{StaticResource {x:Type Button}}'>
+   <Setter Property='Background' Value='{StaticResource Accent}'/><Setter Property='Foreground' Value='White'/><Setter Property='FontSize' Value='13'/><Setter Property='FontWeight' Value='SemiBold'/>
+  </Style>
+  <Style x:Key='Secondary' TargetType='Button' BasedOn='{StaticResource {x:Type Button}}'>
+   <Setter Property='Background' Value='White'/><Setter Property='BorderBrush' Value='#DADDD9'/>
+  </Style>
+  <Style x:Key='Quiet' TargetType='Button' BasedOn='{StaticResource {x:Type Button}}'>
+   <Setter Property='Foreground' Value='{StaticResource Muted}'/><Setter Property='Padding' Value='8,0'/>
+  </Style>
+  <Style x:Key='Icon' TargetType='Button' BasedOn='{StaticResource {x:Type Button}}'>
+   <Setter Property='Width' Value='28'/><Setter Property='Height' Value='28'/><Setter Property='Padding' Value='0'/>
+   <Setter Property='FontFamily' Value='{StaticResource Icons}'/><Setter Property='FontSize' Value='13'/><Setter Property='Foreground' Value='{StaticResource Muted}'/>
+  </Style>
+  <Style x:Key='Segment' TargetType='Button' BasedOn='{StaticResource {x:Type Button}}'>
+   <Setter Property='Foreground' Value='{StaticResource Muted}'/><Setter Property='Padding' Value='0'/>
+  </Style>
+  <Style x:Key='Glyph' TargetType='TextBlock'>
+   <Setter Property='FontFamily' Value='{StaticResource Icons}'/><Setter Property='FontSize' Value='12'/><Setter Property='VerticalAlignment' Value='Center'/>
+  </Style>
+  <Style TargetType='CheckBox'>
+   <Setter Property='Width' Value='26'/><Setter Property='Height' Value='28'/><Setter Property='Cursor' Value='Hand'/>
+   <Setter Property='FocusVisualStyle' Value='{StaticResource FocusRing}'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='CheckBox'>
+    <Grid Background='Transparent'>
+     <Border x:Name='Box' Width='18' Height='18' CornerRadius='5' BorderThickness='1.5' BorderBrush='#C5CBC6' Background='White'/>
+     <Path x:Name='Tick' Width='18' Height='18' Data='M 5.2,9.4 L 7.9,12 L 12.9,6.4' Stroke='White' StrokeThickness='1.8' StrokeStartLineCap='Round' StrokeEndLineCap='Round' StrokeLineJoin='Round' Visibility='Collapsed'/>
+    </Grid>
+    <ControlTemplate.Triggers>
+     <Trigger Property='IsMouseOver' Value='True'><Setter TargetName='Box' Property='BorderBrush' Value='{StaticResource Accent}'/></Trigger>
+     <Trigger Property='IsChecked' Value='True'><Setter TargetName='Box' Property='Background' Value='{StaticResource Accent}'/><Setter TargetName='Box' Property='BorderBrush' Value='{StaticResource Accent}'/><Setter TargetName='Tick' Property='Visibility' Value='Visible'/></Trigger>
+     <Trigger Property='IsEnabled' Value='False'><Setter Property='Opacity' Value='0.4'/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key='Field' TargetType='TextBox'>
+   <Setter Property='Background' Value='White'/><Setter Property='BorderBrush' Value='#DADDD9'/><Setter Property='BorderThickness' Value='1'/>
+   <Setter Property='Foreground' Value='{StaticResource Ink}'/><Setter Property='CaretBrush' Value='{StaticResource Accent}'/><Setter Property='SelectionBrush' Value='{StaticResource Accent}'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='TextBox'>
+    <Border x:Name='Frame' Background='{TemplateBinding Background}' BorderBrush='{TemplateBinding BorderBrush}' BorderThickness='{TemplateBinding BorderThickness}' CornerRadius='8'>
+     <ScrollViewer x:Name='PART_ContentHost' Focusable='False' Margin='{TemplateBinding Padding}' VerticalAlignment='{TemplateBinding VerticalContentAlignment}'/>
+    </Border>
+    <ControlTemplate.Triggers>
+     <Trigger Property='IsReadOnly' Value='True'><Setter TargetName='Frame' Property='Background' Value='#F7F8F6'/></Trigger>
+     <Trigger Property='IsKeyboardFocused' Value='True'><Setter TargetName='Frame' Property='BorderBrush' Value='{StaticResource Accent}'/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType='ScrollBar'>
+   <Setter Property='Width' Value='8'/><Setter Property='MinWidth' Value='8'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='ScrollBar'>
+    <Track x:Name='PART_Track' IsDirectionReversed='True'>
+     <Track.Thumb><Thumb><Thumb.Template><ControlTemplate TargetType='Thumb'><Border Background='#D3D8D4' CornerRadius='3' Margin='2,0'/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+    </Track>
+   </ControlTemplate></Setter.Value></Setter>
+   <Style.Triggers><Trigger Property='Orientation' Value='Horizontal'><Setter Property='Visibility' Value='Collapsed'/></Trigger></Style.Triggers>
+  </Style>
+  <Style TargetType='ToolTip'>
+   <Setter Property='Foreground' Value='White'/><Setter Property='FontSize' Value='11'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='ToolTip'>
+    <Border Background='#1C2420' CornerRadius='5' Padding='8,4'><ContentPresenter/></Border>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType='DataGridColumnHeader'>
+   <Setter Property='Foreground' Value='{StaticResource Faint}'/><Setter Property='FontSize' Value='11'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='DataGridColumnHeader'>
+    <Border BorderBrush='{StaticResource Line}' BorderThickness='0,0,0,1' Padding='6,0,6,6'><ContentPresenter/></Border>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType='DataGridCell'>
+   <Setter Property='Foreground' Value='{StaticResource Ink}'/>
+   <Setter Property='Template'><Setter.Value><ControlTemplate TargetType='DataGridCell'>
+    <ContentPresenter Margin='6,6' VerticalAlignment='Center'/>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType='DataGridRow'>
+   <Setter Property='Background' Value='Transparent'/>
+   <Style.Triggers><Trigger Property='IsMouseOver' Value='True'><Setter Property='Background' Value='#F5F7F5'/></Trigger></Style.Triggers>
+  </Style>
  </Window.Resources>
- <Border x:Name='Card' Margin='10' CornerRadius='18' Background='#FAFCF8' BorderBrush='#DDE6D9' BorderThickness='1.5'>
-  <Border.Effect><DropShadowEffect Color='#263E2B' BlurRadius='15' ShadowDepth='2' Opacity='0.16'/></Border.Effect>
+ <Border x:Name='Card' Margin='10' CornerRadius='14' Background='#FDFDFC' BorderBrush='#E2E5E1' BorderThickness='1'>
+  <Border.Effect><DropShadowEffect Color='#18231E' BlurRadius='18' ShadowDepth='3' Direction='270' Opacity='0.13'/></Border.Effect>
   <Border.RenderTransform><TranslateTransform x:Name='Bounce'/></Border.RenderTransform>
   <Grid>
    <ScrollViewer VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled'>
-   <StackPanel Margin='16,13,16,14'>
+   <StackPanel Margin='16,12,16,12'>
     <StackPanel x:Name='FullPanel'>
-     <Grid x:Name='Header' Height='26' Background='Transparent' Cursor='SizeAll' ToolTip='拖动移动窗口'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='26'/></Grid.ColumnDefinitions>
+     <Grid x:Name='Header' Height='28' Background='Transparent' Cursor='SizeAll'>
+      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='Auto'/><ColumnDefinition Width='Auto'/></Grid.ColumnDefinitions>
       <StackPanel Orientation='Horizontal' VerticalAlignment='Center'>
-       <Border Width='22' Height='22' CornerRadius='6' Background='#DFEADC' Margin='0,0,9,0'><TextBlock Text='读' FontSize='12' FontWeight='SemiBold' HorizontalAlignment='Center' VerticalAlignment='Center'/></Border>
-       <TextBlock Text='文献专注' FontSize='14' FontWeight='SemiBold' VerticalAlignment='Center'/>
+       <Image x:Name='AppMark' Width='18' Height='18' Margin='0,0,8,0' RenderOptions.BitmapScalingMode='HighQuality'/>
+       <TextBlock Text='文献专注' FontSize='13' FontWeight='SemiBold' VerticalAlignment='Center'/>
       </StackPanel>
-      <Button x:Name='CloseButton' Grid.Column='1' Style='{StaticResource Chrome}' Content='×' FontSize='20' ToolTip='退出并保存本轮' AutomationProperties.Name='退出计时器'/>
+      <Button x:Name='SoundButton' Grid.Column='1' Style='{StaticResource Icon}' Content='&#xE767;' Margin='0,0,2,0' AutomationProperties.Name='提示音'/>
+      <Button x:Name='CloseButton' Grid.Column='2' Style='{StaticResource Icon}' Content='&#xE8BB;' FontSize='10' ToolTip='退出' AutomationProperties.Name='退出'/>
      </Grid>
-     <Border x:Name='StatsPanel' Background='#EFF4EB' CornerRadius='11' Padding='8,9' Margin='0,12,0,1'>
+     <Border x:Name='StatsPanel' Background='{StaticResource Fill}' CornerRadius='10' Padding='0,10,0,9' Margin='0,12,0,0'>
       <Grid>
        <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-       <StackPanel><TextBlock x:Name='MinutesStat' Text='0.0' FontFamily='Segoe UI' FontSize='24' HorizontalAlignment='Center'/><TextBlock Text='今日分钟' FontSize='10' Foreground='#718274' HorizontalAlignment='Center'/></StackPanel>
-       <StackPanel Grid.Column='1'><TextBlock x:Name='IntroStat' Text='0' FontFamily='Segoe UI' FontSize='24' HorizontalAlignment='Center'/><TextBlock Text='引言' FontSize='10' Foreground='#718274' HorizontalAlignment='Center'/></StackPanel>
-       <StackPanel Grid.Column='2'><TextBlock x:Name='ModelStat' Text='0' FontFamily='Segoe UI' FontSize='24' HorizontalAlignment='Center'/><TextBlock Text='模型' FontSize='10' Foreground='#718274' HorizontalAlignment='Center'/></StackPanel>
-       <StackPanel Grid.Column='3'><TextBlock x:Name='FindingsStat' Text='0' FontFamily='Segoe UI' FontSize='24' HorizontalAlignment='Center'/><TextBlock Text='发现' FontSize='10' Foreground='#718274' HorizontalAlignment='Center'/></StackPanel>
+       <StackPanel><TextBlock x:Name='MinutesStat' Text='0' FontFamily='{StaticResource Digits}' FontSize='19' HorizontalAlignment='Center'/><TextBlock Text='今日分钟' FontSize='10.5' Foreground='{StaticResource Faint}' HorizontalAlignment='Center' Margin='0,1,0,0'/></StackPanel>
+       <Border Grid.Column='1' Width='1' Background='{StaticResource Line}' HorizontalAlignment='Left' Margin='0,4'/>
+       <StackPanel Grid.Column='1'><TextBlock x:Name='IntroStat' Text='0' FontFamily='{StaticResource Digits}' FontSize='19' HorizontalAlignment='Center'/><TextBlock Text='引言' FontSize='10.5' Foreground='{StaticResource Faint}' HorizontalAlignment='Center' Margin='0,1,0,0'/></StackPanel>
+       <Border Grid.Column='2' Width='1' Background='{StaticResource Line}' HorizontalAlignment='Left' Margin='0,4'/>
+       <StackPanel Grid.Column='2'><TextBlock x:Name='ModelStat' Text='0' FontFamily='{StaticResource Digits}' FontSize='19' HorizontalAlignment='Center'/><TextBlock Text='模型' FontSize='10.5' Foreground='{StaticResource Faint}' HorizontalAlignment='Center' Margin='0,1,0,0'/></StackPanel>
+       <Border Grid.Column='3' Width='1' Background='{StaticResource Line}' HorizontalAlignment='Left' Margin='0,4'/>
+       <StackPanel Grid.Column='3'><TextBlock x:Name='FindingsStat' Text='0' FontFamily='{StaticResource Digits}' FontSize='19' HorizontalAlignment='Center'/><TextBlock Text='发现' FontSize='10.5' Foreground='{StaticResource Faint}' HorizontalAlignment='Center' Margin='0,1,0,0'/></StackPanel>
       </Grid>
      </Border>
-     <Grid Width='154' Height='154' Margin='0,10,0,10'>
-      <Ellipse Stroke='#E4EBE0' StrokeThickness='4'/><Path x:Name='ProgressArc' Stroke='#7E9D7D' StrokeThickness='4' StrokeStartLineCap='Round' StrokeEndLineCap='Round'/>
+     <Grid Width='148' Height='148' Margin='0,18,0,16'>
+      <Ellipse Stroke='{StaticResource Line}' StrokeThickness='3'/>
+      <Path x:Name='ProgressArc' Stroke='{StaticResource Accent}' StrokeThickness='3' StrokeStartLineCap='Round' StrokeEndLineCap='Round'/>
       <StackPanel VerticalAlignment='Center'>
-       <TextBlock x:Name='StateLabel' Text='准备阅读' Foreground='#718274' FontSize='11' HorizontalAlignment='Center'/>
-       <TextBlock x:Name='TimeLabel' Text='25:00' FontFamily='Segoe UI' FontSize='37' FontWeight='Light' HorizontalAlignment='Center'/>
-       <TextBlock x:Name='DialCaption' Text='留一段时间，读懂一篇' Foreground='#718274' FontSize='10.5' HorizontalAlignment='Center' Margin='0,4,0,0'/>
+       <TextBlock x:Name='StateLabel' Text='准备就绪' Foreground='{StaticResource Faint}' FontSize='11' HorizontalAlignment='Center'/>
+       <TextBlock x:Name='TimeLabel' Text='25:00' FontFamily='{StaticResource Digits}' FontSize='40' FontWeight='Light' HorizontalAlignment='Center' TextOptions.TextFormattingMode='Ideal'/>
+       <TextBlock x:Name='DialCaption' Foreground='{StaticResource Faint}' FontSize='11' HorizontalAlignment='Center' Visibility='Collapsed'/>
       </StackPanel>
      </Grid>
-     <Grid Height='38'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='94'/></Grid.ColumnDefinitions>
-      <Button x:Name='ToggleButton' Content='开始专注' Background='#315C48' Foreground='White' FontSize='13' FontWeight='SemiBold'/>
-      <Button x:Name='StopButton' Grid.Column='1' Content='结束本轮' Margin='8,0,0,0' FontSize='11' ToolTip='暂停后结束并汇总' AutomationProperties.Name='结束本轮'/>
+     <Border x:Name='PresetRow' Background='{StaticResource Fill}' CornerRadius='9' Padding='3'>
+      <Grid Height='28'>
+       <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+       <Button x:Name='Preset25' Style='{StaticResource Segment}' Content='25 分钟'/>
+       <Button x:Name='Preset45' Grid.Column='1' Style='{StaticResource Segment}' Content='45 分钟'/>
+       <Button x:Name='Preset60' Grid.Column='2' Style='{StaticResource Segment}' Content='60 分钟'/>
+       <Button x:Name='CustomButton' Grid.Column='3' Style='{StaticResource Segment}' Content='自定义'/>
+      </Grid>
+     </Border>
+     <Grid x:Name='CustomRow' Visibility='Collapsed' Height='32' Margin='0,8,0,0'>
+      <Grid.ColumnDefinitions><ColumnDefinition Width='72'/><ColumnDefinition/><ColumnDefinition Width='64'/></Grid.ColumnDefinitions>
+      <TextBox x:Name='MinutesBox' Style='{StaticResource Field}' Text='25' MaxLength='3' HorizontalContentAlignment='Center' VerticalContentAlignment='Center' AutomationProperties.Name='自定义分钟数'/>
+      <TextBlock x:Name='CustomHint' Grid.Column='1' Text='分钟（1–180）' Foreground='{StaticResource Muted}' VerticalAlignment='Center' Margin='10,0,0,0'/>
+      <Button x:Name='ApplyButton' Grid.Column='2' Style='{StaticResource Secondary}' Content='确定'/>
      </Grid>
-     <Grid x:Name='PresetRow' Height='28' Margin='0,12,0,0'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-      <Button x:Name='Preset25' Content='25 分' Margin='0,0,5,0'/><Button x:Name='Preset45' Content='45 分' Grid.Column='1' Margin='0,0,5,0'/>
-      <Button x:Name='Preset60' Content='60 分' Grid.Column='2' Margin='0,0,5,0'/><Button x:Name='CustomButton' Content='自定义' Grid.Column='3'/>
+     <Grid Height='38' Margin='0,10,0,0'>
+      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='96'/></Grid.ColumnDefinitions>
+      <Button x:Name='ToggleButton' Style='{StaticResource Primary}' Content='开始专注'/>
+      <Button x:Name='StopButton' Grid.Column='1' Style='{StaticResource Secondary}' Content='结束本轮' Margin='8,0,0,0' AutomationProperties.Name='结束本轮'/>
      </Grid>
-     <Grid x:Name='CustomRow' Visibility='Collapsed' Height='30' Margin='0,9,0,0'>
-      <Grid.ColumnDefinitions><ColumnDefinition Width='65'/><ColumnDefinition/><ColumnDefinition Width='48'/></Grid.ColumnDefinitions>
-      <TextBox x:Name='MinutesBox' Text='25' MaxLength='3' VerticalContentAlignment='Center' HorizontalContentAlignment='Center' Background='White' BorderBrush='#BDCFBA' AutomationProperties.Name='自定义分钟数'/>
-      <TextBlock x:Name='CustomHint' Grid.Column='1' Text='分钟 · 1–180' FontSize='11' Foreground='#718274' VerticalAlignment='Center' Margin='9,0,0,0'/>
-      <Button x:Name='ApplyButton' Grid.Column='2' Content='确定'/>
-     </Grid>
-     <Grid Height='31' Margin='0,12,0,0'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='90'/><ColumnDefinition Width='65'/></Grid.ColumnDefinitions>
-      <TextBlock x:Name='PaperLabel' Text='第 1 篇' VerticalAlignment='Center' Foreground='#718274'/>
-      <StackPanel Grid.Column='1' Orientation='Horizontal'>
-       <CheckBox x:Name='Section0' AutomationProperties.Name='第一节'/><CheckBox x:Name='Section1' AutomationProperties.Name='第二节'/><CheckBox x:Name='Section2' AutomationProperties.Name='第三节'/>
-      </StackPanel>
-      <Button x:Name='NextPaper' Grid.Column='2' Content='下一篇 →' Height='27' FontSize='11' ToolTip='保留已读记录，开始记录下一篇'/>
-     </Grid>
-     <Grid Height='24' Margin='0,10,0,0'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='48'/><ColumnDefinition Width='61'/><ColumnDefinition Width='67'/></Grid.ColumnDefinitions>
-      <TextBlock x:Name='FooterLabel' Text='今日统计自动保存' FontSize='10.5' Foreground='#718274' VerticalAlignment='Center'/>
-      <Button x:Name='NotesButton' Grid.Column='1' Content='笔记' FontSize='11' Background='Transparent'/>
-      <Button x:Name='WordsButton' Grid.Column='2' Content='词表 0' FontSize='11' Background='Transparent'/>
-      <Button x:Name='SoundButton' Grid.Column='3' Content='提示音 开' FontSize='11' Background='Transparent'/>
-     </Grid>
+     <Border Height='1' Background='{StaticResource Line}' Margin='0,14,0,4'/>
     </StackPanel>
     <StackPanel x:Name='MiniPanel' Visibility='Collapsed'>
-     <Grid x:Name='MiniHeader' Height='43' Background='Transparent' Cursor='SizeAll'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='57'/><ColumnDefinition Width='32'/></Grid.ColumnDefinitions>
-      <TextBlock x:Name='MiniTime' Text='25:00' FontFamily='Segoe UI' FontSize='30' FontWeight='Light' VerticalAlignment='Center'/>
-      <Button x:Name='MiniNotes' Grid.Column='1' Width='50' Height='29' Content='笔记' FontSize='11' Padding='0' ToolTip='展开或收起笔记'/>
-      <Button x:Name='MiniToggle' Grid.Column='2' Width='29' Height='29' Content='Ⅱ' Background='#DFEADC' Padding='0' AutomationProperties.Name='暂停或继续'/>
+     <Grid x:Name='MiniHeader' Height='40' Background='Transparent' Cursor='SizeAll'>
+      <Grid.ColumnDefinitions><ColumnDefinition Width='Auto'/><ColumnDefinition/><ColumnDefinition Width='Auto'/><ColumnDefinition Width='Auto'/></Grid.ColumnDefinitions>
+      <TextBlock x:Name='MiniTime' Text='25:00' FontFamily='{StaticResource Digits}' FontSize='28' FontWeight='Light' VerticalAlignment='Center' TextOptions.TextFormattingMode='Ideal'/>
+      <TextBlock x:Name='MiniNotice' Grid.Column='1' Foreground='{StaticResource Faint}' FontSize='11' VerticalAlignment='Center' Margin='10,4,8,0' TextTrimming='CharacterEllipsis'/>
+      <Button x:Name='MiniNotes' Grid.Column='2' Style='{StaticResource Icon}' Content='&#xE70B;' Margin='0,0,4,0' AutomationProperties.Name='笔记'/>
+      <Button x:Name='MiniToggle' Grid.Column='3' Style='{StaticResource Icon}' Content='&#xE769;' FontSize='12' Background='{StaticResource AccentSoft}' Foreground='{StaticResource Accent}' AutomationProperties.Name='暂停或继续'/>
      </Grid>
-     <Grid Height='29' Margin='0,4,0,0'>
-      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='90'/><ColumnDefinition Width='65'/></Grid.ColumnDefinitions>
-      <TextBlock x:Name='MiniPaper' Text='第 1 篇' VerticalAlignment='Center' Foreground='#718274' FontSize='11'/>
-      <StackPanel Grid.Column='1' Orientation='Horizontal'>
-       <CheckBox x:Name='MiniSection0' AutomationProperties.Name='第一节'/><CheckBox x:Name='MiniSection1' AutomationProperties.Name='第二节'/><CheckBox x:Name='MiniSection2' AutomationProperties.Name='第三节'/>
-      </StackPanel>
-      <Button x:Name='MiniNext' Grid.Column='2' Content='下一篇 →' Height='26' FontSize='11' Padding='3,0'/>
+     <Grid Height='3' Margin='0,6,0,4'>
+      <Border Background='{StaticResource Line}' CornerRadius='1.5'/>
+      <Border Background='{StaticResource Accent}' CornerRadius='1.5' RenderTransformOrigin='0,0.5'>
+       <Border.RenderTransform><ScaleTransform x:Name='MiniProgress'/></Border.RenderTransform>
+      </Border>
      </Grid>
-     <TextBlock x:Name='MiniState' Text='专注保护中 · 复制单词自动收集' Foreground='#718274' FontSize='10.5' Margin='0,8,0,0' TextWrapping='Wrap'/>
     </StackPanel>
-    <Border x:Name='NotesPanel' Visibility='Collapsed' Background='#EEF3E9' CornerRadius='10' Padding='10,9' Margin='0,10,0,0'>
-     <StackPanel>
-      <Grid Margin='0,0,0,7'><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='67'/></Grid.ColumnDefinitions>
-       <TextBlock x:Name='NotesHeader' Text='随手笔记' FontWeight='SemiBold' FontSize='12'/>
-       <TextBlock x:Name='NotesSaveState' Grid.Column='1' Text='自动保存' Foreground='#718274' FontSize='10' TextAlignment='Right' VerticalAlignment='Center'/>
-      </Grid>
-      <TextBox x:Name='NotesBox' AcceptsReturn='True' AcceptsTab='True' TextWrapping='Wrap' Height='126' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Padding='8' Background='#FEFFFC' BorderBrush='#CDDAC6' BorderThickness='1' FontSize='12' Foreground='#293F33' AutomationProperties.Name='本轮阅读笔记' SpellCheck.IsEnabled='False'/>
+    <Grid x:Name='PaperRow' Height='32'>
+     <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='Auto'/><ColumnDefinition Width='Auto'/></Grid.ColumnDefinitions>
+     <TextBlock x:Name='PaperLabel' Text='第 1 篇' Foreground='{StaticResource Muted}' VerticalAlignment='Center'/>
+     <StackPanel Grid.Column='1' Orientation='Horizontal' Margin='0,0,6,0'>
+      <CheckBox x:Name='Section0' ToolTip='引言' AutomationProperties.Name='引言'/>
+      <CheckBox x:Name='Section1' ToolTip='模型' AutomationProperties.Name='模型'/>
+      <CheckBox x:Name='Section2' ToolTip='发现' AutomationProperties.Name='发现'/>
      </StackPanel>
+     <Button x:Name='NextPaper' Grid.Column='2' Style='{StaticResource Quiet}' Height='28' Padding='8,0,4,0'>
+      <StackPanel Orientation='Horizontal'><TextBlock Text='下一篇'/><TextBlock Style='{StaticResource Glyph}' Text='&#xE76C;' FontSize='9' Margin='5,1,0,0'/></StackPanel>
+     </Button>
+    </Grid>
+    <Grid x:Name='FullFooter' Height='28' Margin='0,2,0,0'>
+     <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='Auto'/><ColumnDefinition Width='Auto'/></Grid.ColumnDefinitions>
+     <TextBlock x:Name='FooterLabel' Foreground='{StaticResource Alert}' FontSize='11' VerticalAlignment='Center' TextTrimming='CharacterEllipsis'/>
+     <Button x:Name='NotesButton' Grid.Column='1' Style='{StaticResource Quiet}' Height='28'>
+      <StackPanel Orientation='Horizontal'><TextBlock Style='{StaticResource Glyph}' Text='&#xE70B;'/><TextBlock x:Name='NotesLabel' Text='笔记' Margin='6,0,0,0'/></StackPanel>
+     </Button>
+     <Button x:Name='WordsButton' Grid.Column='2' Style='{StaticResource Quiet}' Height='28' Padding='8,0,4,0'>
+      <StackPanel Orientation='Horizontal'><TextBlock Style='{StaticResource Glyph}' Text='&#xE82D;'/><TextBlock Text='词表' Margin='6,0,0,0'/><TextBlock x:Name='WordsCount' Text='0' Foreground='{StaticResource Faint}' Margin='5,0,0,0'/></StackPanel>
+     </Button>
+    </Grid>
+    <StackPanel x:Name='NotesPanel' Visibility='Collapsed' Margin='0,10,0,0'>
+     <Grid Margin='0,0,0,6'>
+      <TextBlock x:Name='NotesHeader' Text='笔记' FontWeight='SemiBold'/>
+      <TextBlock x:Name='NotesSaveState' Foreground='{StaticResource Alert}' FontSize='11' HorizontalAlignment='Right'/>
+     </Grid>
+     <TextBox x:Name='NotesBox' Style='{StaticResource Field}' AcceptsReturn='True' AcceptsTab='True' TextWrapping='Wrap' Height='132' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Padding='5,4' FontSize='12.5' AutomationProperties.Name='阅读笔记' SpellCheck.IsEnabled='False'/>
+    </StackPanel>
+    <Border x:Name='ToastPanel' Visibility='Collapsed' Background='#F2F6F3' CornerRadius='8' Padding='12,9,12,10' Margin='0,10,0,0'>
+     <Grid>
+      <Grid.ColumnDefinitions><ColumnDefinition Width='3'/><ColumnDefinition/></Grid.ColumnDefinitions>
+      <Border Background='{StaticResource Accent}' CornerRadius='1.5'/>
+      <StackPanel Grid.Column='1' Margin='10,0,0,0'>
+       <TextBlock x:Name='ToastWord' FontFamily='{StaticResource Digits}' FontSize='14.5' FontWeight='SemiBold'/>
+       <TextBlock x:Name='ToastMeaning' FontSize='12.5' Foreground='{StaticResource Muted}' TextWrapping='Wrap' MaxHeight='54' TextTrimming='CharacterEllipsis' Margin='0,2,0,0'/>
+      </StackPanel>
+     </Grid>
     </Border>
-    <Border x:Name='ToastPanel' Visibility='Collapsed' Background='#EAF1E4' CornerRadius='10' Padding='11,8' Margin='0,10,0,0'>
-     <StackPanel><TextBlock x:Name='ToastWord' FontFamily='Segoe UI' FontWeight='SemiBold' FontSize='15'/><TextBlock x:Name='ToastMeaning' FontSize='13' TextWrapping='Wrap' MaxHeight='58' Margin='0,3,0,0'/><TextBlock Text='已收录 · 10 秒后收起' Foreground='#718274' FontSize='10' Margin='0,4,0,0'/></StackPanel>
-    </Border>
-    <StackPanel x:Name='SummaryPanel' Visibility='Collapsed' Margin='0,12,0,0'>
-     <Border Height='1' Background='#E1E8DD' Margin='0,0,0,10'/>
-     <TextBlock x:Name='SummaryTitle' Text='本轮单词' FontWeight='SemiBold' FontSize='12'/>
-     <TextBlock x:Name='SummaryStatus' Foreground='#718274' FontSize='10.5' Margin='0,4,0,7' TextWrapping='Wrap'/>
-     <DataGrid x:Name='WordsGrid' AutoGenerateColumns='False' CanUserAddRows='False' CanUserDeleteRows='False' IsReadOnly='True' HeadersVisibility='Column' GridLinesVisibility='Horizontal' MaxHeight='157' MinHeight='48' Background='#FAFCF8' BorderThickness='0' RowBackground='#FAFCF8' AlternatingRowBackground='#F0F4ED' HorizontalGridLinesBrush='#E5EBE0' FontSize='11' SelectionMode='Single'>
+    <StackPanel x:Name='SummaryPanel' Visibility='Collapsed' Margin='0,14,0,0'>
+     <Grid Margin='0,0,0,6'>
+      <StackPanel Orientation='Horizontal'>
+       <TextBlock Text='本轮词表' FontWeight='SemiBold'/>
+       <TextBlock x:Name='SummaryCount' Foreground='{StaticResource Faint}' Margin='6,0,0,0'/>
+      </StackPanel>
+      <TextBlock x:Name='SummaryDate' Foreground='{StaticResource Faint}' FontSize='11' HorizontalAlignment='Right' VerticalAlignment='Center'/>
+     </Grid>
+     <TextBlock x:Name='SummaryEmpty' Text='计时中复制英文单词，即可加入词表。' Foreground='{StaticResource Faint}' TextWrapping='Wrap' Margin='0,2,0,2'/>
+     <DataGrid x:Name='WordsGrid' AutoGenerateColumns='False' CanUserAddRows='False' CanUserDeleteRows='False' CanUserResizeColumns='False' CanUserResizeRows='False' CanUserReorderColumns='False' CanUserSortColumns='False'
+      IsReadOnly='True' HeadersVisibility='Column' GridLinesVisibility='Horizontal' HorizontalGridLinesBrush='{StaticResource Line}' Background='Transparent' RowBackground='Transparent' AlternatingRowBackground='Transparent'
+      BorderThickness='0' MaxHeight='196' SelectionMode='Single' HorizontalScrollBarVisibility='Disabled' VerticalScrollBarVisibility='Auto'>
       <DataGrid.Columns>
-       <DataGridTextColumn Header='单词' Binding='{Binding Word}' Width='104'><DataGridTextColumn.ElementStyle><Style TargetType='TextBlock'><Setter Property='TextTrimming' Value='CharacterEllipsis'/><Setter Property='ToolTip' Value='{Binding Word}'/><Setter Property='Margin' Value='3,3'/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
-       <DataGridTemplateColumn Header='中文释义' Width='172'><DataGridTemplateColumn.CellTemplate><DataTemplate><TextBlock Text='{Binding Meaning}' TextWrapping='Wrap' Margin='3,3'/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+       <DataGridTextColumn Header='单词' Binding='{Binding Word}' Width='104'>
+        <DataGridTextColumn.ElementStyle><Style TargetType='TextBlock'><Setter Property='FontWeight' Value='SemiBold'/><Setter Property='TextTrimming' Value='CharacterEllipsis'/><Setter Property='ToolTip' Value='{Binding Word}'/></Style></DataGridTextColumn.ElementStyle>
+       </DataGridTextColumn>
+       <DataGridTemplateColumn Header='释义' Width='166'>
+        <DataGridTemplateColumn.CellTemplate><DataTemplate>
+         <TextBlock TextWrapping='Wrap'>
+          <TextBlock.Style><Style TargetType='TextBlock'>
+           <Setter Property='Text' Value='{Binding Meaning}'/><Setter Property='Foreground' Value='#3D4842'/>
+           <Style.Triggers><DataTrigger Binding='{Binding Status}' Value='missing'><Setter Property='Text' Value='词典未收录'/><Setter Property='Foreground' Value='#A7AEAA'/></DataTrigger></Style.Triggers>
+          </Style></TextBlock.Style>
+         </TextBlock>
+        </DataTemplate></DataGridTemplateColumn.CellTemplate>
+       </DataGridTemplateColumn>
       </DataGrid.Columns>
      </DataGrid>
-     <Grid Height='28' Margin='0,8,0,0'><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-      <Button x:Name='RetryButton' Content='重新翻译' FontSize='11' Margin='0,0,5,0'/>
-      <Button x:Name='CopyWords' Grid.Column='1' Content='复制纯单词' FontSize='11' Margin='0,0,5,0'/>
-      <Button x:Name='ExportButton' Grid.Column='2' Content='导出词表 ↗' FontSize='11' Background='#DFEADC'/>
+     <Grid Height='30' Margin='0,10,0,0'>
+      <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width='8'/><ColumnDefinition/></Grid.ColumnDefinitions>
+      <Button x:Name='CopyWords' Style='{StaticResource Secondary}'>
+       <StackPanel Orientation='Horizontal'><TextBlock Style='{StaticResource Glyph}' Text='&#xE8C8;'/><TextBlock Text='复制单词' Margin='6,0,0,0'/></StackPanel>
+      </Button>
+      <Button x:Name='ExportButton' Grid.Column='2' Style='{StaticResource Secondary}'>
+       <StackPanel Orientation='Horizontal'><TextBlock Style='{StaticResource Glyph}' Text='&#xE838;'/><TextBlock Text='打开导出文件' Margin='6,0,0,0'/></StackPanel>
+      </Button>
      </Grid>
-     <TextBlock x:Name='ExportStatus' Text='TXT 纯单词 · CSV / TSV 中英词表' Foreground='#718274' FontSize='10' Margin='0,7,0,0' TextWrapping='Wrap'/>
+     <TextBlock x:Name='ExportStatus' Visibility='Collapsed' Foreground='{StaticResource Muted}' FontSize='11' TextWrapping='Wrap' Margin='0,8,0,0'/>
     </StackPanel>
    </StackPanel>
    </ScrollViewer>
    <Canvas x:Name='Confetti' ClipToBounds='True' IsHitTestVisible='False'/>
+   <Border x:Name='AlertFrame' BorderBrush='{StaticResource Alert}' BorderThickness='2' CornerRadius='14' Margin='-1' Opacity='0' IsHitTestVisible='False'/>
   </Grid>
  </Border>
 </Window>";
@@ -213,6 +337,8 @@ namespace ReadingFocus
             qa = isQa;
             prefs = qa ? new Preferences() : Preferences.Load();
             store = new DataStore(dataFolder);
+            dictionary = AcademicDictionary.Shared;
+            store.Data.Resolve(dictionary);
             displayedSession = store.Data.Sessions.LastOrDefault();
             showSummary = displayedSession != null;
             notesOpen = displayedSession != null && !string.IsNullOrWhiteSpace(displayedSession.Notes);
@@ -235,8 +361,8 @@ namespace ReadingFocus
             {
                 customOpen = !customOpen;
                 F<TextBox>("MinutesBox").Text = prefs.Minutes.ToString();
-                F<TextBlock>("CustomHint").Text = "分钟 · 1–180";
-                F<TextBlock>("CustomHint").Foreground = subtle;
+                F<TextBlock>("CustomHint").Text = "分钟（1–180）";
+                F<TextBlock>("CustomHint").Foreground = muted;
                 Resize();
                 if (customOpen) { F<TextBox>("MinutesBox").Focus(); F<TextBox>("MinutesBox").SelectAll(); }
             };
@@ -247,24 +373,19 @@ namespace ReadingFocus
                 if (e.Key == Key.Escape) { customOpen = false; Resize(); e.Handled = true; }
             };
             F<Button>("NextPaper").Click += delegate { NextPaper(); };
-            F<Button>("MiniNext").Click += delegate { NextPaper(); };
             for (int i = 0; i < 3; i++)
             {
                 int part = i;
-                foreach (string prefix in new[] { "Section", "MiniSection" })
-                {
-                    CheckBox box = F<CheckBox>(prefix + i);
-                    box.Checked += delegate { Mark(part, true); };
-                    box.Unchecked += delegate { Mark(part, false); };
-                }
+                CheckBox box = F<CheckBox>("Section" + i);
+                box.Checked += delegate { Mark(part, true); };
+                box.Unchecked += delegate { Mark(part, false); };
             }
             F<Button>("WordsButton").Click += delegate { if (clock.State == TimerState.Running) return; showSummary = !showSummary; SetCompact(false); RefreshSummary(); RefreshNotes(); };
-            F<Button>("RetryButton").Click += delegate { RetryFailed(); };
             F<Button>("CopyWords").Click += delegate
             {
                 if (displayedSession == null) return;
-                try { Clipboard.SetText(string.Join(Environment.NewLine, displayedSession.Words.Select(w => w.Word))); F<TextBlock>("ExportStatus").Text = "已复制纯单词，可粘贴到扇贝支持的添加入口。"; }
-                catch { F<TextBlock>("ExportStatus").Text = "剪贴板正忙，请稍后再试。"; }
+                try { Clipboard.SetText(string.Join(Environment.NewLine, displayedSession.Words.Select(w => w.Word))); ShowExportStatus("已复制 " + displayedSession.Words.Count + " 个单词"); }
+                catch { ShowExportStatus("剪贴板被占用，请稍后再试"); }
             };
             F<Button>("ExportButton").Click += delegate
             {
@@ -325,9 +446,13 @@ namespace ReadingFocus
                     var decoder = new System.Windows.Media.Imaging.IconBitmapDecoder(stream,
                         System.Windows.Media.Imaging.BitmapCreateOptions.PreservePixelFormat,
                         System.Windows.Media.Imaging.BitmapCacheOption.OnLoad);
-                    var bitmap = decoder.Frames.OrderByDescending(frame => frame.PixelWidth).First();
-                    bitmap.Freeze();
-                    window.Icon = bitmap;
+                    var frames = decoder.Frames.OrderBy(frame => frame.PixelWidth).ToList();
+                    var large = frames.Last();
+                    large.Freeze();
+                    window.Icon = large;
+                    var mark = frames.FirstOrDefault(frame => frame.PixelWidth >= 48) ?? large;
+                    mark.Freeze();
+                    F<Image>("AppMark").Source = mark;
                 }
             }
             catch { }
@@ -350,7 +475,7 @@ namespace ReadingFocus
             }
             clock.Toggle();
             previousRemaining = clock.Remaining;
-            if (clock.State == TimerState.Running) accountWall = DateTime.Now;
+            if (clock.State == TimerState.Running) { accountWall = DateTime.Now; Sweep(); }
             clipboardSequence = Native.GetClipboardSequenceNumber();
             clipboardRetries = 0;
             redUntil = 0;
@@ -383,7 +508,6 @@ namespace ReadingFocus
             if (activeSession != null) activeSession.Notes = text;
             else store.Data.DraftNotes = text;
             notesSaveDue = Native.Now + 450;
-            F<TextBlock>("NotesSaveState").Text = "保存中…";
         }
         private void RefreshNotes()
         {
@@ -398,11 +522,13 @@ namespace ReadingFocus
                 box.Text = text;
                 syncingNotes = false;
             }
-            F<Border>("NotesPanel").Visibility = notesOpen ? Visibility.Visible : Visibility.Collapsed;
-            F<TextBlock>("NotesHeader").Text = readOnly ? "本轮笔记" : activeSession != null ? "随手笔记" : "下一轮笔记";
-            F<TextBlock>("NotesSaveState").Text = notesSaveDue > 0 ? "保存中…" : store.Error != null ? "保存失败" : readOnly ? "已保存" : "自动保存";
-            F<Button>("NotesButton").Content = notesOpen ? "收起" : "笔记";
-            F<Button>("MiniNotes").Content = notesOpen ? "收起" : "笔记";
+            F<StackPanel>("NotesPanel").Visibility = notesOpen ? Visibility.Visible : Visibility.Collapsed;
+            F<TextBlock>("NotesHeader").Text = readOnly ? "本轮笔记" : activeSession != null ? "笔记" : "下一轮笔记";
+            F<TextBlock>("NotesSaveState").Text = store.Error != null ? "保存失败" : "";
+            F<TextBlock>("NotesLabel").Text = notesOpen ? "收起" : "笔记";
+            Button mini = F<Button>("MiniNotes");
+            mini.Foreground = notesOpen ? accent : muted;
+            mini.ToolTip = notesOpen ? "收起笔记" : "笔记";
         }
         private void Account()
         {
@@ -457,9 +583,11 @@ namespace ReadingFocus
                 F<Border>("ToastPanel").Visibility = Visibility.Collapsed;
                 if (clock.State == TimerState.Running && toastQueue.Count > 0)
                 {
-                    WordRecord item = toastQueue.Dequeue();
+                    WordRecord item = toastWord = toastQueue.Dequeue();
+                    bool found = item.Status == "ok";
                     F<TextBlock>("ToastWord").Text = item.Word;
-                    F<TextBlock>("ToastMeaning").Text = item.Meaning;
+                    F<TextBlock>("ToastMeaning").Text = found ? item.Meaning : "词典未收录";
+                    F<TextBlock>("ToastMeaning").Foreground = found ? muted : faint;
                     toastUntil = Native.Now + 10000;
                     F<Border>("ToastPanel").Visibility = Visibility.Visible;
                 }
@@ -482,7 +610,7 @@ namespace ReadingFocus
             Canvas canvas = F<Canvas>("Confetti");
             if (canvas.Children.Count > 140) canvas.Children.Clear();
             Random random = new Random(Guid.NewGuid().GetHashCode());
-            string[] colors = { "#6D9872", "#D7AA55", "#B8C9E1", "#E6A0A0", "#B0C58C" };
+            string[] colors = { "#2E5B49", "#7FA38F", "#D8B26A", "#A9BCD3", "#E0A497" };
             for (int i = 0; i < 38; i++)
             {
                 Rectangle piece = new Rectangle { Width = random.Next(3, 7), Height = random.Next(6, 12), Fill = B(colors[i % colors.Length]), RadiusX = 1, RadiusY = 1 };
@@ -541,40 +669,35 @@ namespace ReadingFocus
             if (!WindowPolicy.IsReadingApp(Native.ProcessName(foreground)) || (!string.IsNullOrEmpty(owner) && !WindowPolicy.IsReadingApp(owner))) { clipboardRetries = 0; return; }
             try
             {
-                string word = Clipboard.ContainsText(TextDataFormat.UnicodeText) ? ReadingData.NormalizeWord(Clipboard.GetText(TextDataFormat.UnicodeText)) : null;
+                string text = Clipboard.ContainsText(TextDataFormat.UnicodeText) ? Clipboard.GetText(TextDataFormat.UnicodeText) : null;
                 clipboardRetries = 0;
-                if (word == null) return;
-                WordRecord item = store.Data.AddWord(activeSession, word, DateTime.Now);
-                if (item != null) QueueTranslation(activeSession, item);
-                Save(); RefreshSummary(); Paint();
+                Collect(text);
             }
             catch (ExternalException) { clipboardRetries--; clipboardRetryAt = Native.Now + 150; }
         }
-        private void QueueTranslation(SessionRecord session, WordRecord word)
+        private void Collect(string text)
         {
-            string cached = store.Data.Cached(word.Word);
-            word.Status = "pending"; word.Meaning = "翻译中…";
-            if (cached != null) { ApplyTranslation(session, word, new TranslationResult { Success = true, Text = cached }); return; }
-            translations.Add(delegate
+            if (activeSession == null) return;
+            DictionaryHit hit = WordReader.Read(text, dictionary);
+            if (hit == null) return;
+            WordRecord item = store.Data.AddWord(activeSession, hit.Word, hit.Meaning, DateTime.Now) ?? activeSession.Words.Find(w => w.Word == hit.Word);
+            if (item == toastWord && Native.Now < toastUntil) toastUntil = Native.Now + 10000;
+            else if (!toastQueue.Contains(item)) toastQueue.Enqueue(item);
+            Save(); RefreshSummary(); Paint();
+        }
+        // Starting or resuming clears the desktop down to reading apps in one
+        // pass; Protect handles anything brought forward afterwards.
+        private void Sweep()
+        {
+            foreach (IntPtr handle in Native.AppWindows())
             {
-                TranslationResult result = translateWord(word.Word);
-                if (!closing) window.Dispatcher.BeginInvoke(new Action(delegate { if (!closing) ApplyTranslation(session, word, result); }));
-            });
-        }
-        private void ApplyTranslation(SessionRecord session, WordRecord word, TranslationResult result)
-        {
-            word.Status = result.Success ? "ok" : "failed";
-            word.Meaning = result.Text;
-            if (result.Success && activeSession == session) toastQueue.Enqueue(word);
-            Save(); RefreshSummary();
-            if (session != activeSession) Export(session);
-            Paint();
-        }
-        private void RetryFailed()
-        {
-            if (displayedSession == null) return;
-            foreach (WordRecord word in displayedSession.Words.Where(w => w.Status == "failed").ToArray()) QueueTranslation(displayedSession, word);
-            Save(); RefreshSummary();
+                if (Native.IsOwn(handle) || WindowPolicy.IsSystemSurface(handle)) continue;
+                string process = Native.ProcessName(handle);
+                if (!WindowPolicy.ShouldBlock(process)) continue;
+                // QA only targets our disposable test window; never touches the user's apps.
+                if (qa && process != "focusguardprobe") continue;
+                Native.ShowWindowAsync(handle, 7);
+            }
         }
         private void Protect(IntPtr handle)
         {
@@ -584,6 +707,7 @@ namespace ReadingFocus
             // QA only targets our disposable test window; never touches the user's apps.
             if (qa && process != "focusguardprobe") return;
             if (blockedHandle == handle && Native.Now - blockedAt < 700) return;
+            if (blockedHandle != handle) blockedName = Native.AppName(handle);
             blockedHandle = handle; blockedAt = Native.Now;
             Native.ShowWindowAsync(handle, 6);
             redUntil = Native.Now + 2000;
@@ -602,7 +726,7 @@ namespace ReadingFocus
         {
             int minutes;
             if (!int.TryParse(F<TextBox>("MinutesBox").Text.Trim(), out minutes) || minutes < 1 || minutes > 180)
-            { F<TextBlock>("CustomHint").Text = "请输入 1–180"; F<TextBlock>("CustomHint").Foreground = amber; return; }
+            { F<TextBlock>("CustomHint").Text = "请输入 1–180"; F<TextBlock>("CustomHint").Foreground = alert; return; }
             SetMinutes(minutes);
         }
         private void SetCompact(bool value) { compact = value; customOpen = false; Resize(); KeepVisible(true); }
@@ -611,11 +735,13 @@ namespace ReadingFocus
             double right = window.Left + window.Width;
             Rect area = WorkArea();
             bool atRight = !double.IsNaN(window.Left) && Math.Abs(area.Right - right) < 45;
-            F<StackPanel>("FullPanel").Visibility = compact ? Visibility.Collapsed : Visibility.Visible;
+            Visibility full = compact ? Visibility.Collapsed : Visibility.Visible;
+            F<StackPanel>("FullPanel").Visibility = full;
+            F<Grid>("FullFooter").Visibility = full;
             F<StackPanel>("MiniPanel").Visibility = compact ? Visibility.Visible : Visibility.Collapsed;
             F<Grid>("CustomRow").Visibility = customOpen ? Visibility.Visible : Visibility.Collapsed;
             F<StackPanel>("SummaryPanel").Visibility = !compact && showSummary && displayedSession != null ? Visibility.Visible : Visibility.Collapsed;
-            window.Width = compact ? 310 : 354;
+            window.Width = compact ? 300 : 336;
             if (atRight) window.Left = right - window.Width;
         }
         private void Drag(object sender, MouseButtonEventArgs e)
@@ -662,7 +788,7 @@ namespace ReadingFocus
             bool saved = store.Save(); lastSave = Native.Now;
             if (saved) notesSaveDue = 0;
             else if (notesSaveDue > 0) notesSaveDue = Native.Now + 3000;
-            F<TextBlock>("NotesSaveState").Text = saved ? "已保存" : "保存失败";
+            F<TextBlock>("NotesSaveState").Text = saved ? "" : "保存失败";
             if (qa) return;
             prefs.Left = window.Left; prefs.Top = window.Top; prefs.Compact = false; prefs.Save();
         }
@@ -672,28 +798,30 @@ namespace ReadingFocus
             catch
             {
                 try { exportFolder = WordExport.Export(session, System.IO.Path.Combine(Preferences.Folder, "词表")); }
-                catch { exportFolder = null; F<TextBlock>("ExportStatus").Text = "词表导出失败，单词仍保存在阅读记录中，可重试。"; return; }
+                catch { exportFolder = null; ShowExportStatus("词表导出失败，可稍后再试"); return; }
             }
-            F<TextBlock>("ExportStatus").Text = "已保存 TXT / CSV / TSV · 点击导出可打开";
-            F<TextBlock>("ExportStatus").ToolTip = exportFolder;
+            F<Button>("ExportButton").ToolTip = exportFolder;
+        }
+        private void ShowExportStatus(string text)
+        {
+            TextBlock status = F<TextBlock>("ExportStatus");
+            status.Text = text;
+            status.Visibility = string.IsNullOrEmpty(text) ? Visibility.Collapsed : Visibility.Visible;
         }
         private void RefreshSummary()
         {
             if (displayedSession != null)
             {
-                F<DataGrid>("WordsGrid").ItemsSource = null;
-                F<DataGrid>("WordsGrid").ItemsSource = displayedSession.Words;
-                F<TextBlock>("SummaryTitle").Text = displayedSession == activeSession ? "本轮单词" : "本轮单词 · " + displayedSession.StartedAt.ToString("MM-dd HH:mm");
-                int ok = displayedSession.Words.Count(w => w.Status == "ok");
-                int pending = displayedSession.Words.Count(w => w.Status == "pending");
-                int failed = displayedSession.Words.Count(w => w.Status == "failed");
-                F<TextBlock>("SummaryStatus").Text = displayedSession.Words.Count == 0 ? "本轮尚未收集单词。计时中复制英文单词即可收集。" : "共 " + displayedSession.Words.Count + " 词 · 已翻译 " + ok + " · 进行中 " + pending + " · 待重试 " + failed;
-                Button retry = F<Button>("RetryButton");
-                retry.IsEnabled = failed > 0;
-                retry.Visibility = displayedSession.Words.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
-                retry.Content = failed > 0 ? "重新翻译" : pending > 0 ? "翻译中…" : "翻译已完成";
-                retry.ToolTip = failed > 0 ? "重新翻译尚未成功的单词，已成功的释义会保留" : pending > 0 ? "单词正在后台翻译，请稍候" : "所有单词都已翻译成功";
-                F<Button>("CopyWords").IsEnabled = displayedSession.Words.Count > 0;
+                DataGrid grid = F<DataGrid>("WordsGrid");
+                int count = displayedSession.Words.Count;
+                grid.ItemsSource = null;
+                grid.ItemsSource = displayedSession.Words;
+                grid.Visibility = count > 0 ? Visibility.Visible : Visibility.Collapsed;
+                F<TextBlock>("SummaryEmpty").Visibility = count > 0 ? Visibility.Collapsed : Visibility.Visible;
+                F<TextBlock>("SummaryCount").Text = count > 0 ? count.ToString() : "";
+                F<TextBlock>("SummaryDate").Text = displayedSession == activeSession ? "" : displayedSession.StartedAt.ToString("MM-dd HH:mm");
+                F<Button>("CopyWords").IsEnabled = count > 0;
+                ShowExportStatus("");
             }
             Resize();
         }
@@ -702,61 +830,77 @@ namespace ReadingFocus
             bool running = clock.State == TimerState.Running;
             bool paused = clock.State == TimerState.Paused;
             bool done = clock.State == TimerState.Complete;
+            bool ended = showSummary && displayedSession != null && activeSession == null;
             long remaining = clock.Remaining;
             string time = FocusClock.Display(remaining);
             F<TextBlock>("TimeLabel").Text = time; F<TextBlock>("MiniTime").Text = time;
-            F<TextBlock>("TimeLabel").Foreground = done ? amber : forest;
-            F<TextBlock>("StateLabel").Text = running ? "正在阅读" : paused ? "已暂停" : done ? "本轮完成" : showSummary && displayedSession != null ? "本轮结束" : "准备阅读";
-            F<TextBlock>("DialCaption").Text = running ? "预计 " + DateTime.Now.AddMilliseconds(remaining).ToString("HH:mm") + " 结束" : paused ? "专注保护与收词已暂停" : done ? "起身活动，让眼睛休息" : showSummary && displayedSession != null ? "已保存词表与今日统计" : "留一段时间，读懂一篇";
-            F<Button>("ToggleButton").Content = running ? "暂停一下" : paused ? "继续专注" : done ? "再读一轮" : "开始专注";
-            F<Button>("MiniToggle").Content = running ? "Ⅱ" : "▶";
+            F<TextBlock>("TimeLabel").Foreground = done ? amber : ink;
+            F<TextBlock>("StateLabel").Text = running ? "专注中" : paused ? "已暂停" : done ? "已完成" : ended ? "本轮结束" : "准备就绪";
+            TextBlock caption = F<TextBlock>("DialCaption");
+            caption.Text = running ? DateTime.Now.AddMilliseconds(remaining).ToString("HH:mm") + " 结束" : "";
+            caption.Visibility = running ? Visibility.Visible : Visibility.Collapsed;
+            F<Button>("ToggleButton").Content = running ? "暂停" : paused ? "继续专注" : done ? "再读一轮" : "开始专注";
+            Button miniToggle = F<Button>("MiniToggle");
+            miniToggle.Content = running ? "\uE769" : "\uE768";
+            miniToggle.ToolTip = running ? "暂停" : "继续";
             F<Button>("StopButton").IsEnabled = activeSession != null && paused;
             F<Button>("CloseButton").IsEnabled = !running;
             F<Button>("WordsButton").IsEnabled = !running;
-            F<Grid>("PresetRow").IsEnabled = activeSession == null;
+            F<Border>("PresetRow").IsEnabled = activeSession == null;
             F<Border>("StatsPanel").Visibility = running ? Visibility.Collapsed : Visibility.Visible;
-            F<Button>("SoundButton").Content = prefs.Sound ? "提示音 开" : "提示音 关";
-            F<TextBlock>("FooterLabel").Text = store.Error ?? (running ? "保护中 · 暂停可解除" : "今日统计自动保存");
+            Button sound = F<Button>("SoundButton");
+            sound.Content = prefs.Sound ? "\uE767" : "\uE74F";
+            sound.ToolTip = prefs.Sound ? "提示音：开" : "提示音：关";
+            F<TextBlock>("FooterLabel").Text = store.Error ?? "";
             F<TextBlock>("FooterLabel").ToolTip = store.Error;
             int wordCount = displayedSession == null ? 0 : displayedSession.Words.Count;
-            F<Button>("WordsButton").Content = "词表 " + wordCount;
-            F<TextBlock>("MiniState").Text = Native.Now < redUntil ? "回到文献，让注意力继续。" : running ? "专注保护中 · 已收集 " + wordCount + " 词" : paused ? "已暂停 · 专注保护已解除" : "准备阅读";
-            F<TextBlock>("MiniState").ToolTip = "运行时，从 Zotero、浏览器或文件管理器复制单个英文词即可收集。英文 → 中文，在线翻译由 MyMemory 提供。";
+            F<TextBlock>("WordsCount").Text = wordCount.ToString();
+            bool alerting = Native.Now < redUntil;
+            TextBlock notice = F<TextBlock>("MiniNotice");
+            notice.Text = alerting ? "已最小化 " + blockedName : wordCount > 0 ? wordCount + " 词" : "";
+            notice.Foreground = alerting ? alert : faint;
             DateTime now = DateTime.Now;
-            F<TextBlock>("MinutesStat").Text = (store.Data.TodayTime(now) / 60000.0).ToString("0.0");
+            F<TextBlock>("MinutesStat").Text = Math.Floor(store.Data.TodayTime(now) / 60000.0).ToString("0");
             F<TextBlock>("IntroStat").Text = store.Data.TodayCount(0, now).ToString();
             F<TextBlock>("ModelStat").Text = store.Data.TodayCount(1, now).ToString();
             F<TextBlock>("FindingsStat").Text = store.Data.TodayCount(2, now).ToString();
-            string paper = "第 " + store.Data.CurrentPaper.Number + " 篇";
-            F<TextBlock>("PaperLabel").Text = paper; F<TextBlock>("MiniPaper").Text = paper;
+            F<TextBlock>("PaperLabel").Text = "第 " + store.Data.CurrentPaper.Number + " 篇";
             syncing = true;
-            for (int i = 0; i < 3; i++) foreach (string prefix in new[] { "Section", "MiniSection" })
+            for (int i = 0; i < 3; i++)
             {
-                CheckBox box = F<CheckBox>(prefix + i);
+                CheckBox box = F<CheckBox>("Section" + i);
                 box.IsChecked = !string.IsNullOrEmpty(store.Data.CurrentPaper.MarkDates[i]);
                 box.IsEnabled = activeSession != null;
             }
             syncing = false;
             int[] minutes = { 25, 45, 60 };
-            for (int i = 0; i < 3; i++)
+            bool custom = Array.IndexOf(minutes, prefs.Minutes) < 0;
+            for (int i = 0; i < 4; i++)
             {
-                Button b = F<Button>("Preset" + minutes[i]); bool selected = prefs.Minutes == minutes[i];
-                b.Background = B(selected ? "#DFEADC" : "#EEF2EC"); b.BorderBrush = B(selected ? "#BBCFB3" : "#EEF2EC");
+                Button b = F<Button>(i < 3 ? "Preset" + minutes[i] : "CustomButton");
+                bool selected = i < 3 ? prefs.Minutes == minutes[i] : custom;
+                b.Background = selected ? Brushes.White : Brushes.Transparent;
+                b.Foreground = selected ? ink : muted;
+                b.FontWeight = selected ? FontWeights.SemiBold : FontWeights.Normal;
+                b.Effect = selected ? raised : null;
             }
-            F<Button>("CustomButton").Content = Array.IndexOf(minutes, prefs.Minutes) < 0 ? prefs.Minutes + " 分" : "自定义";
+            F<Button>("CustomButton").Content = custom ? prefs.Minutes + " 分钟" : "自定义";
             double fraction = Math.Max(0, Math.Min(1, (double)remaining / clock.Duration));
+            F<ScaleTransform>("MiniProgress").ScaleX = fraction;
             Path arc = F<Path>("ProgressArc");
-            arc.Stroke = done ? amber : B("#7E9D7D");
+            arc.Stroke = done ? amber : accent;
+            const double center = 74, radius = 72.5;
             if (fraction <= 0) arc.Data = Geometry.Empty;
-            else if (fraction >= 0.9999) arc.Data = new EllipseGeometry(new Point(77, 77), 75, 75);
+            else if (fraction >= 0.9999) arc.Data = new EllipseGeometry(new Point(center, center), radius, radius);
             else
             {
                 double angle = fraction * 2 * Math.PI - Math.PI / 2;
-                PathFigure figure = new PathFigure { StartPoint = new Point(77, 2) };
-                figure.Segments.Add(new ArcSegment(new Point(77 + 75 * Math.Cos(angle), 77 + 75 * Math.Sin(angle)), new Size(75, 75), 0, fraction > 0.5, SweepDirection.Clockwise, true));
+                PathFigure figure = new PathFigure { StartPoint = new Point(center, center - radius) };
+                figure.Segments.Add(new ArcSegment(new Point(center + radius * Math.Cos(angle), center + radius * Math.Sin(angle)), new Size(radius, radius), 0, fraction > 0.5, SweepDirection.Clockwise, true));
                 PathGeometry geometry = new PathGeometry(); geometry.Figures.Add(figure); arc.Data = geometry;
             }
-            F<Border>("Card").BorderBrush = Native.Now < redUntil && (Native.Now / 180) % 2 == 0 ? B("#D7524E") : done ? B("#CFB48F") : B("#DDE6D9");
+            F<Border>("AlertFrame").Opacity = alerting && (Native.Now / 180) % 2 == 0 ? 1 : 0;
+            F<Border>("Card").BorderBrush = done ? cardDone : cardLine;
         }
 
         [STAThread]
@@ -765,6 +909,7 @@ namespace ReadingFocus
 #if TESTING
             if (args.Length > 0 && args[0] == "--self-test") return Checks.Run(args.Length > 1 ? args[1] : AppDomain.CurrentDomain.BaseDirectory);
             if (args.Length > 1 && args[0] == "--flow-test") return FlowTest(args[1]);
+            if (args.Length > 2 && args[0] == "--sweep-test") return SweepTest(args[1], args[2]);
             bool qa = args.Length > 1 && args[0] == "--qa";
             string dataFolder = qa ? System.IO.Path.GetFullPath(args[1]) : Preferences.Folder;
 #else

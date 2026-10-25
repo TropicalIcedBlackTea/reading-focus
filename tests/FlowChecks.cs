@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,14 +31,17 @@ namespace ReadingFocus
                 widget.SetMinutes(1);
                 widget.RenderOwnTree(System.IO.Path.Combine(folder, "01-ready.png"));
                 check(!widget.compact && widget.F<Border>("StatsPanel").Visibility == Visibility.Visible, "idle statistics visible");
-                check(widget.window.FindName("MiniStop") == null && widget.window.FindName("ExpandButton") == null, "direct stop and expand removed");
-                check(((BitmapSource)widget.window.Icon).PixelWidth >= 128, "high resolution taskbar icon selected");
+                check(widget.window.FindName("MiniStop") == null && widget.window.FindName("ExpandButton") == null && widget.window.FindName("RetryButton") == null, "direct stop, expand and retry removed");
+                check(((BitmapSource)widget.window.Icon).PixelWidth >= 128 && widget.F<Image>("AppMark").Source != null, "high resolution icons selected");
+                check(widget.F<TextBlock>("FooterLabel").Text == "" && widget.F<TextBlock>("NotesSaveState").Text == "", "no save hints while storage works");
                 widget.ToggleNotes();
                 widget.F<TextBox>("NotesBox").Text = "待阅读：模型的假设";
+                check(widget.F<TextBlock>("NotesSaveState").Text == "", "typing shows no save indicator");
                 Thread.Sleep(500); widget.Tick();
                 check(new DataStore(testData).Data.DraftNotes == "待阅读：模型的假设", "draft notes autosave before starting");
                 widget.Toggle();
                 check(widget.compact && widget.clock.State == TimerState.Running, "start automatically minimizes timer");
+                check(widget.F<Grid>("PaperRow").Visibility == Visibility.Visible && widget.F<StackPanel>("FullPanel").Visibility == Visibility.Collapsed, "paper row stays in mini mode");
                 check(widget.activeSession.Notes == "待阅读：模型的假设" && widget.store.Data.DraftNotes == "", "draft moves into new session");
                 check(!widget.F<Button>("StopButton").IsEnabled && widget.window.FindName("ResetButton") == null && !widget.F<Button>("CloseButton").IsEnabled, "running session cannot end by buttons");
                 SessionRecord protectedSession = widget.activeSession;
@@ -54,6 +58,7 @@ namespace ReadingFocus
                 check(new DataStore(testData).Data.Sessions.Last().Notes == note, "active notes autosave to disk");
                 widget.ToggleNotes(); widget.ToggleNotes();
                 check(widget.F<TextBox>("NotesBox").Text == note, "folding notes preserves text");
+                widget.ToggleNotes();
                 Thread.Sleep(70); widget.Tick();
                 widget.RenderOwnTree(System.IO.Path.Combine(folder, "02-running.png"));
                 widget.Toggle();
@@ -63,23 +68,29 @@ namespace ReadingFocus
                 check(time > 0 && widget.store.Data.TodayTime(DateTime.Now) == time, "paused time excluded");
                 widget.Mark(0, true); widget.Mark(1, true); widget.Mark(0, true);
                 check(widget.store.Data.TodayCount(0, DateTime.Now) == 1 && widget.store.Data.TodayCount(1, DateTime.Now) == 1, "checks count once");
-                check(widget.F<CheckBox>("Section0").IsChecked == true && widget.F<CheckBox>("MiniSection0").IsChecked == true, "full and mini checks synchronize");
+                check(widget.F<CheckBox>("Section0").IsChecked == true && widget.F<CheckBox>("Section1").IsChecked == true, "checkboxes reflect marks");
                 check(widget.F<Canvas>("Confetti").Children.Count > 0, "check triggers local confetti");
                 widget.NextPaper();
-                check(widget.store.Data.CurrentPaper.Number == 2 && widget.F<CheckBox>("MiniSection0").IsChecked == false, "next paper clears controls");
+                check(widget.store.Data.CurrentPaper.Number == 2 && widget.F<CheckBox>("Section0").IsChecked == false, "next paper clears controls");
                 check(widget.store.Data.TodayCount(0, DateTime.Now) == 1, "next paper retains incomplete previous record");
                 widget.Mark(2, true); widget.Mark(2, false);
                 check(widget.store.Data.TodayCount(2, DateTime.Now) == 0, "undo mark updates statistics");
                 widget.Toggle();
                 check(widget.compact && widget.clock.State == TimerState.Running, "resume returns to mini");
                 SessionRecord session = widget.activeSession;
-                WordRecord first = widget.store.Data.AddWord(session, "research", DateTime.Now);
-                widget.ApplyTranslation(session, first, new TranslationResult { Success = true, Text = "研究" });
+                widget.Collect("hypo-\r\nthesis");
+                check(session.Words.Count == 1 && session.Words[0].Word == "hypothesis" && session.Words[0].Status == "ok", "line-broken word resolved by the built-in dictionary");
                 widget.Tick();
-                check(widget.F<Border>("ToastPanel").Visibility == Visibility.Visible && widget.F<TextBlock>("ToastWord").Text == "research", "translation toast appears");
+                check(widget.F<Border>("ToastPanel").Visibility == Visibility.Visible && widget.F<TextBlock>("ToastWord").Text == "hypothesis" && widget.F<TextBlock>("ToastMeaning").Text.Contains("假设"), "dictionary toast appears immediately");
                 check(widget.toastUntil - Native.Now <= 10000 && widget.toastUntil - Native.Now > 9700, "toast duration is ten seconds");
+                check(widget.F<TextBlock>("MiniNotice").Text == "1 词", "mini view shows word count");
                 widget.RenderOwnTree(System.IO.Path.Combine(folder, "03-word-toast.png"));
-                WordRecord late = widget.store.Data.AddWord(session, "hypothesis", DateTime.Now);
+                widget.Collect("Estimated,");
+                widget.Collect("vasoconstrictor");
+                widget.Collect("two words");
+                widget.Collect("hypothesis");
+                check(session.Words.Count == 3 && session.Words[0].Copies == 2, "separate words rejected and repeats deduplicated");
+                check(session.Words[1].Word == "estimate" && session.Words[2].Status == "missing" && session.Words[2].Meaning == "", "inflections fold to headwords and unknown words are kept");
                 widget.Toggle();
                 check(widget.clock.State == TimerState.Paused && widget.F<Button>("StopButton").IsEnabled, "ending becomes available after pause");
                 widget.TryEndSession();
@@ -87,19 +98,12 @@ namespace ReadingFocus
                 check(widget.notesOpen && widget.F<TextBox>("NotesBox").IsReadOnly && widget.F<TextBox>("NotesBox").Text == note, "completed session automatically displays notes");
                 check(File.ReadAllText(System.IO.Path.Combine(widget.exportFolder, "本轮笔记.txt")) == note, "export preserves complete note text");
                 check(File.ReadAllText(System.IO.Path.Combine(widget.exportFolder, "本轮汇总.txt")).Contains(note), "combined summary includes notes");
-                check(widget.F<DataGrid>("WordsGrid").Items.Count == 2, "summary contains successful and pending words");
-                widget.ApplyTranslation(session, late, new TranslationResult { Success = true, Text = "假说" });
-                check(File.ReadAllText(System.IO.Path.Combine(widget.exportFolder, "中英词表.csv")).Contains("假说"), "late translation updates automatic export");
-                check(widget.F<Button>("RetryButton").Content.ToString() == "翻译已完成" && !widget.F<Button>("RetryButton").IsEnabled, "successful translations never show a failure label");
-                widget.ApplyTranslation(session, late, new TranslationResult { Success = false, Text = "测试断网，请稍后重试" });
-                check(widget.F<Button>("RetryButton").Content.ToString() == "重新翻译" && widget.F<Button>("RetryButton").IsEnabled, "failed word exposes clear retry action");
-                int retryCalls = 0;
-                widget.translateWord = delegate(string word) { Interlocked.Increment(ref retryCalls); return new TranslationResult { Success = true, Text = "假说（已重试）" }; };
-                widget.RetryFailed(); widget.RetryFailed();
-                check(widget.F<Button>("RetryButton").Content.ToString() == "翻译中…" && !widget.F<Button>("RetryButton").IsEnabled, "retry changes to pending state");
-                PumpUntil(delegate { return late.Status == "ok"; }, 3000);
-                check(retryCalls == 1 && late.Status == "ok" && widget.F<Button>("RetryButton").Content.ToString() == "翻译已完成", "double retry queues once and returns to completed state");
-                check(File.ReadAllText(System.IO.Path.Combine(widget.exportFolder, "中英词表.csv")).Contains("已重试"), "retry after session end updates exported results");
+                check(widget.F<DataGrid>("WordsGrid").Items.Count == 3 && widget.F<TextBlock>("SummaryCount").Text == "3", "summary lists every collected word");
+                check(File.ReadAllLines(System.IO.Path.Combine(widget.exportFolder, "中英词表.tsv")).Length == 2, "TSV lists dictionary words only");
+                check(File.ReadAllLines(System.IO.Path.Combine(widget.exportFolder, "纯单词-扇贝用.txt")).Length == 3, "plain list includes unknown words");
+                check(widget.F<TextBlock>("ExportStatus").Visibility == Visibility.Collapsed, "no export notice after a successful export");
+                widget.F<Button>("CopyWords").RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                check(widget.F<TextBlock>("ExportStatus").Visibility == Visibility.Visible, "copy reports its result");
                 widget.RenderOwnTree(System.IO.Path.Combine(folder, "04-session-summary.png"));
                 FocusWindow reopened = new FocusWindow(true, testData);
                 check(reopened.notesOpen && reopened.showSummary && reopened.F<TextBox>("NotesBox").Text == note && reopened.F<TextBox>("NotesBox").IsReadOnly, "relaunch displays the saved session notes");
@@ -126,6 +130,49 @@ namespace ReadingFocus
                 File.WriteAllText(report, "FAIL after " + count + ": " + ex, Encoding.UTF8); return 1;
             }
         }
+
+        // Starts a disposable probe window and checks that starting and resuming
+        // the timer minimize it. QA mode never acts on any other process.
+        private static int SweepTest(string folder, string probePath)
+        {
+            Directory.CreateDirectory(folder);
+            string report = System.IO.Path.Combine(folder, "sweep-test-results.txt");
+            FocusWindow widget = null;
+            Process probe = null;
+            int count = 0;
+            Action<bool, string> check = delegate(bool ok, string name) { if (!ok) throw new Exception(name); count++; };
+            try
+            {
+                probe = Process.Start(new ProcessStartInfo(probePath) { UseShellExecute = false });
+                IntPtr handle = IntPtr.Zero;
+                PumpUntil(delegate { probe.Refresh(); handle = probe.MainWindowHandle; return handle != IntPtr.Zero && Native.IsWindowVisible(handle); }, 10000);
+                check(handle != IntPtr.Zero && !Native.IsIconic(handle), "probe window is open");
+                check(Native.AppWindows().Contains(handle), "probe counts as an app window");
+                widget = new FocusWindow(true, System.IO.Path.Combine(folder, "data-" + Guid.NewGuid().ToString("N").Substring(0, 8)));
+                widget.prefs.Sound = false;
+                widget.SetMinutes(1);
+                widget.Toggle();
+                PumpUntil(delegate { return Native.IsIconic(handle); }, 3000);
+                check(widget.clock.State == TimerState.Running && Native.IsIconic(handle), "start minimizes other app windows");
+                widget.Toggle();
+                Native.ShowWindowAsync(handle, 9);
+                PumpUntil(delegate { return !Native.IsIconic(handle); }, 3000);
+                check(widget.clock.State == TimerState.Paused && !Native.IsIconic(handle), "paused timer leaves windows alone");
+                widget.Toggle();
+                PumpUntil(delegate { return Native.IsIconic(handle); }, 3000);
+                check(Native.IsIconic(handle), "resume minimizes again");
+                widget.Toggle();
+                widget.TryEndSession();
+                File.WriteAllText(report, "PASS: " + count + " sweep checks\r\n", Encoding.UTF8);
+                return 0;
+            }
+            catch (Exception ex) { File.WriteAllText(report, "FAIL after " + count + ": " + ex, Encoding.UTF8); return 1; }
+            finally
+            {
+                if (widget != null) try { widget.window.Close(); } catch { }
+                if (probe != null) try { if (!probe.HasExited) probe.Kill(); probe.Dispose(); } catch { }
+            }
+        }
         private static void PumpUntil(Func<bool> complete, int timeout)
         {
             DispatcherFrame frame = new DispatcherFrame();
@@ -141,7 +188,7 @@ namespace ReadingFocus
             root.Measure(new Size(window.Width, double.PositiveInfinity));
             root.Arrange(new Rect(0, 0, window.Width, root.DesiredSize.Height));
             root.UpdateLayout();
-            RenderTargetBitmap bitmap = new RenderTargetBitmap((int)Math.Ceiling(window.Width), (int)Math.Ceiling(root.DesiredSize.Height), 96, 96, PixelFormats.Pbgra32);
+            RenderTargetBitmap bitmap = new RenderTargetBitmap((int)Math.Ceiling(window.Width * 2), (int)Math.Ceiling(root.DesiredSize.Height * 2), 192, 192, PixelFormats.Pbgra32);
             bitmap.Render(root);
             PngBitmapEncoder encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
             using (FileStream stream = File.Create(file)) encoder.Save(stream);
