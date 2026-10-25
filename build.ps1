@@ -31,6 +31,7 @@ New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force | Out-Nul
 $sourceRoot = Join-Path $PSScriptRoot 'src'
 $icon = Join-Path $PSScriptRoot 'assets\FocusTimer.ico'
 $dictionary = Join-Path $PSScriptRoot 'assets\academic-words.tsv'
+$general = Join-Path $PSScriptRoot 'assets\general-words.tsv'
 $arguments = @(
     '/nologo', '/target:winexe', '/platform:anycpu', '/optimize+',
     '/langversion:5', '/codepage:65001', '/warn:4',
@@ -39,6 +40,7 @@ $arguments = @(
     ('/win32icon:' + $icon),
     ('/resource:' + $icon + ',FocusTimer.ico'),
     ('/resource:' + $dictionary + ',academic-words.tsv'),
+    ('/resource:' + $general + ',general-words.tsv'),
     ('/reference:' + (Join-Path $framework 'WPF\PresentationFramework.dll')),
     ('/reference:' + (Join-Path $framework 'WPF\PresentationCore.dll')),
     ('/reference:' + (Join-Path $framework 'WPF\WindowsBase.dll')),

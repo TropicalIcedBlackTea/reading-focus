@@ -65,9 +65,10 @@ namespace ReadingFocus
                     "estimate\tv. 估计；估算 n. 估计值", "heterogeneity\tn. 异质性", "analyze\tv. 分析", "behavior\tn. 行为", "behavioral\tadj. 行为的",
                     "model\tn. 模型 v. 建模", "study\tn. 研究 v. 研究", "author\tn. 作者", "cross-sectional\tadj. 横截面的", "OLS\tabbr. 普通最小二乘法",
                     "large\tadj. 大的", "criterion\tn. 标准", "index\tn. 指数", "basic\tadj. 基本的", "considerable\tadj. 相当大的", "organization\tn. 组织",
-                    "data\tn. 数据", "trade-off\tn. 权衡", "nonlinear\tadj. 非线性的", "apply\tv. 应用", "control\tv. 控制 n. 控制", "endogeneity\tn. 内生性", "ATE\tabbr. 平均处理效应"
+                    "data\tn. 数据", "trade-off\tn. 权衡", "nonlinear\tadj. 非线性的", "apply\tv. 应用", "control\tv. 控制 n. 控制", "endogeneity\tn. 内生性", "ATE\tabbr. 平均处理效应",
+                    "observable\tadj. 可观测的", "state\tn. 国家；州", "level\tn. 水平；层次", "use\tv. 使用"
                 });
-                Check(dict.Count == 26, "dictionary skips comments");
+                Check(dict.Count == 30, "dictionary skips comments");
                 Reads(dict, "Hypothesis", "hypothesis", "case-insensitive lookup");
                 Reads(dict, "hypotheses", "hypotheses", "irregular plural entry");
                 Reads(dict, "estimated", "estimate", "past tense folds to headword");
@@ -127,24 +128,44 @@ namespace ReadingFocus
                 Check(WordReader.Read("Hypothesis 1", dict) == null, "reject numbered labels");
 
                 AcademicDictionary embedded = AcademicDictionary.Shared;
-                Check(embedded.Count >= 3000, "embedded dictionary loads (" + embedded.Count + " entries)");
+                Check(embedded.Count >= 18000, "embedded dictionaries load (" + embedded.Count + " entries)");
                 foreach (string w in new[] { "hypothesis", "heterogeneity", "endogeneity", "regression", "coefficient", "elasticity", "robust", "significantly", "empirical", "methodology", "variance", "spillover" })
                     Check(embedded.Lookup(w) != null, "embedded dictionary contains " + w);
+                foreach (string w in new[] { "formidable", "visceral", "apathy", "resurrect", "charlatan", "overblown", "longstanding", "exegesis" })
+                    Check(embedded.Lookup(w) != null, "general vocabulary contains " + w);
                 Check(embedded.Lookup("estimated") != null && embedded.Lookup("regressions") != null && embedded.Lookup("analysed") != null, "embedded dictionary folds inflections");
+                Check(embedded.Lookup("regression").Meaning.Contains("回归"), "academic gloss takes priority");
+
+                Check(WordReader.Read("unobservable", dict).Status == "derived" && WordReader.Read("unobservable", dict).Meaning == "〔构词〕un-（不/未）+ observable（可观测的）", "prefix guess from a known base");
+                Check(WordReader.Read("state-level", dict).Meaning == "〔构词〕state（国家）+ level（水平）", "hyphenated compound guess");
+                Check(WordReader.Read("state-by-state", dict).Meaning == "〔构词〕state（国家）+ by + state（国家）", "compound guess keeps function words");
+                Check(WordReader.Read("largeness", dict).Meaning == "〔构词〕large（大的）+ -ness（…性/状态）", "-ness guess");
+                Check(WordReader.Read("hypothesis", dict).Status == "ok" && WordReader.Read("vasoconstriction", dict).Status == "missing", "dictionary words are not guesses");
+                Check(WordReader.Read("un observable", dict) == null, "guesses never join separate words");
+                Check(dict.Describe("reuse") == null && dict.Describe("unsafe") == null, "short or unknown bases give no guess");
 
                 SessionRecord session = new SessionRecord { StartedAt = end, Status = "已完成", Milliseconds = 90000, Notes = "假设 A < B & C\r\n下一步验证" };
                 data.DraftNotes = "下一轮的问题";
                 data.Sessions.Add(session);
-                WordRecord word = data.AddWord(session, "research", "研究, \"科研\"", end);
-                Check(word != null && word.Status == "ok" && data.AddWord(session, "research", "研究", end) == null && session.Words.Count == 1 && word.Copies == 2, "deduplicate session words");
-                WordRecord missing = data.AddWord(session, "vasoconstriction", null, end);
+                data.VocabularyImported = true;
+                WordRecord word = data.AddWord(session, new DictionaryHit { Word = "research", Meaning = "研究, \"科研\"" }, end);
+                Check(word != null && word.Status == "ok" && data.AddWord(session, new DictionaryHit { Word = "research", Meaning = "研究" }, end.AddMinutes(5)) == null && session.Words.Count == 1 && word.Copies == 2, "deduplicate session words");
+                WordRecord missing = data.AddWord(session, DictionaryHit.Unknown("vasoconstriction"), end);
                 Check(missing.Status == "missing" && missing.Meaning == "", "unknown word recorded without meaning");
+                VocabularyRecord remembered = data.Vocabulary.Find(v => v.Word == "research");
+                Check(data.Vocabulary.Count == 2 && remembered.Lookups == 2 && remembered.FirstSeen == end && remembered.LastSeen == end.AddMinutes(5), "permanent vocabulary counts every lookup");
+                data.AddWord(session, WordReader.Read("unobservable", dict), end);
+                Check(data.Vocabulary.Find(v => v.Word == "unobservable").Status == "derived", "vocabulary keeps guessed meanings");
                 string folder = WordExport.Export(session, System.IO.Path.Combine(root, "exports"));
-                Check(File.ReadAllLines(System.IO.Path.Combine(folder, "纯单词-扇贝用.txt")).SequenceEqual(new[] { "research", "vasoconstriction" }), "plain words include unknown words");
+                Check(File.ReadAllLines(System.IO.Path.Combine(folder, "纯单词-扇贝用.txt")).SequenceEqual(new[] { "research", "vasoconstriction", "unobservable" }), "plain words include unknown words");
                 string csv = File.ReadAllText(System.IO.Path.Combine(folder, "中英词表.csv"));
-                Check(csv.Contains("\"研究, \"\"科研\"\"\"") && csv.Contains("\"已收录\"") && csv.Contains("\"未收录\""), "CSV escaping and dictionary column");
-                Check(File.ReadAllLines(System.IO.Path.Combine(folder, "中英词表.tsv")).Length == 1, "TSV contains words with meanings only");
+                Check(csv.Contains("\"研究, \"\"科研\"\"\"") && csv.Contains("\"已收录\"") && csv.Contains("\"未收录\"") && csv.Contains("\"构词推测\""), "CSV escaping and dictionary column");
+                Check(File.ReadAllLines(System.IO.Path.Combine(folder, "中英词表.tsv")).Length == 2, "TSV contains words with meanings only");
                 Check(File.ReadAllText(System.IO.Path.Combine(folder, "本轮笔记.txt")) == session.Notes, "notes export preserves newlines and special characters");
+                WordExport.ExportVocabulary(data.Vocabulary, System.IO.Path.Combine(root, "exports"));
+                string[] book = File.ReadAllLines(System.IO.Path.Combine(root, "exports", "生词本.csv"));
+                Check(book.Length == 4 && book[0].StartsWith("单词,中文释义,词典,查询次数") && book[1].StartsWith("\"research\"") && book[1].Contains(",2,"), "vocabulary export lists most recent first with counts");
+                Check(File.ReadAllLines(System.IO.Path.Combine(root, "exports", "生词本-扇贝用.txt")).Length == 3, "vocabulary plain word list");
                 Check(WindowPolicy.IsReadingApp("zotero") && WindowPolicy.IsReadingApp("chrome") && WindowPolicy.IsReadingApp("msedge") && WindowPolicy.IsReadingApp("explorer"), "reading windows allowed");
                 Check(WindowPolicy.ShouldBlock("notepad") && WindowPolicy.ShouldBlock("focusguardprobe"), "other app windows blocked");
                 Check(!WindowPolicy.ShouldBlock("consent") && !WindowPolicy.ShouldBlock("lockapp"), "system security surfaces untouched");
@@ -152,8 +173,10 @@ namespace ReadingFocus
                 Check(disk.Save(), "persist reading history");
                 DataStore loaded = new DataStore(System.IO.Path.Combine(root, "data"));
                 Check(loaded.Data.TodayTime(end) == 30000 && loaded.Data.TodayCount(0, end) == 2, "restore daily statistics");
-                Check(loaded.Data.Sessions[0].Words.Count == 2 && loaded.Data.CurrentPaper.Number == 2, "restore words and current paper");
+                Check(loaded.Data.Sessions[0].Words.Count == 3 && loaded.Data.CurrentPaper.Number == 2, "restore words and current paper");
                 Check(loaded.Data.Sessions[0].Notes == session.Notes && loaded.Data.DraftNotes == data.DraftNotes, "restore notes and draft");
+                Check(loaded.Data.Vocabulary.Count == 3 && loaded.Data.Vocabulary.Find(v => v.Word == "research").Lookups == 2 && loaded.Data.VocabularyImported, "restore permanent vocabulary");
+                Check(loaded.Data.Forget("research") && !loaded.Data.Forget("research") && loaded.Data.Vocabulary.Count == 2 && loaded.Data.Sessions[0].Words.Count == 3, "forget removes from the vocabulary only");
                 using (FileStream blocked = new FileStream(System.IO.Path.Combine(root, "data", "reading-data.xml.tmp"), FileMode.Create, FileAccess.ReadWrite, FileShare.None))
                     Check(!loaded.Save() && loaded.Error != null, "temporary storage failure is visible");
                 Check(loaded.Save() && loaded.Error == null, "recovered storage clears the old failure state");
@@ -165,6 +188,18 @@ namespace ReadingFocus
                 interrupted.Data.Resolve(dict);
                 WordRecord resolved = interrupted.Data.Sessions[0].Words[1];
                 Check(resolved.Status == "ok" && resolved.Meaning.StartsWith("n. 假设") && interrupted.Data.Sessions[0].Words[0].Meaning == word.Meaning, "legacy online words fall back to the dictionary");
+
+                ReadingData old = new ReadingData();
+                SessionRecord first = new SessionRecord { StartedAt = end };
+                first.Words.Add(new WordRecord { Word = "hypothesis", Status = "ok", Meaning = "n. 假设", CollectedAt = end, Copies = 2 });
+                first.Words.Add(new WordRecord { Word = "vasoconstriction", Status = "failed", Meaning = "网络暂不可用", CollectedAt = end, Copies = 1 });
+                SessionRecord second = new SessionRecord { StartedAt = end.AddDays(1) };
+                second.Words.Add(new WordRecord { Word = "hypothesis", Status = "ok", Meaning = "n. 假设", CollectedAt = end.AddDays(1), Copies = 1 });
+                old.Sessions.Add(first); old.Sessions.Add(second);
+                old.Resolve(dict); old.Resolve(dict);
+                VocabularyRecord imported = old.Vocabulary.Find(v => v.Word == "hypothesis");
+                Check(old.Vocabulary.Count == 2 && imported.Lookups == 3 && imported.FirstSeen == end && imported.LastSeen == end.AddDays(1), "older sessions import into the vocabulary once");
+                Check(old.Vocabulary.Find(v => v.Word == "vasoconstriction").Status == "missing", "imported unknown words stay unknown");
                 File.WriteAllText(report, "PASS: " + count + " checks\r\n", Encoding.UTF8);
                 return 0;
             }

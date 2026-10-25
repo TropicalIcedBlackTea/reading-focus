@@ -27,8 +27,11 @@ namespace ReadingFocus
         private readonly DataStore store;
         private readonly AcademicDictionary dictionary;
         private readonly DispatcherTimer ticker;
-        private readonly Queue<WordRecord> toastQueue = new Queue<WordRecord>();
-        private WordRecord toastWord;
+        private readonly List<Toast> toasts = new List<Toast>();
+        private sealed class Toast { public WordRecord Word; public long Until; public Border Card; }
+        private const int MaxToasts = 6;
+        private bool vocabularyView;
+        private string vocabularyFolder;
         private SessionRecord activeSession;
         private SessionRecord displayedSession;
         private readonly bool qa;
@@ -36,7 +39,7 @@ namespace ReadingFocus
         private bool compact, customOpen, syncing, showSummary, closing;
         private bool notesOpen, syncingNotes;
         private long notesSaveDue;
-        private long previousRemaining, lastSave, toastUntil, redUntil, blockedAt;
+        private long previousRemaining, lastSave, redUntil, blockedAt;
         private DateTime accountWall;
         private uint clipboardSequence;
         private int clipboardRetries;
@@ -48,7 +51,7 @@ namespace ReadingFocus
         private HwndSource source;
         private string exportFolder;
         private readonly Brush ink = B("#1C2420"), muted = B("#5F6A64"), faint = B("#98A19C"), accent = B("#2E5B49"), amber = B("#A86E1F"), alert = B("#C2413B");
-        private readonly Brush cardLine = B("#E2E5E1"), cardDone = B("#D9C6A2");
+        private readonly Brush cardLine = B("#E2E5E1"), cardDone = B("#D9C6A2"), toastFill = B("#F2F6F3");
         private readonly Effect raised = new DropShadowEffect { Color = Color.FromRgb(0x1C, 0x24, 0x20), BlurRadius = 4, ShadowDepth = 1, Direction = 270, Opacity = 0.14 };
         private static Brush B(string s) { Brush b = (Brush)new BrushConverter().ConvertFromString(s); b.Freeze(); return b; }
         private T F<T>(string name) where T : class { return window.FindName(name) as T; }
@@ -275,42 +278,51 @@ namespace ReadingFocus
      </Grid>
      <TextBox x:Name='NotesBox' Style='{StaticResource Field}' AcceptsReturn='True' AcceptsTab='True' TextWrapping='Wrap' Height='132' VerticalScrollBarVisibility='Auto' HorizontalScrollBarVisibility='Disabled' Padding='5,4' FontSize='12.5' AutomationProperties.Name='阅读笔记' SpellCheck.IsEnabled='False'/>
     </StackPanel>
-    <Border x:Name='ToastPanel' Visibility='Collapsed' Background='#F2F6F3' CornerRadius='8' Padding='12,9,12,10' Margin='0,10,0,0'>
-     <Grid>
-      <Grid.ColumnDefinitions><ColumnDefinition Width='3'/><ColumnDefinition/></Grid.ColumnDefinitions>
-      <Border Background='{StaticResource Accent}' CornerRadius='1.5'/>
-      <StackPanel Grid.Column='1' Margin='10,0,0,0'>
-       <TextBlock x:Name='ToastWord' FontFamily='{StaticResource Digits}' FontSize='14.5' FontWeight='SemiBold'/>
-       <TextBlock x:Name='ToastMeaning' FontSize='12.5' Foreground='{StaticResource Muted}' TextWrapping='Wrap' MaxHeight='54' TextTrimming='CharacterEllipsis' Margin='0,2,0,0'/>
-      </StackPanel>
-     </Grid>
-    </Border>
+    <StackPanel x:Name='ToastStack' Margin='0,4,0,0'/>
     <StackPanel x:Name='SummaryPanel' Visibility='Collapsed' Margin='0,14,0,0'>
-     <Grid Margin='0,0,0,6'>
-      <StackPanel Orientation='Horizontal'>
-       <TextBlock Text='本轮词表' FontWeight='SemiBold'/>
-       <TextBlock x:Name='SummaryCount' Foreground='{StaticResource Faint}' Margin='6,0,0,0'/>
-      </StackPanel>
+     <Grid Margin='0,0,0,8'>
+      <Border Background='{StaticResource Fill}' CornerRadius='8' Padding='2' HorizontalAlignment='Left'>
+       <StackPanel Orientation='Horizontal'>
+        <Button x:Name='SessionView' Style='{StaticResource Segment}' Height='24' Padding='10,0'>
+         <StackPanel Orientation='Horizontal'><TextBlock Text='本轮'/><TextBlock x:Name='SummaryCount' Foreground='{StaticResource Faint}' Margin='5,0,0,0'/></StackPanel>
+        </Button>
+        <Button x:Name='VocabularyView' Style='{StaticResource Segment}' Height='24' Padding='10,0'>
+         <StackPanel Orientation='Horizontal'><TextBlock Text='生词本'/><TextBlock x:Name='VocabularyCount' Foreground='{StaticResource Faint}' Margin='5,0,0,0'/></StackPanel>
+        </Button>
+       </StackPanel>
+      </Border>
       <TextBlock x:Name='SummaryDate' Foreground='{StaticResource Faint}' FontSize='11' HorizontalAlignment='Right' VerticalAlignment='Center'/>
      </Grid>
-     <TextBlock x:Name='SummaryEmpty' Text='计时中复制英文单词，即可加入词表。' Foreground='{StaticResource Faint}' TextWrapping='Wrap' Margin='0,2,0,2'/>
+     <Grid x:Name='SearchRow' Visibility='Collapsed' Margin='0,0,0,8'>
+      <TextBox x:Name='SearchBox' Style='{StaticResource Field}' Height='30' Padding='26,0,6,0' VerticalContentAlignment='Center' AutomationProperties.Name='搜索生词本'/>
+      <TextBlock Style='{StaticResource Glyph}' Text='&#xE721;' Foreground='{StaticResource Faint}' Margin='9,0,0,0' HorizontalAlignment='Left' IsHitTestVisible='False'/>
+      <TextBlock x:Name='SearchHint' Text='搜索单词或释义' Foreground='{StaticResource Faint}' Margin='29,0,0,0' VerticalAlignment='Center' IsHitTestVisible='False'/>
+     </Grid>
+     <TextBlock x:Name='SummaryEmpty' Foreground='{StaticResource Faint}' TextWrapping='Wrap' Margin='0,2,0,2'/>
      <DataGrid x:Name='WordsGrid' AutoGenerateColumns='False' CanUserAddRows='False' CanUserDeleteRows='False' CanUserResizeColumns='False' CanUserResizeRows='False' CanUserReorderColumns='False' CanUserSortColumns='False'
       IsReadOnly='True' HeadersVisibility='Column' GridLinesVisibility='Horizontal' HorizontalGridLinesBrush='{StaticResource Line}' Background='Transparent' RowBackground='Transparent' AlternatingRowBackground='Transparent'
-      BorderThickness='0' MaxHeight='196' SelectionMode='Single' HorizontalScrollBarVisibility='Disabled' VerticalScrollBarVisibility='Auto'>
+      BorderThickness='0' MaxHeight='240' SelectionMode='Single' HorizontalScrollBarVisibility='Disabled' VerticalScrollBarVisibility='Auto'
+      VirtualizingPanel.IsVirtualizing='True' VirtualizingPanel.VirtualizationMode='Recycling' VirtualizingPanel.ScrollUnit='Pixel'>
       <DataGrid.Columns>
-       <DataGridTextColumn Header='单词' Binding='{Binding Word}' Width='104'>
+       <DataGridTextColumn Header='单词' Binding='{Binding Word}' Width='98'>
         <DataGridTextColumn.ElementStyle><Style TargetType='TextBlock'><Setter Property='FontWeight' Value='SemiBold'/><Setter Property='TextTrimming' Value='CharacterEllipsis'/><Setter Property='ToolTip' Value='{Binding Word}'/></Style></DataGridTextColumn.ElementStyle>
        </DataGridTextColumn>
-       <DataGridTemplateColumn Header='释义' Width='166'>
+       <DataGridTemplateColumn Header='释义' Width='144'>
         <DataGridTemplateColumn.CellTemplate><DataTemplate>
          <TextBlock TextWrapping='Wrap'>
           <TextBlock.Style><Style TargetType='TextBlock'>
            <Setter Property='Text' Value='{Binding Meaning}'/><Setter Property='Foreground' Value='#3D4842'/>
-           <Style.Triggers><DataTrigger Binding='{Binding Status}' Value='missing'><Setter Property='Text' Value='词典未收录'/><Setter Property='Foreground' Value='#A7AEAA'/></DataTrigger></Style.Triggers>
+           <Style.Triggers>
+            <DataTrigger Binding='{Binding Status}' Value='missing'><Setter Property='Text' Value='词典未收录'/><Setter Property='Foreground' Value='#A7AEAA'/></DataTrigger>
+            <DataTrigger Binding='{Binding Status}' Value='derived'><Setter Property='Foreground' Value='#7D8781'/></DataTrigger>
+           </Style.Triggers>
           </Style></TextBlock.Style>
          </TextBlock>
         </DataTemplate></DataGridTemplateColumn.CellTemplate>
        </DataGridTemplateColumn>
+       <DataGridTextColumn Header='次数' Binding='{Binding Copies}' Width='34'>
+        <DataGridTextColumn.ElementStyle><Style TargetType='TextBlock'><Setter Property='Foreground' Value='#98A19C'/><Setter Property='HorizontalAlignment' Value='Right'/></Style></DataGridTextColumn.ElementStyle>
+       </DataGridTextColumn>
       </DataGrid.Columns>
      </DataGrid>
      <Grid Height='30' Margin='0,10,0,0'>
@@ -381,19 +393,38 @@ namespace ReadingFocus
                 box.Unchecked += delegate { Mark(part, false); };
             }
             F<Button>("WordsButton").Click += delegate { if (clock.State == TimerState.Running) return; showSummary = !showSummary; SetCompact(false); RefreshSummary(); RefreshNotes(); };
+            F<Button>("SessionView").Click += delegate { vocabularyView = false; RefreshSummary(); };
+            F<Button>("VocabularyView").Click += delegate { vocabularyView = true; RefreshSummary(); };
+            F<TextBox>("SearchBox").TextChanged += delegate { RefreshSummary(); };
             F<Button>("CopyWords").Click += delegate
             {
-                if (displayedSession == null) return;
-                try { Clipboard.SetText(string.Join(Environment.NewLine, displayedSession.Words.Select(w => w.Word))); ShowExportStatus("已复制 " + displayedSession.Words.Count + " 个单词"); }
+                List<string> words = ShownWords();
+                if (words.Count == 0) return;
+                try { Clipboard.SetText(string.Join(Environment.NewLine, words)); ShowExportStatus("已复制 " + words.Count + " 个单词"); }
                 catch { ShowExportStatus("剪贴板被占用，请稍后再试"); }
             };
             F<Button>("ExportButton").Click += delegate
             {
-                if (displayedSession == null) return;
-                Export(displayedSession);
-                if (!string.IsNullOrEmpty(exportFolder))
-                    try { Process.Start(new ProcessStartInfo(exportFolder) { UseShellExecute = true }); } catch { }
+                string folder;
+                if (vocabularyView) { ExportVocabulary(); folder = vocabularyFolder; }
+                else if (displayedSession != null) { Export(displayedSession); folder = exportFolder; }
+                else return;
+                if (!string.IsNullOrEmpty(folder))
+                    try { Process.Start(new ProcessStartInfo(folder) { UseShellExecute = true }); } catch { }
             };
+            DataGrid wordsGrid = F<DataGrid>("WordsGrid");
+            MenuItem forget = new MenuItem { Header = "从生词本移除" };
+            forget.Click += delegate { ForgetSelected(); };
+            wordsGrid.ContextMenu = new ContextMenu();
+            wordsGrid.ContextMenu.Items.Add(forget);
+            wordsGrid.ContextMenuOpening += delegate(object sender, ContextMenuEventArgs e)
+            {
+                DependencyObject item = e.OriginalSource as DependencyObject;
+                while (item != null && !(item is DataGridRow)) item = VisualTreeHelper.GetParent(item);
+                if (!vocabularyView || item == null) { e.Handled = true; return; }
+                wordsGrid.SelectedItem = ((DataGridRow)item).Item;
+            };
+            wordsGrid.PreviewKeyDown += delegate(object sender, KeyEventArgs e) { if (e.Key == Key.Delete && vocabularyView) { ForgetSelected(); e.Handled = true; } };
             F<Button>("SoundButton").Click += delegate { prefs.Sound = !prefs.Sound; Save(); Paint(); };
             F<Grid>("Header").MouseLeftButtonDown += Drag;
             F<Grid>("MiniHeader").MouseLeftButtonDown += Drag;
@@ -421,6 +452,7 @@ namespace ReadingFocus
                 if (activeSession != null) EndSession("退出", true);
                 closing = true;
                 Save();
+                ExportVocabulary();
                 ticker.Stop();
                 if (hook != IntPtr.Zero) Native.UnhookWinEvent(hook);
                 IntPtr h = new WindowInteropHelper(window).Handle;
@@ -435,6 +467,7 @@ namespace ReadingFocus
             RefreshNotes();
             Paint();
             if (displayedSession != null && displayedSession.Status == "意外退出") Export(displayedSession);
+            ExportVocabulary();
         }
         public void Show() { window.Show(); }
         private void LoadIcon()
@@ -468,9 +501,9 @@ namespace ReadingFocus
                 store.Data.Sessions.Add(activeSession);
                 displayedSession = activeSession;
                 showSummary = false;
+                vocabularyView = false;
                 clock.Reset();
-                toastQueue.Clear();
-                toastUntil = 0;
+                ClearToasts();
                 notesOpen = false;
             }
             clock.Toggle();
@@ -562,13 +595,13 @@ namespace ReadingFocus
             activeSession = null;
             displayedSession = session;
             if (clock.State != TimerState.Complete) clock.Reset();
-            toastQueue.Clear(); toastUntil = 0; redUntil = 0; clipboardRetries = 0;
-            F<Border>("ToastPanel").Visibility = Visibility.Collapsed;
+            ClearToasts(); redUntil = 0; clipboardRetries = 0;
             showSummary = true;
+            vocabularyView = false;
             notesOpen = !string.IsNullOrWhiteSpace(session.Notes);
             RefreshNotes();
             if (!exiting) { SetCompact(false); RefreshSummary(); }
-            Save(); Export(session); Paint();
+            Save(); Export(session); ExportVocabulary(); Paint();
         }
         private void Tick()
         {
@@ -578,20 +611,8 @@ namespace ReadingFocus
                 Protect(Native.GetForegroundWindow());
                 if (clipboardRetries > 0 && Native.Now >= clipboardRetryAt) ReadClipboard();
             }
-            if (Native.Now > toastUntil)
-            {
-                F<Border>("ToastPanel").Visibility = Visibility.Collapsed;
-                if (clock.State == TimerState.Running && toastQueue.Count > 0)
-                {
-                    WordRecord item = toastWord = toastQueue.Dequeue();
-                    bool found = item.Status == "ok";
-                    F<TextBlock>("ToastWord").Text = item.Word;
-                    F<TextBlock>("ToastMeaning").Text = found ? item.Meaning : "词典未收录";
-                    F<TextBlock>("ToastMeaning").Foreground = found ? muted : faint;
-                    toastUntil = Native.Now + 10000;
-                    F<Border>("ToastPanel").Visibility = Visibility.Visible;
-                }
-            }
+            if (toasts.Any(t => Native.Now >= t.Until))
+                foreach (Toast toast in toasts.Where(t => Native.Now >= t.Until).ToList()) RemoveToast(toast);
             if ((notesSaveDue > 0 && Native.Now >= notesSaveDue) || (activeSession != null && Native.Now - lastSave >= 1500)) Save();
             Paint();
         }
@@ -680,10 +701,50 @@ namespace ReadingFocus
             if (activeSession == null) return;
             DictionaryHit hit = WordReader.Read(text, dictionary);
             if (hit == null) return;
-            WordRecord item = store.Data.AddWord(activeSession, hit.Word, hit.Meaning, DateTime.Now) ?? activeSession.Words.Find(w => w.Word == hit.Word);
-            if (item == toastWord && Native.Now < toastUntil) toastUntil = Native.Now + 10000;
-            else if (!toastQueue.Contains(item)) toastQueue.Enqueue(item);
+            WordRecord item = store.Data.AddWord(activeSession, hit, DateTime.Now) ?? activeSession.Words.Find(w => w.Word == hit.Word);
+            ShowToast(item);
             Save(); RefreshSummary(); Paint();
+        }
+        // Each looked-up word gets its own card for ten seconds; newest on top.
+        // Copying a word again refreshes its card instead of adding another.
+        private void ShowToast(WordRecord item)
+        {
+            StackPanel stack = F<StackPanel>("ToastStack");
+            Toast toast = toasts.Find(t => t.Word == item);
+            if (toast == null) toast = new Toast { Word = item, Card = BuildCard(item) };
+            else { toasts.Remove(toast); stack.Children.Remove(toast.Card); }
+            toasts.Insert(0, toast);
+            stack.Children.Insert(0, toast.Card);
+            toast.Until = Native.Now + 10000;
+            while (toasts.Count > MaxToasts) RemoveToast(toasts[toasts.Count - 1]);
+            KeepVisible(false);
+        }
+        private Border BuildCard(WordRecord item)
+        {
+            bool missing = item.Status == "missing";
+            TextBlock word = new TextBlock { Text = item.Word, FontFamily = (FontFamily)window.Resources["Digits"], FontSize = 14.5, FontWeight = FontWeights.SemiBold, Foreground = ink };
+            TextBlock meaning = new TextBlock { Text = missing ? "词典未收录" : item.Meaning, FontSize = 12.5, Foreground = missing || item.Status == "derived" ? faint : muted, TextWrapping = TextWrapping.Wrap, MaxHeight = 54, TextTrimming = TextTrimming.CharacterEllipsis, Margin = new Thickness(0, 2, 0, 0) };
+            StackPanel text = new StackPanel { Margin = new Thickness(10, 0, 0, 0) };
+            text.Children.Add(word); text.Children.Add(meaning);
+            Grid layout = new Grid();
+            layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3) });
+            layout.ColumnDefinitions.Add(new ColumnDefinition());
+            layout.Children.Add(new Border { Background = accent, CornerRadius = new CornerRadius(1.5) });
+            Grid.SetColumn(text, 1);
+            layout.Children.Add(text);
+            Border card = new Border { Background = toastFill, CornerRadius = new CornerRadius(8), Padding = new Thickness(12, 8, 12, 9), Margin = new Thickness(0, 6, 0, 0), Child = layout, Cursor = Cursors.Hand };
+            card.MouseLeftButtonUp += delegate { Toast toast = toasts.Find(t => t.Card == card); if (toast != null) RemoveToast(toast); };
+            return card;
+        }
+        private void RemoveToast(Toast toast)
+        {
+            toasts.Remove(toast);
+            F<StackPanel>("ToastStack").Children.Remove(toast.Card);
+        }
+        private void ClearToasts()
+        {
+            toasts.Clear();
+            F<StackPanel>("ToastStack").Children.Clear();
         }
         // Starting or resuming clears the desktop down to reading apps in one
         // pass; Protect handles anything brought forward afterwards.
@@ -740,7 +801,7 @@ namespace ReadingFocus
             F<Grid>("FullFooter").Visibility = full;
             F<StackPanel>("MiniPanel").Visibility = compact ? Visibility.Visible : Visibility.Collapsed;
             F<Grid>("CustomRow").Visibility = customOpen ? Visibility.Visible : Visibility.Collapsed;
-            F<StackPanel>("SummaryPanel").Visibility = !compact && showSummary && displayedSession != null ? Visibility.Visible : Visibility.Collapsed;
+            F<StackPanel>("SummaryPanel").Visibility = !compact && showSummary && (displayedSession != null || store.Data.Vocabulary.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
             window.Width = compact ? 300 : 336;
             if (atRight) window.Left = right - window.Width;
         }
@@ -810,20 +871,73 @@ namespace ReadingFocus
         }
         private void RefreshSummary()
         {
-            if (displayedSession != null)
-            {
-                DataGrid grid = F<DataGrid>("WordsGrid");
-                int count = displayedSession.Words.Count;
-                grid.ItemsSource = null;
-                grid.ItemsSource = displayedSession.Words;
-                grid.Visibility = count > 0 ? Visibility.Visible : Visibility.Collapsed;
-                F<TextBlock>("SummaryEmpty").Visibility = count > 0 ? Visibility.Collapsed : Visibility.Visible;
-                F<TextBlock>("SummaryCount").Text = count > 0 ? count.ToString() : "";
-                F<TextBlock>("SummaryDate").Text = displayedSession == activeSession ? "" : displayedSession.StartedAt.ToString("MM-dd HH:mm");
-                F<Button>("CopyWords").IsEnabled = count > 0;
-                ShowExportStatus("");
-            }
+            if (displayedSession == null) vocabularyView = true;
+            int sessionCount = displayedSession == null ? 0 : displayedSession.Words.Count;
+            F<TextBlock>("SummaryCount").Text = sessionCount > 0 ? sessionCount.ToString() : "";
+            F<TextBlock>("VocabularyCount").Text = store.Data.Vocabulary.Count > 0 ? store.Data.Vocabulary.Count.ToString() : "";
             Resize();
+            if (F<StackPanel>("SummaryPanel").Visibility != Visibility.Visible) return;
+            F<Button>("SessionView").IsEnabled = displayedSession != null;
+            foreach (string name in new[] { "SessionView", "VocabularyView" })
+            {
+                Button b = F<Button>(name);
+                bool selected = (name == "VocabularyView") == vocabularyView;
+                b.Background = selected ? Brushes.White : Brushes.Transparent;
+                b.Foreground = selected ? ink : muted;
+                b.Effect = selected ? raised : null;
+            }
+            DataGrid grid = F<DataGrid>("WordsGrid");
+            System.Collections.IList items;
+            if (vocabularyView)
+            {
+                items = VisibleVocabulary();
+                ((DataGridTextColumn)grid.Columns[2]).Binding = new System.Windows.Data.Binding("Lookups");
+                F<TextBlock>("SummaryEmpty").Text = store.Data.Vocabulary.Count == 0 ? "查过的单词会自动收入生词本。" : "没有匹配的单词。";
+                F<TextBlock>("SummaryDate").Text = "";
+            }
+            else
+            {
+                items = displayedSession.Words;
+                ((DataGridTextColumn)grid.Columns[2]).Binding = new System.Windows.Data.Binding("Copies");
+                F<TextBlock>("SummaryEmpty").Text = "计时中复制英文单词，即可加入词表。";
+                F<TextBlock>("SummaryDate").Text = displayedSession == activeSession ? "" : displayedSession.StartedAt.ToString("MM-dd HH:mm");
+            }
+            F<Grid>("SearchRow").Visibility = vocabularyView && store.Data.Vocabulary.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            F<TextBlock>("SearchHint").Visibility = F<TextBox>("SearchBox").Text.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
+            grid.ItemsSource = null;
+            grid.ItemsSource = items;
+            grid.Visibility = items.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            F<TextBlock>("SummaryEmpty").Visibility = items.Count > 0 ? Visibility.Collapsed : Visibility.Visible;
+            F<Button>("CopyWords").IsEnabled = items.Count > 0;
+            ShowExportStatus("");
+        }
+        private List<VocabularyRecord> VisibleVocabulary()
+        {
+            string query = F<TextBox>("SearchBox").Text.Trim();
+            return store.Data.Vocabulary
+                .Where(v => query.Length == 0 || v.Word.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0 || (v.Meaning ?? "").Contains(query))
+                .OrderByDescending(v => v.LastSeen).ToList();
+        }
+        private List<string> ShownWords()
+        {
+            if (vocabularyView) return VisibleVocabulary().Select(v => v.Word).ToList();
+            return displayedSession == null ? new List<string>() : displayedSession.Words.Select(w => w.Word).ToList();
+        }
+        private void ForgetSelected()
+        {
+            VocabularyRecord entry = F<DataGrid>("WordsGrid").SelectedItem as VocabularyRecord;
+            if (entry == null || !store.Data.Forget(entry.Word)) return;
+            Save(); ExportVocabulary(); RefreshSummary();
+        }
+        private void ExportVocabulary()
+        {
+            try { WordExport.ExportVocabulary(store.Data.Vocabulary, exportRoot); vocabularyFolder = exportRoot; }
+            catch
+            {
+                string fallback = System.IO.Path.Combine(Preferences.Folder, "词表");
+                try { WordExport.ExportVocabulary(store.Data.Vocabulary, fallback); vocabularyFolder = fallback; }
+                catch { vocabularyFolder = null; }
+            }
         }
         private void Paint()
         {

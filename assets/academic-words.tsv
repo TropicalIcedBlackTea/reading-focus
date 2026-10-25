@@ -19,6 +19,7 @@ abound	v. 大量存在；充满
 above-mentioned	adj. 上述的；上面提到的
 abrupt	adj. 突然的；陡峭的
 abruptly	adv. 突然地；急剧地
+ABS	abbr. 资产支持证券
 abscissa	n. 横坐标
 absence	n. 缺乏；缺席；不存在
 absent	adj. 缺席的；不存在的；缺乏的 prep. 在没有…的情况下
@@ -83,6 +84,7 @@ achievement	n. 成就；成绩；实现
 acknowledge	v. 承认；致谢；确认
 acknowledgment	n. 承认；致谢；确认
 acquaintance	n. 熟人；了解
+acqui-hire	n. 人才收购 v. 以收购获取人才
 acquiescence	n. 默许；默认；顺从
 acquire	v. 获得；收购；习得
 acquirer	n. 收购方；收购者
@@ -103,8 +105,10 @@ actuary	n. 精算师
 acute	adj. 严重的；急性的；敏锐的
 acutely	adv. 强烈地；敏锐地；严重地
 acyclic	adj. 无环的；非循环的
+acyclical	adj. 非周期性的；与周期无关的
 ad	n. 广告
 ad-hoc	adj. 临时的；特设的；专门的
+ad-valorem	adj. 从价的（税）
 adapt	v. 适应；改编；调整
 adaptability	n. 适应性；适应能力
 adaptation	n. 适应；改编；调适
@@ -114,6 +118,7 @@ addendum	n. 附录；补遗
 addiction	n. 成瘾；上瘾
 addictive	adj. 致瘾的；使人上瘾的
 additional	adj. 额外的；附加的
+additionality	n. 额外性（减排项目）
 additionally	adv. 此外；另外
 additive	adj. 可加的；加性的 n. 添加剂
 additivity	n. 可加性
@@ -192,6 +197,8 @@ aforementioned	adj. 上述的；前面提到的
 after-tax	adj. 税后的
 aftermath	n. 后果；余波；（事件）之后
 afterward	adv. 之后；后来
+age-period-cohort	adj. 年龄—时期—队列的
+ageing	n. 老龄化；老化
 agency	n. 机构；代理；能动性
 agenda	n. 议程；日程；研究议程
 agent	n. 代理人；行为主体；经济主体；作用物
@@ -217,7 +224,9 @@ AIC	abbr. 赤池信息准则
 aid	n. 援助；帮助；辅助工具 v. 援助；帮助
 ailing	adj. 陷入困境的；生病的
 aim	n. 目标；目的 v. 旨在；瞄准
+AIPW	abbr. 增广逆概率加权
 akin	adj. 类似的；同类的
+AKM	abbr. 工人—企业双向固定效应工资模型
 alarming	adj. 惊人的；令人担忧的
 albeit	conj. 尽管；虽然
 algebra	n. 代数；代数学
@@ -228,6 +237,7 @@ alienation	n. 疏离；异化
 align	v. 使一致；对齐；结盟
 alignment	n. 一致；对齐；结盟
 alike	adv. 同样地；相似地 adj. 相似的
+all-pay	adj. 全支付的（拍卖）
 allegation	n. 指控；断言
 allege	v. 声称；指控
 allegedly	adv. 据称；据说
@@ -255,6 +265,7 @@ altruism	n. 利他主义；利他行为
 altruistic	adj. 利他的
 alumni	n. 校友（alumnus 的复数）
 alumnus	n. 校友；毕业生
+always-taker	n. 永远接受者（工具变量框架）
 amass	v. 积累；聚集
 ambidexterity	n. 双元性；双元能力
 ambidextrous	adj. 双元的；左右手都灵巧的
@@ -300,6 +311,7 @@ anchor	n. 锚；支柱 v. 锚定；固定
 anchoring	n. 锚定；锚定效应
 ancillary	adj. 辅助的；附属的
 ANCOVA	abbr. 协方差分析
+anderson-rubin	adj. 安德森—鲁宾（检验）的
 anecdotal	adj. 轶事的；传闻的；非系统性的
 anecdotally	adv. 据传闻；从个案来看
 anecdote	n. 轶事；趣闻
@@ -311,6 +323,8 @@ announcement	n. 公告；宣布
 annual	adj. 年度的；每年的
 annualize	v. 年化；按年计算
 annually	adv. 每年；按年
+annuitization	n. 年金化
+annuitize	v. 年金化
 annuity	n. 年金
 anomalous	adj. 异常的；反常的
 anomaly	n. 异常；反常现象；异象
@@ -327,6 +341,7 @@ anthropologist	n. 人类学家
 anthropology	n. 人类学
 anti-corruption	adj. 反腐败的
 anti-dumping	adj. 反倾销的
+anti-takeover	adj. 反收购的
 anticipate	v. 预期；预料；预见
 anticipation	n. 预期；预料
 anticipatory	adj. 预期的；预见性的
@@ -384,9 +399,13 @@ archetype	n. 原型；典型
 architecture	n. 架构；结构；建筑学
 archival	adj. 档案的
 archive	n. 档案；档案馆 v. 存档；归档
+arcsinh	n. 反双曲正弦（函数）
 ARDL	abbr. 自回归分布滞后模型
 area	n. 领域；地区；面积
+arellano-bond	adj. 阿雷拉诺—邦德（估计量）的
 arena	n. 领域；舞台；竞技场
+argmax	n. 最大值点；使函数取最大值的自变量
+argmin	n. 最小值点；使函数取最小值的自变量
 arguable	adj. 有争议的；可论证的
 arguably	adv. 可以说；按理说
 argue	v. 认为；主张；论证；争论
@@ -401,6 +420,7 @@ arm	n. （试验）组；分支；手臂 v. 武装
 arm's-length	adj. 公平交易的；独立交易的；保持距离的
 ARMA	abbr. 自回归移动平均模型
 armed	adj. 武装的；持有武器的
+armington	adj. 阿明顿（假设、弹性）的
 arms	n. 武器；军备；军火
 arose	v. 出现；产生（arise 的过去式）
 arousal	n. 唤醒；激发
@@ -415,6 +435,7 @@ artifact	n. 人工制品；伪影；假象
 artificial	adj. 人工的；人为的
 artificially	adv. 人为地
 artisan	n. 工匠；手艺人
+as-if	adj. 仿佛的；近似（随机）的
 ascertain	v. 查明；确定
 ascertainment	n. 确定；查明；确认
 ascribe	v. 归因于；归咎于
@@ -458,7 +479,9 @@ asymptotically	adv. 渐近地
 asymptotics	n. 渐近理论；渐近性质
 asynchronous	adj. 异步的
 at-risk	adj. 有风险的；处于危险中的
+at-the-money	adj. 平值的（期权）
 ATE	abbr. 平均处理效应
+ATET	abbr. 处理组平均处理效应
 ATM	abbr. 自动取款机；平值（期权）
 atmospheric	adj. 大气的；氛围的
 atomistic	adj. 原子论的；原子式的；分散的
@@ -490,6 +513,7 @@ auditor	n. 审计师；审计员
 augment	v. 增加；扩充；增广
 augmentation	n. 增加；扩充；增强
 austerity	n. 紧缩；财政紧缩
+autarkic	adj. 自给自足的；闭关自守的
 autarky	n. 自给自足；闭关经济
 authentic	adj. 真实的；真正的
 authenticity	n. 真实性
@@ -553,8 +577,12 @@ bacteria	n. 细菌（bacterium 的复数）
 bacterium	n. 细菌
 bag-of-words	n. 词袋模型
 bagging	n. 装袋法；自助聚合法
+bail-in	n. 内部纾困；自救（债权人承担损失）
 bailout	n. 救助；紧急援助；纾困
 balance	n. 平衡；余额；差额 v. 平衡；权衡
+balance-of-payments	adj. 国际收支的
+balanced-growth	adj. 平衡增长（路径）的
+balassa-samuelson	adj. 巴拉萨—萨缪尔森（效应）的
 ballot	n. 选票；投票 v. 投票
 ban	n. 禁令 v. 禁止
 band	n. 带；区间；范围；乐队 v. 分组
@@ -572,14 +600,18 @@ barometer	n. 晴雨表；气压计
 barrel	n. 桶
 barrier	n. 障碍；壁垒
 barter	n. 易货贸易；物物交换 v. 以物易物
+bartik	adj. 巴蒂克（工具变量）的
 base	n. 基础；基数；基地；基期 v. 以…为基础
+basel	n. 巴塞尔（协议）
 baseline	n. 基准；基线；基期 adj. 基准的
 bases	n. 基础；基数（basis 或 base 的复数）
 basin	n. 盆地；流域
 basis	n. 基础；依据；基差；基
+basis-point	n. 基点 adj. 基点的
 basket	n. 篮子；一揽子（商品或货币）
 batch	n. 批次；一批
 battery	n. 电池；一组（测试）
+bayes-nash	adj. 贝叶斯纳什（均衡）的
 bayesian	adj. 贝叶斯的 n. 贝叶斯学派学者
 bear	v. 承担；承受；具有；生育 n. 熊；空头
 bearer	n. 持有人；承担者；持票人
@@ -595,6 +627,7 @@ behaviorally	adv. 行为上
 behaviorism	n. 行为主义
 belie	v. 掩饰；与…不符
 belief	n. 信念；信仰；看法
+bellman	adj. 贝尔曼（方程）的
 bellwether	n. 领头羊；风向标
 belonging	n. 归属感；所有物
 benchmark	n. 基准；标杆 v. 以…为基准比较；对标
@@ -603,13 +636,20 @@ beneficiary	n. 受益人；受益者
 benefit	n. 利益；好处；福利；收益 v. 受益；有益于
 benevolent	adj. 仁慈的；善意的
 benign	adj. 良性的；温和的；无害的
+BEPS	abbr. 税基侵蚀和利润转移
 bequest	n. 遗产；遗赠
+bertrand	adj. 伯特兰（竞争）的
 besides	adv. 此外 prep. 除…之外
 bespoke	adj. 定制的；量身定做的
+best-response	n. 最优反应 adj. 最优反应的
 bestow	v. 授予；给予
 beta	n. 贝塔系数；系统性风险系数；测试版
+beta-convergence	n. β收敛
 better-off	adj. 富裕的；境况较好的
 between-group	adj. 组间的
+between-subject	adj. 被试间的
+beveridge	adj. 贝弗里奇（曲线）的
+BHAR	abbr. 购买并持有超额收益
 biannual	adj. 一年两次的
 bias	n. 偏误；偏差；偏见 v. 使有偏差；使有偏见
 bias-corrected	adj. 偏误校正的
@@ -618,11 +658,15 @@ BIC	abbr. 贝叶斯信息准则
 bicameral	adj. 两院制的
 bid	n. 出价；投标；竞标 v. 出价；投标
 bid-ask	adj. 买卖报价的
+bid-rent	adj. 竞租（曲线）的
+bid-rigging	n. 串通投标；围标
 bidder	n. 投标人；竞拍者
 bidding	n. 投标；竞价
 bidirectional	adj. 双向的
 biennial	adj. 两年一次的
 bifurcation	n. 分岔；分歧
+big-push	adj. 大推进（理论）的
+bigtech	n. 大型科技公司
 bilateral	adj. 双边的；双方的
 bilaterally	adv. 双边地
 bilinear	adj. 双线性的
@@ -650,6 +694,7 @@ bipolar	adj. 两极的；双相的
 birthrate	n. 出生率
 birthweight	n. 出生体重
 bivariate	adj. 二元的；双变量的
+black-scholes	adj. 布莱克—斯科尔斯（期权定价模型）的
 blanket	adj. 全面的；一揽子的 n. 毯子
 blatant	adj. 公然的；明显的
 bleak	adj. 暗淡的；严峻的
@@ -659,9 +704,11 @@ bloc	n. 集团；联盟
 block	n. 区块；区组；街区；集团 v. 阻止；阻碍
 blockchain	n. 区块链
 blockholder	n. 大股东；大宗持股者
+BLP	abbr. 贝里—莱文索恩—佩克斯随机系数需求模型
 blue-chip	adj. 蓝筹的；绩优的
 blue-collar	adj. 蓝领的；体力劳动的
 blueprint	n. 蓝图；规划
+blundell-bond	adj. 布伦德尔—邦德（估计量）的
 blunt	adj. 生硬的；直率的；钝的
 BMI	abbr. 身体质量指数
 board	n. 董事会；委员会；板 v. 登上
@@ -671,7 +718,9 @@ bold	adj. 大胆的；粗体的
 bolster	v. 支持；加强；巩固
 bond	n. 债券；纽带；联系 v. 结合；建立联系
 bondholder	n. 债券持有人
+bonferroni	adj. 邦费罗尼（校正）的
 bonus	n. 奖金；红利；额外好处
+book-building	n. 簿记建档；累计投标询价
 book-to-market	adj. 账面市值比的
 bookkeeping	n. 簿记；记账
 boom	n. 繁荣；激增 v. 迅速发展
@@ -692,6 +741,7 @@ boundary	n. 边界；界限
 bounded	adj. 有界的；有限的
 boxplot	n. 箱线图
 boycott	n. 抵制 v. 抵制
+bp	abbr. 基点
 bracket	n. 括号；档次；等级 v. 把…括起来；归为一类
 branch	n. 分支；分行；分部 v. 分岔
 brand	n. 品牌 v. 打上烙印；冠以
@@ -710,6 +760,7 @@ bribe	n. 贿赂 v. 贿赂；收买
 bribery	n. 贿赂；行贿
 brick-and-mortar	adj. 实体的；传统实体店的
 bricolage	n. 拼凑；即兴创作
+bride-price	n. 彩礼；聘礼
 bridge	n. 桥梁；纽带 v. 弥合；连接
 brief	adj. 简短的；短暂的 n. 简报；摘要 v. 向…简要介绍
 briefly	adv. 简要地；短暂地
@@ -727,6 +778,7 @@ bubble	n. 泡沫；气泡
 budget	n. 预算 v. 编制预算；规划
 budgetary	adj. 预算的
 buffer	n. 缓冲；缓冲区 v. 缓冲；减轻
+buffer-stock	adj. 缓冲存货（储蓄）的
 buildup	n. 积累；增加；集结
 built-in	adj. 内置的；固有的
 bulk	n. 大部分；大量；体积 adj. 大批的
@@ -743,18 +795,22 @@ bureaucracy	n. 官僚机构；官僚体制；官僚主义
 bureaucrat	n. 官僚；官员
 bureaucratic	adj. 官僚的；官僚主义的
 burgeoning	adj. 迅速发展的；新兴的
+burn-in	n. 预烧期（马尔可夫链）；老化期
 burnout	n. 职业倦怠；精疲力竭
 business	n. 企业；商业；业务
 bust	n. 萧条；破产 v. 破产；打破
+buy-side	adj. 买方的
 buyback	n. 回购
 buyer	n. 买方；买家
 buyout	n. 收购；买断
+BVAR	abbr. 贝叶斯向量自回归
 by-product	n. 副产品；附带结果
 bylaw	n. 章程；细则
 bypass	v. 绕过；规避 n. 旁路；支路
 byproduct	n. 副产品；附带结果
 bystander	n. 旁观者
 ca	abbr. 大约（circa 的缩写）
+CAAR	abbr. 累计平均超额收益
 cabinet	n. 内阁；柜子；橱柜
 cadre	n. 干部；骨干；骨干队伍
 CAGR	abbr. 年均复合增长率
@@ -767,6 +823,7 @@ calibration	n. 校准；（模型）参数校准；标定
 callable	adj. 可赎回的；可提前赎回的
 caloric	adj. 热量的；卡路里的
 calorie	n. 卡路里；热量；大卡
+calvo	adj. 卡尔沃（定价）的
 campaign	n. 运动；竞选活动；宣传活动；战役 v. 发起运动；参加竞选
 cancellation	n. 取消；注销；抵消
 candidacy	n. 候选资格；候选人身份
@@ -781,8 +838,11 @@ cap-and-trade	n. 总量管制与交易 adj. 总量管制与交易的
 capability	n. 能力；性能；才能
 capable	adj. 有能力的；能够的；有才能的
 capacity	n. 能力；容量；产能；身份
+capex	n. 资本支出
 capita	n. 人均（与 per 连用）；人；头
 capital	n. 资本；资金；首都；大写字母 adj. 资本的；主要的；死刑的
+capital-augmenting	adj. 资本增进型的
+capital-deepening	n. 资本深化 adj. 资本深化的
 capital-intensive	adj. 资本密集型的
 capitalism	n. 资本主义
 capitalist	n. 资本家；资本主义者 adj. 资本主义的
@@ -794,6 +854,7 @@ capricious	adj. 反复无常的；任性的
 caption	n. 标题；图注；说明文字
 captive	adj. 被俘的；受控制的；专属的 n. 俘虏
 capture	v. 刻画；捕捉；获取；俘获 n. 俘获；捕获；（监管）俘获
+CAR	abbr. 累计超额收益；资本充足率
 CARA	abbr. 常绝对风险厌恶
 carbon	n. 碳；碳排放
 carbon-neutral	adj. 碳中和的
@@ -801,11 +862,13 @@ cardinal	adj. 基数的；基本的；主要的 n. 基数；红衣主教
 cardinality	n. 基数；（集合的）势；元素个数
 cardiovascular	adj. 心血管的
 career	n. 职业；生涯；事业
+career-concerns	adj. 职业关注（模型）的
 caregiver	n. 照料者；护理人员；看护人
 caregiving	n. 照料；护理；看护
 caretaker	n. 看护者；看管人 adj. 临时的；看守的
 caricature	n. 漫画；讽刺画；夸张描述 v. 丑化；讽刺
 carrier	n. 承运人；载体；运营商；携带者
+carry-trade	n. 套息交易 adj. 套息交易的
 carryover	n. 结转；遗留效应；滞后效应
 cartel	n. 卡特尔；垄断联盟；同业联盟
 carve-out	n. 分拆上市；剥离；例外条款
@@ -887,8 +950,11 @@ cessation	n. 停止；中止；终止
 ceteris	adv. 其他条件不变地（与 paribus 连用）
 cf	abbr. 参见；比较
 CFO	abbr. 首席财务官
+CFPS	abbr. 中国家庭追踪调查
 CGE	abbr. 可计算一般均衡
+CGSS	abbr. 中国综合社会调查
 chain	n. 链；连锁；链条；系列 v. 链接；连接
+chain-weighted	adj. 链式加权的
 chair	n. 主席；系主任；椅子 v. 主持；担任主席
 chairman	n. 主席；董事长；会长
 chairperson	n. 主席；主持人
@@ -897,6 +963,7 @@ challenging	adj. 具有挑战性的；困难的
 chamber	n. 议院；会议室；室；腔
 champion	n. 拥护者；倡导者；冠军 v. 支持；倡导；拥护
 chancellor	n. 总理；（大学）校长；大臣
+changes-in-changes	n. 变化中的变化（模型） adj. 变化中的变化的
 channel	n. 渠道；途径；机制；频道 v. 引导；输送；传送
 chaos	n. 混乱；混沌
 chaotic	adj. 混乱的；混沌的
@@ -910,15 +977,18 @@ charisma	n. 魅力；感召力
 charismatic	adj. 有魅力的；有感召力的
 charitable	adj. 慈善的；宽厚的
 charity	n. 慈善；慈善机构；施舍
+CHARLS	abbr. 中国健康与养老追踪调查
 chart	n. 图表；海图 v. 绘制图表；记录；规划
 charter	n. 章程；宪章；特许状；包租 v. 特许；包租
 chasm	n. 鸿沟；裂口；分歧
 chatbot	n. 聊天机器人
+cheap-talk	n. 廉价谈话 adj. 廉价谈话的
 cheat	v. 欺骗；作弊 n. 骗子；作弊行为
 checklist	n. 检查表；清单
 checkpoint	n. 检查站；检查点
 chemical	adj. 化学的 n. 化学品；化学制品
 chemistry	n. 化学；化学性质；默契
+chengtou	n. 城投（公司）
 cherry-pick	v. 挑选有利的；择优挑选
 chi-square	n. 卡方；卡方统计量 adj. 卡方的
 chi-squared	adj. 卡方的
@@ -929,6 +999,7 @@ childbirth	n. 分娩；生产
 childcare	n. 托儿服务；儿童保育
 childless	adj. 无子女的
 childrearing	n. 养育子女；育儿
+cholesky	adj. 楚列斯基（分解）的
 chronic	adj. 慢性的；长期的；习惯性的
 chronically	adv. 长期地；慢性地
 chronicle	n. 编年史；记录 v. 记载；记录
@@ -940,6 +1011,7 @@ churn	n. 流失（率）；周转；搅动 v. 搅动；翻腾
 CI	abbr. 置信区间；可信区间
 CIA	abbr. 条件独立假设；中央情报局
 CIF	abbr. 到岸价；成本加保险费加运费
+CIP	abbr. 抛补利率平价
 circa	prep. 大约；约（用于年代）
 circuit	n. 电路；回路；巡回；巡回法院
 circuitous	adj. 迂回的；曲折的
@@ -989,6 +1061,7 @@ clerk	n. 职员；办事员；书记员
 client	n. 客户；委托人；当事人；客户端
 clientele	n. 客户群；顾客
 clientelism	n. 庇护主义；恩庇侍从主义
+clientelistic	adj. 庇护主义的；恩庇侍从的
 climate	n. 气候；风气；环境
 climatic	adj. 气候的
 climax	n. 高潮；顶点 v. 达到高潮
@@ -996,6 +1069,7 @@ clinic	n. 诊所；门诊
 clinical	adj. 临床的；冷静客观的
 clinically	adv. 临床上；冷静地
 clinician	n. 临床医生
+cliometric	adj. 计量史学的
 cliometrics	n. 计量历史学；计量经济史
 clique	n. 小集团；派系；（图论）团
 close-knit	adj. 紧密结合的；关系密切的
@@ -1006,6 +1080,7 @@ closure	n. 关闭；结束；闭包；终结
 clout	n. 影响力；势力
 CLT	abbr. 中心极限定理
 cluster	n. 聚类；群；集群；簇 v. 聚集；聚类
+cluster-randomized	adj. 整群随机的
 cluster-robust	adj. 聚类稳健的
 clustered	adj. 聚类的；成群的；按群聚集的
 clustering	n. 聚类；聚集；集群
@@ -1022,13 +1097,16 @@ co-occurrence	n. 共现；同时出现
 co-opt	v. 拉拢；吸纳；增选
 co-optation	n. 拉拢；吸纳；增选
 coaching	n. 辅导；教练指导；培训
+coagglomeration	n. 协同集聚
 coal	n. 煤；煤炭
 coalesce	v. 合并；联合；聚合
 coalition	n. 联盟；联合政府；同盟
 coarse	adj. 粗糙的；粗略的；粗粒度的
 coarsen	v. 粗化；使变粗
+coasean	adj. 科斯的；科斯式的
 coastal	adj. 沿海的；海岸的
 coauthor	n. 合著者；共同作者 v. 合著
+cobb-douglas	adj. 柯布—道格拉斯（函数）的
 cobweb	n. 蛛网；蛛网模型
 code	n. 代码；编码；法规；准则 v. 编码；编程
 codebook	n. 编码手册；码本
@@ -1088,6 +1166,7 @@ collectivist	adj. 集体主义的 n. 集体主义者
 collectivization	n. 集体化
 collegial	adj. 同僚的；平等协作的
 collegiate	adj. 大学的；学院的
+collider	n. 对撞因子；碰撞节点（因果图）
 collinear	adj. 共线的
 collinearity	n. 共线性
 collision	n. 碰撞；冲突
@@ -1128,8 +1207,11 @@ commit	v. 承诺；犯（罪）；致力于；投入
 commitment	n. 承诺；投入；致力；义务
 committee	n. 委员会
 commodification	n. 商品化
+commoditization	n. 商品化；同质化
 commodity	n. 商品；大宗商品；货物
 common-law	adj. 普通法的；习惯法的；事实婚姻的
+common-pool	adj. 公共池塘（资源）的
+common-value	adj. 共同价值的（拍卖）
 commonality	n. 共性；共同点
 commonly	adv. 通常地；普遍地
 commonplace	adj. 普通的；常见的 n. 平常的事；老生常谈
@@ -1148,10 +1230,12 @@ communitarian	adj. 社群主义的 n. 社群主义者
 communitarianism	n. 社群主义
 community	n. 社区；社群；团体；共同体
 community-based	adj. 基于社区的；社区主导的
+community-driven	adj. 社区主导的
 commutative	adj. 可交换的；交换律的
 commute	v. 通勤；减刑；交换 n. 通勤
 commuter	n. 通勤者
 commuting	n. 通勤
+commuting-zone	n. 通勤区 adj. 通勤区的
 comorbid	adj. 共病的；合并的
 comorbidity	n. 共病；合并症
 comovement	n. 联动；协同变动
@@ -1161,6 +1245,7 @@ comparability	n. 可比性
 comparable	adj. 可比的；类似的；相当的
 comparably	adv. 可比地；相当地
 comparative	adj. 比较的；相对的 n. 比较级
+comparative-static	adj. 比较静态的
 comparatively	adv. 比较地；相对地
 comparator	n. 对照组；比较对象；比较器
 comparison	n. 比较；对比
@@ -1181,6 +1266,7 @@ competence	n. 能力；胜任；权限
 competency	n. 能力；胜任力
 competent	adj. 有能力的；胜任的；有资格的
 competing	adj. 相互竞争的；对立的；相互冲突的
+competing-risks	adj. 竞争风险的
 competition	n. 竞争；比赛
 competitive	adj. 竞争的；有竞争力的；竞争性的
 competitively	adv. 有竞争力地；竞争性地
@@ -1226,6 +1312,7 @@ comprise	v. 包括；由……组成；构成
 compromise	n. 妥协；折中 v. 妥协；危及；损害
 compulsion	n. 强迫；强制；冲动
 compulsory	adj. 义务的；强制的；必修的
+compustat	n. 标普公司财务数据库
 computable	adj. 可计算的
 computation	n. 计算；运算
 computational	adj. 计算的；计算机的
@@ -1235,6 +1322,7 @@ computerize	v. 使计算机化
 computerized	adj. 计算机化的；电脑化的
 computing	n. 计算；计算机技术
 concave	adj. 凹的；凹函数的
+concavification	n. 凹化；凹包络
 concavity	n. 凹性；凹度
 conceal	v. 隐藏；隐瞒
 concede	v. 承认；让步；让与
@@ -1341,6 +1429,7 @@ conjugate	adj. 共轭的；成对的 n. 共轭 v. 结合；（动词）变位
 conjunction	n. 结合；同时发生；连词
 conjunctive	adj. 联合的；合取的；连接的
 conjuncture	n. 局势；时机；关头
+conley	adj. 康利（空间相关稳健标准误）的
 connectedness	n. 关联性；连通性；联结感
 connection	n. 联系；连接；关系；人脉
 connectivity	n. 连通性；连接性
@@ -1389,6 +1478,7 @@ conspicuously	adv. 显眼地；显著地
 conspiracy	n. 阴谋；密谋；共谋
 constancy	n. 恒定；稳定性；不变性
 constant	adj. 不变的；恒定的；持续的 n. 常数；常量；常数项
+constant-returns	adj. 规模报酬不变的
 constantly	adv. 不断地；经常地
 constellation	n. 星座；一系列；组合
 constituency	n. 选区；选民；支持者群体
@@ -1426,6 +1516,7 @@ containment	n. 遏制；控制；牵制
 contaminant	n. 污染物
 contaminate	v. 污染；弄脏
 contamination	n. 污染；混杂；沾染
+contango	n. 期货升水；正向市场
 contemplate	v. 考虑；沉思；打算
 contemplation	n. 沉思；深思；考虑
 contemporaneous	adj. 同期的；同时期的；当期的
@@ -1451,6 +1542,7 @@ continent	n. 大陆；洲
 continental	adj. 大陆的；欧洲大陆的
 contingency	n. 意外事件；偶然性；列联；或有事项
 contingent	adj. 视……而定的；偶然的；或有的 n. 分遣队；代表团
+contingent-valuation	adj. 条件价值（评估法）的
 continua	n. 连续体（continuum 的复数）
 continual	adj. 不断的；频繁的
 continually	adv. 不断地；频繁地
@@ -1463,6 +1555,7 @@ contour	n. 轮廓；等高线；等值线 v. 画轮廓
 contraception	n. 避孕
 contraceptive	n. 避孕药；避孕用具 adj. 避孕的
 contract	n. 合同；契约；合约 v. 收缩；签订合同；感染
+contractible	adj. 可缔约的；可写入合同的
 contraction	n. 收缩；紧缩；萎缩；压缩
 contractionary	adj. 紧缩的；紧缩性的
 contractor	n. 承包商；订约人
@@ -1485,6 +1578,7 @@ contributor	n. 贡献者；促成因素；捐助者；撰稿人
 contributory	adj. 促成的；起作用的；缴费的
 contrived	adj. 人为的；不自然的；牵强的
 control	n. 控制；对照；控制变量 v. 控制；控制住（变量）；管理
+control-function	n. 控制函数 adj. 控制函数（法）的
 controllable	adj. 可控的
 controller	n. 控制者；审计主管；控制器
 controlling	adj. 控股的；控制的
@@ -1530,6 +1624,7 @@ coordinate	v. 协调；配合 n. 坐标 adj. 同等的；并列的
 coordinated	adj. 协调的；协同的
 coordination	n. 协调；配合；协作
 coordinator	n. 协调员；协调人
+copay	n. 共付额；自付费用
 copayment	n. 共付额；自付费用
 cope	v. 应对；处理；对付
 copious	adj. 大量的；丰富的
@@ -1576,6 +1671,8 @@ cosmopolitan	adj. 世界性的；国际化的 n. 世界主义者
 cost-benefit	adj. 成本收益的；成本效益的
 cost-effective	adj. 成本效益高的；划算的
 cost-effectiveness	n. 成本效益
+cost-of-living	adj. 生活成本的
+cost-plus	adj. 成本加成的
 cost-push	adj. 成本推动的
 cost-saving	adj. 节约成本的
 cost-sharing	n. 费用分担；成本分摊 adj. 费用分担的
@@ -1595,6 +1692,7 @@ counteract	v. 抵消；抵制；中和
 counterargument	n. 反驳论点；反论
 counterbalance	v. 平衡；抵消 n. 平衡力；抵消因素
 countercyclical	adj. 逆周期的；反周期的
+countercyclicality	n. 逆周期性
 counterexample	n. 反例
 counterfactual	adj. 反事实的 n. 反事实；反事实情形
 counterfeit	adj. 伪造的；假冒的 n. 赝品；伪造品 v. 伪造
@@ -1614,6 +1712,7 @@ couple	n. 夫妇；一对 v. 结合；联系；耦合
 coupled	adj. 耦合的；结合的
 coupling	n. 耦合；联结
 coupon	n. 息票；票息；优惠券
+cournot	adj. 古诺（竞争）的
 coursework	n. 课程作业
 court	n. 法院；法庭；宫廷 v. 追求；讨好
 covariance	n. 协方差
@@ -1621,6 +1720,7 @@ covariate	n. 协变量
 covariation	n. 共变；协变
 covary	v. 共变；协同变化
 covenant	n. 契约；（债务）契约条款；盟约 v. 订立契约
+covenant-lite	adj. 弱契约的；低约束条款的（贷款）
 coverage	n. 覆盖范围；覆盖率；保险范围；报道
 covered	adj. 抛补的；有担保的；被覆盖的
 covert	adj. 隐蔽的；秘密的
@@ -1635,6 +1735,7 @@ craftsman	n. 工匠；手艺人
 crash	n. 崩盘；暴跌；碰撞；坠毁 v. 暴跌；崩溃；碰撞
 crawl	v. 爬取（网页）；爬行；缓慢行进 n. 爬行；缓慢行进
 crawler	n. 网络爬虫；爬行者
+cream-skimming	n. 撇脂；挑选优质客户
 creation	n. 创造；创建；创作
 creative	adj. 创造性的；有创意的
 creativity	n. 创造力；创造性
@@ -1695,11 +1796,15 @@ cross-validation	n. 交叉验证
 crossover	n. 交叉；交叉设计；跨界
 crossroads	n. 十字路口；关键时刻
 crowd	n. 人群；群众 v. 拥挤；挤满；挤出
+crowd-out	n. 挤出 v. 挤出
 crowdfunding	n. 众筹
 crowding	n. 拥挤；挤出（效应）
+crowding-in	n. 挤入（效应） adj. 挤入的
+crowding-out	n. 挤出（效应） adj. 挤出的
 crowdsourcing	n. 众包
 CRRA	abbr. 常相对风险厌恶
 CRS	abbr. 规模报酬不变
+CRSP	abbr. 证券价格研究中心（数据库）
 crucial	adj. 关键的；至关重要的
 crucially	adv. 关键地；至关重要地
 crude	adj. 粗略的；未加工的；粗糙的 n. 原油
@@ -1708,6 +1813,7 @@ crux	n. 关键；症结；难点
 cryptocurrency	n. 加密货币
 crystallize	v. 结晶；明确化；使具体化
 CSR	abbr. 企业社会责任
+CSRC	abbr. 中国证券监督管理委员会
 CTO	abbr. 首席技术官
 cubic	adj. 立方的；三次的
 cue	n. 线索；提示；暗示 v. 提示
@@ -1769,6 +1875,8 @@ cyclicality	n. 周期性
 cyclically	adv. 周期性地
 cynical	adj. 愤世嫉俗的；怀疑的
 cynicism	n. 犬儒主义；怀疑态度
+CZ	abbr. 通勤区
+d-separation	n. d分离
 damage	n. 损害；损失 v. 损害
 damages	n. 损害赔偿金
 data	n. 数据；资料（datum 的复数）
@@ -1776,6 +1884,9 @@ database	n. 数据库
 dataset	n. 数据集
 datum	n. 数据；资料
 DD	abbr. 双重差分
+DDD	abbr. 三重差分
+de-anchoring	n. 脱锚（通胀预期）
+de-risking	n. 去风险化 adj. 去风险的
 deadline	n. 截止日期
 deadweight	n. 无谓损失 adj. 无谓的
 dealer	n. 交易商；经销商
@@ -1783,9 +1894,14 @@ dearth	n. 缺乏；不足
 debatable	adj. 有争议的；可商榷的
 debate	n. 争论；辩论 v. 辩论；讨论
 debenture	n. 债券；信用债
+debiased	adj. 去偏的；纠偏的
+debiasing	n. 去偏；纠偏
 debt	n. 债务；欠款
+debt-for-equity	adj. 债转股的
+debt-overhang	n. 债务积压；债务悬置 adj. 债务积压的
 debtor	n. 债务人
 decade	n. 十年
+decarbonization	n. 脱碳
 decay	n. 衰减；衰退 v. 衰减；衰退
 decentralization	n. 分权；去中心化
 decentralize	v. 分权；分散
@@ -1800,11 +1916,15 @@ declare	v. 宣布；声明
 decline	v. 下降；衰退；拒绝 n. 下降；衰退
 decompose	v. 分解
 decomposition	n. 分解
+decoupling	n. 脱钩；解耦
 decrease	v. 减少；下降 n. 减少
 decreasing	adj. 递减的
+decreasing-returns	adj. 规模报酬递减的
 dedicate	v. 致力于；专门用于
+dedollarization	n. 去美元化
 deduce	v. 推断；演绎
 deduct	v. 扣除；减去
+deductibility	n. 可抵扣性；可扣除性
 deductible	adj. 可扣除的 n. 免赔额
 deduction	n. 扣除；减免；演绎推理
 deductive	adj. 演绎的
@@ -1817,10 +1937,14 @@ defense	n. 国防；防御；辩护
 defer	v. 推迟；延期
 deferral	n. 递延；推迟
 deferred	adj. 递延的；延期的
+deferred-acceptance	adj. 延迟接受（算法）的
 deficiency	n. 缺乏；不足；缺陷
 deficient	adj. 不足的；有缺陷的
 deficit	n. 赤字；逆差；不足
+defier	n. 违抗者（工具变量框架）；反抗者
 define	v. 定义；界定
+defined-benefit	adj. 待遇确定型的
+defined-contribution	adj. 缴费确定型的
 definite	adj. 确定的；明确的；（矩阵）定的
 definitely	adv. 肯定地；明确地
 definition	n. 定义；清晰度
@@ -1828,10 +1952,13 @@ definitional	adj. 定义的
 definitive	adj. 最终的；权威的
 deflate	v. 平减；紧缩；使缩小
 deflation	n. 通货紧缩
+deflationary	adj. 通货紧缩的
 deflator	n. 平减指数
 degenerate	adj. 退化的 v. 退化
+deglobalization	n. 逆全球化；去全球化
 degradation	n. 退化；恶化
 degree	n. 程度；学位；度
+deindustrialization	n. 去工业化
 delay	v. 推迟；延误 n. 延迟
 delegate	v. 委托；授权 n. 代表
 delegation	n. 授权；代表团
@@ -1845,7 +1972,9 @@ delineate	v. 描绘；界定；勾勒
 delinquency	n. 拖欠；违约；犯罪
 deliver	v. 交付；提供；实现
 delivery	n. 交付；提供；递送
+delphic	adj. 德尔斐式的（预测型前瞻指引）；晦涩的
 demand	n. 需求；要求 v. 要求；需要
+demand-pull	adj. 需求拉动的
 demean	v. 去均值；贬低
 democracy	n. 民主；民主国家
 democratic	adj. 民主的
@@ -1853,6 +1982,7 @@ democratization	n. 民主化
 demographic	adj. 人口统计的；人口的 n. 人口群体
 demographics	n. 人口统计特征
 demography	n. 人口学；人口统计
+demonetization	n. 废钞；非货币化
 demonstrably	adv. 可证明地；明显地
 demonstrate	v. 证明；展示；表明
 demonstration	n. 证明；示范；示威
@@ -1892,12 +2022,15 @@ descendant	n. 后代；后裔
 describe	v. 描述；描绘
 description	n. 描述；说明
 descriptive	adj. 描述性的
+deseasonalize	v. 剔除季节性；季节调整
 deserve	v. 值得；应得
 design	n. 设计；研究设计 v. 设计；计划
+design-based	adj. 基于设计的（推断）
 designate	v. 指定；标明
 designation	n. 指定；名称
 desirable	adj. 可取的；理想的
 desire	n. 愿望；欲望 v. 渴望
+deskilling	n. 去技能化
 despite	prep. 尽管
 detail	n. 细节 v. 详述
 detailed	adj. 详细的
@@ -1906,6 +2039,7 @@ detection	n. 检测；发现
 deter	v. 威慑；阻止
 deteriorate	v. 恶化；变坏
 deterioration	n. 恶化；退化
+determinacy	n. 确定性；均衡唯一性
 determinant	n. 决定因素；行列式
 determination	n. 决定；测定；决心
 determine	v. 决定；确定；测定
@@ -1915,6 +2049,7 @@ deterrent	n. 威慑因素 adj. 威慑的
 detract	v. 减损；贬低
 detrend	v. 去趋势
 detrimental	adj. 有害的；不利的
+deunionization	n. 去工会化
 devaluation	n. 贬值
 devalue	v. 使贬值；贬低
 devastating	adj. 毁灭性的
@@ -1929,6 +2064,7 @@ device	n. 装置；设备；手段
 devise	v. 设计；想出
 devolution	n. 权力下放
 devote	v. 致力于；投入
+deworming	n. 驱虫
 DGP	abbr. 数据生成过程
 diagnose	v. 诊断
 diagnosis	n. 诊断
@@ -1946,7 +2082,10 @@ DID	abbr. 双重差分法
 diet	n. 饮食；膳食
 differ	v. 不同；相异
 difference	n. 差异；差分；差额
+difference-in-difference	n. 双重差分 adj. 双重差分的
 difference-in-differences	n. 双重差分法
+difference-stationary	adj. 差分平稳的
+differentiable	adj. 可微的
 differential	adj. 差别的；微分的 n. 差异；差额；微分
 differentially	adv. 差别地；不同地
 differentiate	v. 区分；求导；使有差异
@@ -1996,6 +2135,7 @@ discover	v. 发现
 discovery	n. 发现
 discrepancy	n. 差异；不一致
 discrete	adj. 离散的；独立的
+discrete-choice	adj. 离散选择的
 discretion	n. 自由裁量权；酌情处理
 discretionary	adj. 相机抉择的；可自由支配的
 discriminate	v. 歧视；区分
@@ -2007,6 +2147,8 @@ disentangle	v. 分离；理清
 disequilibrium	n. 失衡；不均衡
 disincentive	n. 抑制因素；负激励
 disinflation	n. 通货膨胀放缓
+disinflationary	adj. 反通胀的；通胀放缓的
+disintermediation	n. 脱媒；去中介化
 dismantle	v. 拆除；废除
 dismiss	v. 驳回；解雇；不予考虑
 disorder	n. 障碍；失调；混乱
@@ -2034,6 +2176,8 @@ dissimilar	adj. 不同的；不相似的
 dissolve	v. 解散；溶解
 distal	adj. 远端的
 distance	n. 距离
+distance-to-default	n. 违约距离
+distance-to-frontier	n. 距前沿距离 adj. 距前沿距离的
 distant	adj. 遥远的；远的
 distinct	adj. 不同的；明显的
 distinction	n. 区别；差别；荣誉
@@ -2062,10 +2206,13 @@ divestiture	n. 剥离；资产出售
 divide	v. 划分；分开；除
 dividend	n. 股息；红利
 division	n. 分工；部门；除法；分歧
+DMP	abbr. 戴蒙德—莫滕森—皮萨里德斯搜寻匹配模型
+do-calculus	n. 干预演算
 doctoral	adj. 博士的
 doctrine	n. 学说；原则；教义
 document	n. 文件；文献 v. 记录；证明
 documentation	n. 文件；记录；文档
+dollarization	n. 美元化
 domain	n. 领域；定义域；范围
 domestic	adj. 国内的；家庭的
 domestically	adv. 在国内
@@ -2075,12 +2222,16 @@ dominate	v. 支配；占主导地位
 donation	n. 捐赠；捐款
 donor	n. 捐赠者；援助国
 dose	n. 剂量
+dose-response	adj. 剂量—反应的
 double-blind	adj. 双盲的
+doubly-robust	adj. 双重稳健的
 doubt	n. 怀疑 v. 怀疑
+dovish	adj. 鸽派的
 downgrade	v. 降级 n. 降级
 downside	n. 不利方面；下行风险
 downsizing	n. 裁员；缩减规模
 downstream	adj. 下游的
+downstreamness	n. 下游度
 downturn	n. 低迷；衰退
 downward	adj. 向下的；下降的 adv. 向下
 draft	n. 草稿；初稿 v. 起草
@@ -2096,6 +2247,9 @@ drought	n. 干旱
 drug	n. 药物；毒品
 DSGE	abbr. 动态随机一般均衡
 dual	adj. 双重的；对偶的
+dual-class	adj. 双重股权的
+dual-track	adj. 双轨（制）的
+dual-use	adj. 军民两用的
 duality	n. 对偶性；二元性
 dubious	adj. 可疑的；不确定的
 due	adj. 由于；到期的；应付的
@@ -2104,7 +2258,9 @@ duopoly	n. 双头垄断
 duplicate	v. 复制；重复 n. 副本 adj. 重复的
 durable	adj. 耐用的；持久的 n. 耐用品
 duration	n. 持续时间；久期
+DUVOL	abbr. 收益上下波动比率（股价崩盘风险）
 dwelling	n. 住宅；住所
+DWL	abbr. 无谓损失；净损失
 dyad	n. 二元组；双人组
 dyadic	adj. 二元的；双边的
 dynamic	adj. 动态的 n. 动态；动力
@@ -2116,7 +2272,10 @@ earn	v. 赚取；获得；赢得
 earner	n. 收入者；挣钱者
 earnings	n. 收入；收益；盈利
 ease	v. 缓解；放宽 n. 容易；轻松
+eaton-kortum	adj. 伊顿—科图姆（模型）的
 EBITDA	abbr. 息税折旧摊销前利润
+ECB	abbr. 欧洲中央银行
+ECM	abbr. 误差修正模型
 ecological	adj. 生态的
 ecology	n. 生态；生态学
 econometric	adj. 计量经济的
@@ -2129,6 +2288,7 @@ economics	n. 经济学
 economist	n. 经济学家
 economy	n. 经济；经济体；节约
 ecosystem	n. 生态系统
+edgeworth	adj. 埃奇沃思（盒状图）的
 edit	v. 编辑
 edition	n. 版本
 editor	n. 编辑
@@ -2142,16 +2302,22 @@ effectively	adv. 有效地；实际上
 effectiveness	n. 有效性；效果
 efficacy	n. 功效；效力
 efficiency	n. 效率；有效性
+efficiency-wage	adj. 效率工资的
 efficient	adj. 有效率的；有效的
 efficiently	adv. 有效率地
 effort	n. 努力；精力
 egalitarian	adj. 平等主义的
 eigenvalue	n. 特征值
 eigenvector	n. 特征向量
+EIS	abbr. 跨期替代弹性
+EITC	abbr. 劳动所得税抵免
+EKC	abbr. 环境库兹涅茨曲线
 elaborate	adj. 详尽的；精心的 v. 详细说明
 elaboration	n. 详述；阐述
 elastic	adj. 有弹性的
+elastic-net	n. 弹性网 adj. 弹性网的
 elasticity	n. 弹性；弹性系数
+ELB	abbr. 有效利率下限
 elect	v. 选举；选择
 election	n. 选举
 electoral	adj. 选举的
@@ -2164,6 +2330,7 @@ elevate	v. 提高；提升
 elevated	adj. 升高的；较高的
 elevation	n. 海拔；提升
 elicit	v. 引出；诱发；获取
+elicitation	n. 诱导；引出（偏好、信念）
 eligibility	n. 资格；合格性
 eligible	adj. 有资格的；合格的
 eliminate	v. 消除；排除
@@ -2189,12 +2356,16 @@ emotional	adj. 情绪的；情感的
 empathy	n. 同理心；共情
 emphasis	n. 强调；重点
 emphasize	v. 强调
+empire-building	n. 帝国构建（管理层盲目扩张）
 empirical	adj. 实证的；经验的
+empirical-bayes	adj. 经验贝叶斯的
 empirically	adv. 实证地；经验上
 empiricism	n. 经验主义
 employ	v. 采用；雇用
+employability	n. 就业能力；可雇佣性
 employee	n. 雇员；员工
 employer	n. 雇主
+employer-employee	adj. 雇主—雇员（匹配数据）的
 employment	n. 就业；雇用
 empower	v. 赋权；使能够
 empowerment	n. 赋权；增权
@@ -2221,6 +2392,7 @@ enforce	v. 执行；实施；强制
 enforcement	n. 执行；实施
 engage	v. 参与；从事；吸引
 engagement	n. 参与；投入
+engel	adj. 恩格尔（曲线、定律）的
 engine	n. 引擎；动力
 engineer	n. 工程师 v. 设计；策划
 enhance	v. 提高；增强
@@ -2262,12 +2434,15 @@ episode	n. 时期；事件；插曲
 epistemic	adj. 认知的；知识的
 epistemology	n. 认识论
 EPS	abbr. 每股收益
+epstein-zin	adj. 爱泼斯坦—辛（偏好）的
 equal	adj. 相等的；平等的 v. 等于
 equality	n. 平等；相等
 equalization	n. 均等化
 equalize	v. 使相等；均等化
 equally	adv. 同等地；平均地
 equation	n. 方程；等式
+equilibrate	v. 使均衡；趋于均衡
+equilibriate	v. 使均衡；趋于均衡（equilibrate 的变体拼写）
 equilibrium	n. 均衡；平衡
 equip	v. 装备；使具备
 equipment	n. 设备；装备
@@ -2275,13 +2450,18 @@ equitable	adj. 公平的；公正的
 equity	n. 股权；权益；公平
 equivalence	n. 等价；等效
 equivalent	adj. 等价的；相当的 n. 等价物
+equivalized	adj. 等值化的（家庭收入）
 ergodic	adj. 遍历的
 erode	v. 侵蚀；削弱
 erosion	n. 侵蚀；削弱
+ERPT	abbr. 汇率传递
 erratic	adj. 不稳定的；无规律的
 erroneous	adj. 错误的
 error	n. 误差；错误
+error-correction	adj. 误差修正的
+errors-in-variables	n. 变量误差 adj. 变量含误差的
 escalate	v. 升级；加剧
+escape-competition	adj. 逃离竞争（效应）的
 ESG	abbr. 环境、社会和治理
 essay	n. 论文；短文
 essence	n. 本质；精髓
@@ -2290,6 +2470,7 @@ essentially	adv. 本质上；基本上
 establish	v. 建立；确立；证实
 establishment	n. 建立；机构；企业；当权派
 estate	n. 地产；遗产；财产
+estimable	adj. 可估计的
 estimand	n. 估计目标；被估量
 estimate	v. 估计；估算 n. 估计值；估算
 estimation	n. 估计；估算
@@ -2301,6 +2482,9 @@ ethnic	adj. 民族的；种族的
 ethnicity	n. 种族；民族
 ethnographic	adj. 民族志的
 ethnography	n. 民族志
+ETI	abbr. 应税收入弹性
+ETS	abbr. 排放交易体系
+euler	adj. 欧拉（方程、定理）的
 euro	n. 欧元
 evade	v. 逃避；规避
 evaluate	v. 评估；评价
@@ -2309,8 +2493,10 @@ evasion	n. 逃避；规避
 evenly	adv. 均匀地；平均地
 event	n. 事件
 event-study	adj. 事件研究的
+event-time	n. 事件时间 adj. 事件时间的
 eventual	adj. 最终的
 eventually	adv. 最终；终于
+evergreening	n. 借新还旧；贷款常青化（掩盖不良）
 eviction	n. 驱逐；强制迁出
 evidence	n. 证据；依据 v. 证明
 evident	adj. 明显的
@@ -2334,6 +2520,7 @@ excess	n. 过剩；超额 adj. 过量的；超额的
 excessive	adj. 过度的；过多的
 exchange	n. 交换；交易所；汇兑 v. 交换
 excise	n. 消费税；货物税
+excludability	n. 排他性
 excludable	adj. 排他的；可排除的
 exclude	v. 排除；不包括
 exclusion	n. 排除；排斥
@@ -2347,6 +2534,7 @@ exemption	n. 豁免；免税
 exercise	n. 练习；行使 v. 行使；锻炼
 exert	v. 施加；运用
 exhaust	v. 耗尽；穷尽
+exhaustible	adj. 可耗竭的
 exhaustive	adj. 详尽的；穷尽的
 exhibit	v. 表现出；展示 n. 展品；图表
 exist	v. 存在
@@ -2391,6 +2579,8 @@ exponent	n. 指数；倡导者
 exponential	adj. 指数的；指数级的
 exponentially	adv. 指数级地
 export	n. 出口；出口商品 v. 出口
+export-led	adj. 出口导向的；出口拉动的
+export-platform	adj. 出口平台型的（直接投资）
 exporter	n. 出口商；出口国
 expose	v. 暴露；揭露；使接触
 exposition	n. 阐述；博览会
@@ -2402,6 +2592,7 @@ extant	adj. 现存的；现有的
 extend	v. 扩展；延长
 extension	n. 扩展；延伸；延期
 extensive	adj. 广泛的；大量的；外延的
+extensive-margin	adj. 广延边际的；扩展边际的
 extensively	adv. 广泛地
 extent	n. 程度；范围
 external	adj. 外部的
@@ -2409,20 +2600,28 @@ externality	n. 外部性
 externally	adv. 外部地
 extract	v. 提取；摘录 n. 摘录
 extraction	n. 提取；开采
+extractive	adj. 攫取性的（制度）；采掘的
 extrapolate	v. 外推；推断
 extrapolation	n. 外推
+extrapolative	adj. 外推的（预期）
 extreme	adj. 极端的 n. 极端
+extreme-value	adj. 极值（分布）的
 extremely	adv. 极其
+extremum	n. 极值 adj. 极值的（估计量）
 extrinsic	adj. 外在的
+f-statistic	n. F统计量
+f-test	n. F检验
 facet	n. 方面；侧面；层面
 facilitate	v. 促进；便利；推动
 facilitation	n. 促进；便利化
 facilitator	n. 促进者；协调人；主持人
 facility	n. 设施；设备；（信贷）便利安排；能力
 factor	n. 因素；因子；要素；系数 v. 把…考虑在内；分解因数
+factor-augmenting	adj. 要素增进型的
 factorial	adj. 析因的；因子的；阶乘的 n. 阶乘
 factual	adj. 事实的；基于事实的；真实的
 faculty	n. 全体教员；院系；能力；才能
+fair-value	adj. 公允价值的
 fairly	adv. 相当；公平地；合理地
 fairness	n. 公平；公正；公平性
 fallacy	n. 谬误；谬论；错误观念
@@ -2430,6 +2629,8 @@ falsely	adv. 错误地；虚假地
 falsifiable	adj. 可证伪的
 falsification	n. 证伪；伪造；篡改
 falsify	v. 证伪；伪造；篡改
+fama-french	adj. 法玛—弗伦奇（因子模型）的
+fama-macbeth	adj. 法玛—麦克白（回归）的
 familial	adj. 家庭的；家族的；家族遗传的
 familiarity	n. 熟悉；熟悉程度；亲近
 famine	n. 饥荒；严重短缺
@@ -2444,6 +2645,7 @@ favorably	adv. 有利地；赞许地
 FDI	abbr. 外商直接投资；外国直接投资
 FDR	abbr. 错误发现率
 FE	abbr. 固定效应
+fear-of-floating	n. 浮动恐惧
 feasibility	n. 可行性
 feasible	adj. 可行的；可实现的
 feature	n. 特征；特点；特色 v. 以…为特色；包含；主演
@@ -2451,10 +2653,12 @@ federal	adj. 联邦的；联邦政府的
 federalism	n. 联邦制；联邦主义
 federation	n. 联邦；联合会
 fee	n. 费用；手续费；酬金
+fee-for-service	adj. 按服务付费的
 feedback	n. 反馈；反馈意见
 feminism	n. 女权主义；女性主义
 feminist	adj. 女权主义的 n. 女权主义者
 fertility	n. 生育率；生育能力；肥沃
+FEVD	abbr. 预测误差方差分解
 FGLS	abbr. 可行广义最小二乘法
 fiat	n. 法令；命令 adj. 法定的；信用的
 fidelity	n. 保真度；忠实；忠诚
@@ -2463,12 +2667,14 @@ field	n. 领域；田野；实地；字段 adj. 实地的；现场的
 fieldwork	n. 田野调查；实地考察；现场工作
 figure	n. 图；数字；人物；形状 v. 认为；计算；出现
 file	n. 文件；档案 v. 提交；提出（申请）；归档
+file-drawer	adj. 抽屉（问题、效应）的
 filter	v. 过滤；筛选 n. 过滤器；滤波器；筛选条件
 final	adj. 最终的；最后的；决定性的 n. 决赛；期末考试
 finalize	v. 最终确定；定稿；完成
 finally	adv. 最后；最终；终于
 finance	n. 金融；财政；资金 v. 为…提供资金；融资
 financial	adj. 金融的；财务的；财政的
+financialization	n. 金融化
 financially	adv. 财务上；在金融方面；经济上
 financier	n. 金融家；投资者；出资人
 financing	n. 融资；筹资；资金
@@ -2476,21 +2682,29 @@ finding	n. 研究发现；研究结果；裁决
 fine-grained	adj. 细粒度的；精细的
 fine-tune	v. 微调；调整
 finite	adj. 有限的；有穷的
+finite-population	adj. 有限总体的
 fintech	n. 金融科技
+fire-sale	n. 甩卖；廉价抛售 adj. 甩卖的
 firm	n. 企业；公司；厂商 adj. 坚定的；牢固的
 firm-specific	adj. 企业特有的；公司特定的
 firmly	adv. 坚定地；牢固地
 first-best	adj. 最优的 n. 最优解；最优状态
+first-degree	adj. 一级的（价格歧视）；一度的
+first-difference	n. 一阶差分 v. 一阶差分 adj. 一阶差分的
 first-mover	n. 先行者；先动者 adj. 先发的
 first-order	adj. 一阶的；首要的；最重要的
+first-price	adj. 第一价格的（拍卖）
 first-stage	adj. 第一阶段的
 firsthand	adj. 第一手的；直接的 adv. 直接地
 firstly	adv. 首先；第一
 fiscal	adj. 财政的；财务的；会计年度的
+fisher	n. 渔民 adj. 费雪（指数、方程、效应）的
 fit	v. 拟合；适合；符合 n. 拟合；拟合度；契合 adj. 合适的
 fitted	adj. 拟合的；合身的
 fixed	adj. 固定的；不变的；确定的
+fixed-effect	adj. 固定效应的
 fixed-income	adj. 固定收益的
+fixed-point	n. 不动点 adj. 不动点的
 flag	v. 标记；标出；指出 n. 标志；旗帜
 flaw	n. 缺陷；瑕疵；漏洞
 flawed	adj. 有缺陷的；有瑕疵的
@@ -2498,6 +2712,7 @@ flexibility	n. 灵活性；弹性；柔韧性
 flexible	adj. 灵活的；有弹性的；可变通的
 flexibly	adv. 灵活地
 flight	n. 外逃；逃离；飞行；航班
+flight-to-quality	n. 安全投资转移；资金避险 adj. 避险的
 float	v. 浮动；发行（股票）；漂浮 n. 浮动；流通股
 floating	adj. 浮动的；流动的
 flotation	n. 上市；（股票）发行；漂浮
@@ -2506,6 +2721,8 @@ flow	n. 流量；流动；流 v. 流动；流入
 fluctuate	v. 波动；涨落；起伏
 fluctuation	n. 波动；涨落；起伏
 flux	n. 不断变化；变动；通量
+flying-geese	adj. 雁行（模式）的
+flypaper	n. 粘蝇纸 adj. 粘蝇纸（效应）的
 FOC	abbr. 一阶条件
 focal	adj. 焦点的；核心的；重点关注的
 foci	n. 焦点；中心（focus 的复数）
@@ -2513,6 +2730,7 @@ focus	n. 焦点；重点；中心 v. 聚焦；集中；关注
 folk	adj. 民间的；通俗的；朴素的 n. 人们；民众
 follow-up	n. 后续；跟进；随访 adj. 后续的；跟踪的
 following	prep. 在…之后 adj. 以下的；接下来的 n. 以下内容；追随者
+FOMC	abbr. 联邦公开市场委员会
 forbearance	n. 宽容；监管宽容；（债务）延期偿付；克制
 forecast	v. 预测；预报 n. 预测；预测值
 forecaster	n. 预测者；预测机构
@@ -2562,6 +2780,7 @@ franchise	n. 特许经营；特许经营权；选举权 v. 授予特许经营权
 fraud	n. 欺诈；诈骗；舞弊
 fraudulent	adj. 欺诈的；欺骗性的
 fraught	adj. 充满…的；令人担忧的
+frechet	adj. 弗雷歇（分布）的
 free-market	adj. 自由市场的
 free-rider	n. 搭便车者
 free-riding	n. 搭便车；搭便车行为
@@ -2573,10 +2792,14 @@ frequently	adv. 频繁地；经常
 friction	n. 摩擦；阻力；冲突
 frictional	adj. 摩擦的；摩擦性的
 frictionless	adj. 无摩擦的
+friend-shoring	n. 友岸外包
 fringe	n. 边缘；外围 adj. 附加的；边缘的
+frisch	adj. 弗里希（弹性）的
+front-running	n. 抢先交易；抢跑
 frontier	n. 前沿；边界；边境
 fruitful	adj. 富有成效的；有成果的
 FTA	abbr. 自由贸易协定
+FTPL	abbr. 价格水平的财政理论
 fulfill	v. 履行；满足；实现
 function	n. 函数；功能；作用 v. 运行；起作用
 functional	adj. 功能的；函数的；实用的 n. 泛函
@@ -2597,9 +2820,11 @@ FX	abbr. 外汇
 GAAP	abbr. 公认会计原则
 gain	n. 收益；利得；增益 v. 获得；增加
 game-theoretic	adj. 博弈论的
+gaokao	n. 高考
 GARCH	abbr. 广义自回归条件异方差（模型）
 garner	v. 获得；收集；赢得
 gatekeeper	n. 把关人；守门人
+GATT	abbr. 关税及贸易总协定
 gauge	v. 衡量；评估；判断 n. 量规；标准；指标
 gaussian	adj. 高斯的；正态的
 GDP	abbr. 国内生产总值
@@ -2625,6 +2850,8 @@ genre	n. 体裁；类型；流派
 gentrification	n. 绅士化；中产阶级化
 genuine	adj. 真正的；真实的；真诚的
 genuinely	adv. 真正地；确实；真诚地
+geocoded	adj. 地理编码的
+geoeconomics	n. 地缘经济学
 geographic	adj. 地理的；地理学的
 geographical	adj. 地理的；地理学的
 geographically	adv. 地理上；在地理位置上
@@ -2633,6 +2860,9 @@ geopolitical	adj. 地缘政治的
 geospatial	adj. 地理空间的
 germane	adj. 密切相关的；贴切的
 gerrymandering	n. 不公正划分选区
+gibbs	adj. 吉布斯（抽样）的
+gibrat	adj. 吉布拉（定律）的
+giffen	adj. 吉芬（商品）的
 gig	n. 零工；临时工作
 gini	n. 基尼系数
 GIS	abbr. 地理信息系统
@@ -2649,6 +2879,9 @@ GMM	abbr. 广义矩估计
 GNI	abbr. 国民总收入
 GNP	abbr. 国民生产总值
 goal	n. 目标；目的
+going-concern	adj. 持续经营的
+golden-rule	adj. 黄金律的
+goodman-bacon	adj. 古德曼—培根（分解）的
 goodness	n. 优度；善良；优点
 goodness-of-fit	n. 拟合优度
 goods	n. 商品；货物；物品
@@ -2661,6 +2894,8 @@ grade	n. 等级；年级；成绩 v. 分等级；评分
 gradient	n. 梯度；坡度；变化率
 gradual	adj. 逐渐的；逐步的
 gradually	adv. 逐渐地；逐步地
+grandfathering	n. 祖父条款；按历史排放免费分配
+granger	adj. 格兰杰（因果）的
 grant	n. 拨款；资助金；补助金 v. 授予；准予；承认
 granted	conj. 诚然；即使 adj. 被授予的；理所当然的
 granular	adj. 细粒度的；颗粒状的；精细的
@@ -2670,9 +2905,12 @@ graphical	adj. 图形的；图表的；图示的
 grapple	v. 努力解决；应对；搏斗
 grassroots	adj. 基层的；草根的 n. 基层民众
 gravity	n. 引力；重力；严重性
+greedflation	n. 贪婪通胀；利润推动型通胀
 greenfield	adj. 新建的；绿地（投资）的
+greenwashing	n. 漂绿；洗绿
 grid	n. 网格；格点；电网
 gross	adj. 总的；毛的；严重的
+gross-substitute	n. 总替代品 adj. 总替代的
 groundbreaking	adj. 开创性的；突破性的
 grounded	adj. 有根据的；扎根的
 guanxi	n. 关系；人情关系网络
@@ -2685,12 +2923,16 @@ HAC	abbr. 异方差与自相关稳健（标准误）
 haircut	n. 估值折扣；（债务）减记；理发
 half-life	n. 半衰期
 hallmark	n. 标志；特征；特点
+hamiltonian	n. 哈密顿函数；汉密尔顿函数 adj. 哈密顿的
 hamper	v. 阻碍；妨碍
 hand-collected	adj. 手工收集的；人工整理的
+hand-to-mouth	adj. 勉强糊口的；即收即花的（无储蓄缓冲）
 hardship	n. 困难；艰难；困苦
 harmonization	n. 协调；统一化；一体化
 harmonize	v. 协调；使一致；统一
 harness	v. 利用；控制 n. 马具；挽具
+harrod-neutral	adj. 哈罗德中性的（技术进步）
+hawkish	adj. 鹰派的
 hazard	n. 风险；危险；危害；风险率
 hazardous	adj. 有害的；危险的
 headcount	n. 员工人数；人数统计
@@ -2698,33 +2940,45 @@ headline	adj. 整体的；总体的 n. 标题；头条
 heatmap	n. 热力图；热图
 heavily	adv. 严重地；大量地；在很大程度上
 heavy-tailed	adj. 厚尾的；重尾的
+heckit	n. 赫克曼两步法
+heckman	adj. 赫克曼（选择模型、两步法）的
+heckscher-ohlin	adj. 赫克歇尔—俄林（模型）的
 hedge	v. 对冲；套期保值；规避 n. 对冲；套期保值；树篱
 hedging	n. 对冲；套期保值；（语言的）模糊限制
 hedonic	adj. 享乐的；特征价格的
 hegemony	n. 霸权；领导权
 heighten	v. 提高；加强；增强
+hemicontinuous	adj. 半连续的（对应）
 hence	adv. 因此；所以；从此
 henceforth	adv. 此后；从今以后
 herding	n. 羊群效应；羊群行为；放牧
 hereafter	adv. 此后；下文中；以下
 hereby	adv. 特此；由此
 herein	adv. 在此；于此；在本文中
+herfindahl	adj. 赫芬达尔（指数）的
 heterodox	adj. 非正统的；异端的
 heterogeneity	n. 异质性；多样性
 heterogeneous	adj. 异质的；多样的；不均匀的
+heterogeneous-agent	adj. 异质性主体的
 heterogenous	adj. 异质的；多样的
 heteroscedastic	adj. 异方差的
 heteroscedasticity	n. 异方差；异方差性
 heteroskedastic	adj. 异方差的
 heteroskedasticity	n. 异方差；异方差性
+heteroskedasticity-robust	adj. 异方差稳健的
 heuristic	adj. 启发式的；探索性的 n. 启发法；经验法则
+HFT	abbr. 高频交易
 HHI	abbr. 赫芬达尔—赫希曼指数
+hicks-neutral	adj. 希克斯中性的（技术进步）
+hicksian	adj. 希克斯的；希克斯式的（补偿需求）
 hierarchical	adj. 分层的；层级的；等级制的
 hierarchy	n. 等级制度；层级；层次结构
 high-dimensional	adj. 高维的
 high-frequency	adj. 高频的
 high-income	adj. 高收入的
+high-powered	adj. 高能的（货币）；强力的（激励）
 high-skilled	adj. 高技能的
+high-yield	adj. 高收益的（债券）
 highlight	v. 强调；突出；凸显 n. 亮点；精彩部分
 highly	adv. 高度地；非常；极其
 hinder	v. 阻碍；妨碍
@@ -2737,12 +2991,14 @@ historically	adv. 历史上；从历史上看
 hitherto	adv. 迄今；至今
 HLM	abbr. 分层线性模型；多层线性模型
 hoarding	n. 囤积；贮藏
+hodrick-prescott	adj. 霍德里克—普雷斯科特（滤波）的
 hold	v. 成立；持有；认为；举行 n. 控制；持有
 hold-up	n. 敲竹杠；套牢；延误
 holder	n. 持有人；持有者
 holding	n. 持股；所持资产；控股；裁决
 holdout	n. 留出样本；拒不让步者
 holistic	adj. 整体的；全面的；整体论的
+hollowing-out	n. 空心化；中间层萎缩
 homeowner	n. 房主；业主
 homeownership	n. 住房自有；房屋所有权
 homogeneity	n. 同质性；均匀性；齐性
@@ -2753,14 +3009,18 @@ homoscedastic	adj. 同方差的
 homoscedasticity	n. 同方差；同方差性
 homoskedastic	adj. 同方差的
 homoskedasticity	n. 同方差；同方差性
-homothetic	adj. 位似的；同位相似的
+homothetic	adj. 位似的；齐次位似的（偏好、函数）
+homotheticity	n. 位似性；齐次位似性（偏好）
 horizon	n. 期限；时间跨度；视野；地平线
 horizontal	adj. 水平的；横向的
 horizontally	adv. 水平地；横向地
 hostile	adj. 敌意的；敌对的；不利的
+hotelling	adj. 霍特林（模型、法则）的
 household	n. 家庭；住户；户 adj. 家庭的
 housing	n. 住房；住宅；房地产
 however	adv. 然而；但是；无论如何 conj. 无论以何种方式
+HTE	abbr. 异质性处理效应
+huber-white	adj. 胡贝尔—怀特（稳健标准误）的
 hukou	n. 户口；户籍
 humanities	n. 人文学科
 hurdle	n. 障碍；门槛；跨栏
@@ -2769,6 +3029,7 @@ hyperbolic	adj. 双曲的；双曲线的；夸张的
 hyperinflation	n. 恶性通货膨胀
 hyperparameter	n. 超参数
 hyperplane	n. 超平面
+hyperprior	n. 超先验
 hypotheses	n. 假设；假说（hypothesis 的复数）
 hypothesis	n. 假设；假说
 hypothesize	v. 假设；假定；提出假说
@@ -2781,6 +3042,7 @@ ideal	adj. 理想的；完美的；观念的 n. 理想
 ideally	adv. 理想情况下；理想地
 identical	adj. 相同的；同一的；完全一样的
 identically	adv. 相同地；同样地
+identifiability	n. 可识别性
 identifiable	adj. 可识别的；可辨认的
 identification	n. 识别；鉴定；认同；身份证明
 identifier	n. 标识符；识别码；识别者
@@ -2791,9 +3053,14 @@ ideology	n. 意识形态；思想体系
 idiosyncrasy	n. 特质；特性；癖好
 idiosyncratic	adj. 特质的；个体特有的；特殊的
 idle	adj. 闲置的；空闲的；无所事事的
+IES	abbr. 跨期替代弹性
 IFRS	abbr. 国际财务报告准则
+IGE	abbr. 代际收入弹性
+ignorability	n. 可忽略性
+ignorable	adj. 可忽略的
 ignorance	n. 无知；不了解
 ignorant	adj. 无知的；不了解的
+IHS	abbr. 反双曲正弦变换
 IID	abbr. 独立同分布
 ill-defined	adj. 定义不清的；不明确的
 illegal	adj. 非法的；违法的
@@ -2811,6 +3078,7 @@ illustrative	adj. 说明性的；例证的；示意性的
 image	n. 形象；图像；印象
 imagery	n. 图像；影像；意象
 imbalance	n. 不平衡；失衡
+IMF	abbr. 国际货币基金组织
 imitation	n. 模仿；仿制；仿制品
 immigrant	n. 移民；外来移民 adj. 移民的
 immigrate	v. 移民；移居入境
@@ -2835,20 +3103,25 @@ implicit	adj. 隐含的；隐性的；内含的
 implicitly	adv. 隐含地；含蓄地
 implied	adj. 隐含的；暗含的；默示的
 imply	v. 意味着；暗示；蕴含
+import-competing	adj. 进口竞争的
+import-substitution	n. 进口替代 adj. 进口替代的
 importantly	adv. 重要的是；重要地
 importer	n. 进口商；进口国
 impose	v. 施加；强加；征收
 imposition	n. 施加；征收；强加
 imprecise	adj. 不精确的；不准确的
 impulse	n. 冲击；脉冲；冲动
+impulse-response	n. 脉冲响应 adj. 脉冲响应的
 imputation	n. 插补；填补；归责
 impute	v. 插补；估算；归因于
+IMR	abbr. 逆米尔斯比率；婴儿死亡率
 in-depth	adj. 深入的；详细的
 in-group	n. 内群体；圈内人
 in-house	adj. 内部的；机构内部的
 in-kind	adj. 实物的；以实物支付的
 in-person	adj. 面对面的；亲自的
 in-sample	adj. 样本内的
+in-the-money	adj. 实值的（期权）
 inadequate	adj. 不足的；不充分的；不适当的
 inadvertently	adv. 无意中；不经意地
 inasmuch	adv. 因为；由于；鉴于
@@ -2861,6 +3134,7 @@ inception	n. 开端；创始；成立
 incidence	n. 发生率；发病率；（税负）归宿；影响范围
 incident	n. 事件；事故
 incidental	adj. 附带的；偶然的；次要的
+incidental-parameters	adj. 伴生参数（问题）的
 incidentally	adv. 顺便提一下；附带地；偶然地
 inclination	n. 倾向；意愿；倾斜
 incline	v. 倾向于；使倾斜 n. 斜坡
@@ -2868,11 +3142,14 @@ inclusion	n. 包含；纳入；包容
 inclusive	adj. 包容的；包括的；普惠的
 income	n. 收入；所得；收益
 incompatible	adj. 不相容的；不兼容的
+incomplete-contracts	adj. 不完全合同（理论）的
+incomplete-markets	adj. 不完全市场的
 inconclusive	adj. 非决定性的；无定论的
 inconsistency	n. 不一致；不相容；矛盾
 inconsistent	adj. 不一致的；矛盾的；非一致的
 incorporate	v. 纳入；包含；合并；注册成立
 incorporation	n. 纳入；合并；公司注册
+increasing-returns	adj. 规模报酬递增的
 increasingly	adv. 越来越多地；日益
 increment	n. 增量；增加；增长
 incremental	adj. 增量的；递增的；渐进的
@@ -2887,6 +3164,7 @@ indefinitely	adv. 无限期地；无限地
 independence	n. 独立；独立性；自主
 independent	adj. 独立的；自主的；无关的
 independently	adv. 独立地；单独地
+indeterminacy	n. 不确定性；均衡不确定性
 indeterminate	adj. 不确定的；未定的
 index	n. 指数；指标；索引 v. 编索引；与…挂钩
 indexation	n. 指数化；指数挂钩
@@ -2921,6 +3199,7 @@ inevitable	adj. 不可避免的；必然的
 inevitably	adv. 不可避免地；必然地
 inextricably	adv. 密不可分地；无法摆脱地
 infant	n. 婴儿；幼儿 adj. 初期的；幼稚的
+infant-industry	adj. 幼稚产业的
 infeasible	adj. 不可行的
 infer	v. 推断；推论；推理
 inference	n. 推断；推论；推理
@@ -2930,6 +3209,7 @@ infinite	adj. 无限的；无穷的
 inflate	v. 夸大；使膨胀；抬高（物价）
 inflation	n. 通货膨胀；通胀；膨胀
 inflation-adjusted	adj. 经通胀调整的
+inflation-targeting	adj. 通胀目标制的
 inflationary	adj. 通货膨胀的；通胀性的
 inflection	n. 拐点；转折；屈折变化
 inflexible	adj. 僵化的；不灵活的；刚性的
@@ -2943,8 +3223,10 @@ informally	adv. 非正式地；非正规地
 informant	n. 信息提供者；报道人；线人
 informational	adj. 信息的；信息性的
 informative	adj. 提供信息的；信息量大的
+informativeness	n. 信息含量；信息性
 informed	adj. 知情的；有根据的；见多识广的
 infra	adv. 见下文；在下文
+inframarginal	adj. 边际内的；超边际的
 infrastructure	n. 基础设施；基础结构
 infrequently	adv. 不常；很少
 infringement	n. 侵权；侵犯；违反
@@ -2973,6 +3255,7 @@ inquiry	n. 调查；询问；探究
 insert	v. 插入；嵌入 n. 插入物
 insertion	n. 插入；嵌入
 insider	n. 内部人；知情人
+insider-outsider	adj. 局内人—局外人（模型）的
 insight	n. 洞见；见解；洞察力
 insightful	adj. 有见地的；富有洞察力的
 insignificant	adj. 不显著的；无关紧要的；微不足道的
@@ -3018,7 +3301,9 @@ intense	adj. 强烈的；激烈的；紧张的
 intensify	v. 加剧；强化；增强
 intensity	n. 强度；强烈；密集度
 intensive	adj. 密集的；集约的；深入的
+intensive-margin	adj. 集约边际的
 intent	n. 意图；目的 adj. 专心的；决意的
+intent-to-treat	adj. 意向处理的；意向性治疗的
 intention	n. 意图；意向；打算
 intention-to-treat	adj. 意向性处理的；意向治疗的
 intentional	adj. 有意的；故意的
@@ -3031,6 +3316,7 @@ intercept	n. 截距 v. 拦截；截取
 interchangeable	adj. 可互换的；可交换的
 interchangeably	adv. 可互换地；交替地
 interconnected	adj. 相互关联的；互联的
+interconnectedness	n. 关联性；互联性
 interdependence	n. 相互依存；相互依赖
 interdependent	adj. 相互依存的；相互依赖的
 interdisciplinary	adj. 跨学科的；多学科的
@@ -3093,8 +3379,11 @@ invariant	adj. 不变的 n. 不变量
 inventor	n. 发明人；发明者
 inventory	n. 存货；库存；清单
 inverse	adj. 逆的；反向的；相反的 n. 逆；倒数；反面
+inverse-mills	adj. 逆米尔斯（比率）的
+inverse-probability	adj. 逆概率（加权）的
 inversely	adv. 相反地；成反比地
 inverted	adj. 倒置的；倒转的
+inverted-u	adj. 倒U形的
 invertible	adj. 可逆的
 invest	v. 投资；投入
 investee	n. 被投资方；被投资企业
@@ -3102,15 +3391,20 @@ investigate	v. 研究；调查；探究
 investigation	n. 调查；研究
 investigator	n. 研究者；调查者
 investment	n. 投资；投资额
+investment-grade	adj. 投资级的
+investment-specific	adj. 投资专有的（技术进步）
 investor	n. 投资者
+invoicing	n. 计价（贸易结算货币）；开票
 invoke	v. 援引；调用；诉诸；引起
 involuntary	adj. 非自愿的；无意识的
 involve	v. 涉及；包含；使参与
 involvement	n. 参与；介入；牵连
 IPO	abbr. 首次公开募股；首次公开发行
+IPW	abbr. 逆概率加权
 IQR	abbr. 四分位距
 IRB	abbr. 机构审查委员会；伦理审查委员会
 IRF	abbr. 脉冲响应函数
+iron-rice-bowl	n. 铁饭碗
 ironically	adv. 具有讽刺意味的是；讽刺地
 irony	n. 讽刺；反语；具有讽刺意味的事
 IRR	abbr. 内部收益率
@@ -3120,7 +3414,10 @@ irregular	adj. 不规则的；不正常的；不定期的
 irregularity	n. 不规则；违规行为；异常
 irrelevant	adj. 无关的；不相关的
 irrespective	adv. 不论；不管；不考虑
+irreversibility	n. 不可逆性
 irreversible	adj. 不可逆的；不可逆转的
+IS-LM	abbr. 产品市场与货币市场一般均衡模型
+isoelastic	adj. 等弹性的
 isolate	v. 分离；隔离；孤立；单独识别
 isolation	n. 隔离；孤立；分离
 isomorphism	n. 同构；同形；趋同
@@ -3135,9 +3432,14 @@ iteration	n. 迭代；重复；反复
 iterative	adj. 迭代的；反复的
 ITT	abbr. 意向性处理效应；意向治疗分析
 IV	abbr. 工具变量
+j-statistic	n. J统计量
 jackknife	n. 刀切法；折刀法 v. 用刀切法估计
+jacobian	n. 雅可比矩阵；雅可比行列式 adj. 雅可比的
 jeopardize	v. 危害；危及；损害
+job-finding	adj. 求职成功的；找到工作的（率）
+job-to-job	adj. 岗位间流动的；跳槽的
 joint	adj. 联合的；共同的 n. 关节；接合处
+joint-liability	adj. 连带责任的（联保贷款）
 joint-stock	adj. 股份制的；合股的
 jointly	adv. 联合地；共同地
 journal	n. 期刊；杂志；日志
@@ -3156,33 +3458,48 @@ justify	v. 证明…合理；为…辩护
 juvenile	adj. 青少年的；未成年的 n. 青少年
 juxtapose	v. 并列；并置；对比
 juxtaposition	n. 并列；并置
+kaldor-hicks	adj. 卡尔多—希克斯（补偿、效率）的
+kalman	adj. 卡尔曼（滤波）的
+kaplan-meier	adj. 卡普兰—迈耶（估计）的
 kernel	n. 核；核函数；核心；内核
 keynesian	adj. 凯恩斯主义的 n. 凯恩斯主义者
 kickback	n. 回扣
+killer	n. 杀手 adj. 扼杀式的（如扼杀式收购）；致命的
 kink	n. 拐点；扭结；折点
 kinship	n. 亲属关系；血缘关系
+KKT	abbr. 卡罗需—库恩—塔克条件
+kleptocracy	n. 盗贼统治
 know-how	n. 专门知识；技术诀窍
 knowledge-intensive	adj. 知识密集型的
 KPI	abbr. 关键绩效指标
+kuhn-tucker	adj. 库恩—塔克（条件）的
 kurtosis	n. 峰度；峭度
+kuznets	adj. 库兹涅茨（曲线、事实）的
 label	n. 标签；标记 v. 标注；把…称为；贴标签
 labor	n. 劳动；劳动力；劳工 v. 劳动；努力
+labor-augmenting	adj. 劳动增进型的
 labor-intensive	adj. 劳动密集型的
 labor-saving	adj. 节省劳动力的
 lacuna	n. 空白；缺漏；缺失
+laffer	adj. 拉弗（曲线）的
 lag	n. 滞后；滞后期；时滞 v. 滞后；落后
 laggard	n. 落后者；落伍者
 lagged	adj. 滞后的
+lagrange	n. 拉格朗日（乘子、函数）
 lagrangian	n. 拉格朗日函数 adj. 拉格朗日的
 laissez-faire	n. 自由放任 adj. 自由放任的
+land-finance	n. 土地财政 adj. 土地财政的
+landholding	n. 土地持有；土地占有
 landlord	n. 房东；地主
 landmark	n. 里程碑；地标 adj. 里程碑式的；具有重大意义的
 landowner	n. 土地所有者；地主
 landscape	n. 格局；态势；景观；风景
 large-scale	adj. 大规模的
 largely	adv. 主要地；在很大程度上；大体上
+laspeyres	adj. 拉氏（指数）的
 LASSO	abbr. 套索回归；最小绝对收缩与选择算子
 lastly	adv. 最后
+latecomer	n. 后来者；后发者
 latency	n. 潜伏期；延迟；潜在状态
 latent	adj. 潜在的；隐性的；潜伏的
 lateral	adj. 横向的；侧面的
@@ -3194,13 +3511,19 @@ lawmaker	n. 立法者；议员
 lawsuit	n. 诉讼；官司
 layer	n. 层；层次；阶层 v. 分层
 layoff	n. 裁员；解雇
+LBO	abbr. 杠杆收购
 leading	adj. 领先的；主要的；先行的
 leakage	n. 泄漏；漏损；流失
 leapfrog	v. 跨越；超越；跳跃式发展
 learning-by-doing	n. 干中学
+learning-by-exporting	n. 出口中学习 adj. 出口学习效应的
 lease	n. 租约；租赁 v. 租赁；出租
 least-squares	adj. 最小二乘的
+leave-one-out	adj. 留一法的；剔除自身的
+leave-out	adj. 剔除自身的；留出的
 lecture	n. 讲座；讲课 v. 讲课；训诫
+left-behind	adj. 留守的
+left-censored	adj. 左删失的
 legacy	n. 遗产；遗留问题；传统
 legal	adj. 法律的；合法的；法定的
 legality	n. 合法性
@@ -3221,16 +3544,23 @@ lemma	n. 引理；词元
 lemon	n. 次品；劣质品；柠檬
 lend	v. 贷款；借出；增添
 lender	n. 贷款人；出借方
+lender-of-last-resort	adj. 最后贷款人的
 lending	n. 贷款；借贷；放贷
 lens	n. 视角；透镜；镜头
+leontief	adj. 里昂惕夫（型）的；固定比例的
+leptokurtic	adj. 尖峰的；高峰态的
+lerner	adj. 勒纳（指数、条件）的
 less-developed	adj. 欠发达的
 lesser	adj. 较少的；较小的；次要的
 lest	conj. 以免；唯恐
 leverage	n. 杠杆；杠杆率；影响力；杠杆值 v. 利用；借助；举债经营
 levered	adj. 有杠杆的；举债经营的
+levinsohn-petrin	adj. 莱文索恩—佩特林（生产函数估计法）的
 levy	v. 征收；征税 n. 税款；征收
 lexicographic	adj. 字典序的；词典编纂的
 lexicon	n. 词汇；词典；词库
+LFPR	abbr. 劳动参与率
+LGFV	abbr. 地方政府融资平台
 liability	n. 负债；债务；责任；法律责任
 liable	adj. 有法律责任的；有义务的；易于…的
 liaison	n. 联络；联系；联络人
@@ -3241,13 +3571,17 @@ liberalize	v. 使自由化；放宽限制
 LIBOR	abbr. 伦敦同业拆借利率
 license	n. 许可证；执照；许可 v. 许可；颁发执照
 licensing	n. 许可；授权；发放许可证
+licensure	n. 执业许可；资格准入
 life-cycle	n. 生命周期 adj. 生命周期的
 lifecycle	n. 生命周期
 likelihood	n. 可能性；似然；似然函数
+likelihood-ratio	adj. 似然比的
 likert	n. 李克特量表
 likewise	adv. 同样地；也；类似地
+limit-pricing	n. 限制性定价 adj. 限制性定价的
 limitation	n. 局限性；限制；不足
 limited	adj. 有限的；受限的；有限责任的
+LIML	abbr. 有限信息最大似然
 linear	adj. 线性的；直线的；线状的
 linearity	n. 线性；线性度
 linearization	n. 线性化
@@ -3274,9 +3608,13 @@ livelihood	n. 生计；谋生之道
 LLM	abbr. 大语言模型；法学硕士
 loading	n. 载荷；负荷；装载
 loan	n. 贷款；借款 v. 借出；贷给
+loanable-funds	adj. 可贷资金（理论）的
 lobby	v. 游说 n. 游说团体；大厅
 lobbying	n. 游说；游说活动
 lobbyist	n. 说客；游说者
+local-linear	adj. 局部线性的
+local-polynomial	adj. 局部多项式的
+local-projection	n. 局部投影 adj. 局部投影的
 locality	n. 地区；地点；局部性
 localization	n. 本地化；局部化；定位
 locally	adv. 局部地；在当地；本地
@@ -3288,9 +3626,13 @@ lockdown	n. 封锁；封控
 lockup	n. 锁定期；禁售期
 locus	n. 所在地；中心；轨迹；位点
 log	n. 对数；日志 v. 记录；取对数
+log-concave	adj. 对数凹的
 log-likelihood	n. 对数似然
 log-linear	adj. 对数线性的
+log-linearization	n. 对数线性化
+log-linearize	v. 对数线性化
 log-odds	n. 对数几率
+log-point	n. 对数点
 logarithm	n. 对数
 logarithmic	adj. 对数的
 logic	n. 逻辑；逻辑学；道理
@@ -3300,29 +3642,39 @@ logistic	adj. 逻辑斯谛的；物流的；后勤的
 logistics	n. 物流；后勤
 logit	n. 对数几率；逻辑斯谛回归模型
 lognormal	adj. 对数正态的
+logrolling	n. 互投赞成票；政治互助
+long-difference	n. 长差分 adj. 长差分的
+long-memory	adj. 长记忆的
 long-run	adj. 长期的
+long-short	adj. 多空的（组合）
 long-standing	adj. 长期存在的；由来已久的
 long-term	adj. 长期的；长远的
 longevity	n. 长寿；寿命；持久性
 longitudinal	adj. 纵向的；追踪的；经度的
 loophole	n. 漏洞；空子
 loosely	adv. 宽松地；松散地；粗略地
+lorenz	adj. 洛伦兹（曲线）的
+loss-averse	adj. 损失厌恶的
 lottery	n. 彩票；抽签；抽奖
 low-income	adj. 低收入的
 low-skilled	adj. 低技能的
 low-wage	adj. 低工资的
+lower-hemicontinuous	adj. 下半连续的
 LPM	abbr. 线性概率模型
+LPR	abbr. 贷款市场报价利率
 LR	abbr. 似然比
 LSTM	abbr. 长短期记忆网络
 LTV	abbr. 贷款价值比；客户终身价值
 lucrative	adj. 有利可图的；赚钱的
 lump-sum	adj. 一次性的；总额的；定额的
 lumpy	adj. 不连续的；成块的；不平滑的
+m-estimator	n. M估计量
 macro	adj. 宏观的
 macroeconomic	adj. 宏观经济的
 macroeconomics	n. 宏观经济学
 macroprudential	adj. 宏观审慎的
 magnitude	n. 量级；大小；幅度；重要性
+mahalanobis	adj. 马氏（距离）的
 mainly	adv. 主要地；大体上
 mainstream	n. 主流 adj. 主流的
 maintain	v. 维持；保持；坚持认为；维护
@@ -3330,6 +3682,7 @@ maintenance	n. 维持；维护；保养
 majority	n. 多数；大多数
 malfeasance	n. 渎职；不法行为
 malleable	adj. 可塑的；易改变的
+malthusian	adj. 马尔萨斯的；马尔萨斯式的
 manage	v. 管理；经营；设法做到
 management	n. 管理；经营；管理层
 managerial	adj. 管理的；经理人的
@@ -3350,12 +3703,22 @@ margin	n. 边际；边缘；利润率；差额
 marginal	adj. 边际的；微小的；边缘的
 marginalize	v. 使边缘化
 marginally	adv. 略微；边际上
+mark-to-market	n. 盯市 adj. 盯市的；按市值计价的
+markdown	n. 工资压价幅度（买方势力）；降价；减价幅度 v. 降价
 markedly	adv. 明显地；显著地
 market	n. 市场 v. 营销；推销
+market-access	n. 市场可达性；市场准入 adj. 市场可达性的
+market-timing	adj. 市场择时的
+market-to-book	adj. 市值账面比的
 marketing	n. 营销；市场推广
+marketization	n. 市场化
 markov	adj. 马尔可夫的
+markov-switching	adj. 马尔可夫区制转换的
 markup	n. 价格加成；成本加成
+marshall-lerner	adj. 马歇尔—勒纳（条件）的
+marshallian	adj. 马歇尔的；马歇尔式的（需求）
 martingale	n. 鞅
+marxist	adj. 马克思主义的 n. 马克思主义者
 mass	n. 质量；大量；群众 adj. 大规模的
 massive	adj. 大量的；巨大的
 match	v. 匹配；与……相符 n. 匹配；对手
@@ -3370,14 +3733,20 @@ mature	adj. 成熟的 v. 成熟；到期
 maturity	n. 成熟；到期；期限
 maxima	n. 最大值（maximum 的复数）
 maximal	adj. 最大的；最大限度的
+maximin	n. 最大最小（准则） adj. 最大最小的
 maximization	n. 最大化
 maximize	v. 使最大化
 maximum	n. 最大值；最大限度 adj. 最大的
+MBS	abbr. 抵押支持证券
+MCMC	abbr. 马尔可夫链蒙特卡洛
 mean	n. 均值；平均数 v. 意味着；意指 adj. 平均的
+mean-preserving	adj. 均值保持的（展形）
 mean-reverting	adj. 均值回复的
+mean-variance	adj. 均值—方差的
 meaningful	adj. 有意义的；重要的
 meaningfully	adv. 有意义地；实质性地
 means	n. 手段；方式；财力
+means-tested	adj. 经济状况调查的；家计调查的
 meanwhile	adv. 同时；与此同时
 measurable	adj. 可测量的；可衡量的
 measure	v. 测量；衡量 n. 措施；测度；指标
@@ -3390,7 +3759,9 @@ median	n. 中位数 adj. 中位的；中间的
 mediate	v. 中介；调解；调停
 mediation	n. 中介效应；调解；斡旋
 mediator	n. 中介变量；调解人
+medicaid	n. 医疗补助计划（美国）
 medical	adj. 医学的；医疗的
+medicare	n. 联邦医疗保险（美国）
 medium	n. 媒介；手段 adj. 中等的
 medium-term	adj. 中期的
 membership	n. 成员资格；会员；全体成员
@@ -3398,7 +3769,9 @@ memorandum	n. 备忘录
 mental	adj. 心理的；精神的
 mentality	n. 心态；思维方式
 mention	v. 提及；提到 n. 提及
+menu-cost	adj. 菜单成本的
 mercantile	adj. 商业的；贸易的
+mercantilism	n. 重商主义
 merchandise	n. 商品；货物
 merchant	n. 商人；商户
 merely	adv. 仅仅；只是
@@ -3406,6 +3779,7 @@ merge	v. 合并；融合
 merger	n. 兼并；合并
 merit	n. 价值；优点 v. 值得
 meritocracy	n. 精英统治；任人唯贤
+meritocratic	adj. 精英主义的；任人唯贤的
 meta-analysis	n. 元分析；荟萃分析
 metaphor	n. 隐喻；比喻
 method	n. 方法；方式
@@ -3413,24 +3787,36 @@ methodological	adj. 方法论的；方法上的
 methodologically	adv. 在方法上
 methodology	n. 方法论；研究方法
 metric	n. 指标；度量标准 adj. 公制的；度量的
+metropolis-hastings	adj. 梅特罗波利斯—黑斯廷斯（算法）的
 metropolitan	adj. 大都市的
+MFI	abbr. 小额信贷机构
+MFN	abbr. 最惠国（待遇）
 micro	adj. 微观的；微小的
+microcredit	n. 小额信贷
 microdata	n. 微观数据
 microeconomic	adj. 微观经济的
 microeconomics	n. 微观经济学
+microenterprise	n. 微型企业
 microfinance	n. 小额信贷；微型金融
+microfoundation	n. 微观基础
+microfoundations	n. 微观基础
+microfounded	adj. 有微观基础的
+microinsurance	n. 小额保险
 microstructure	n. 微观结构
 middle-income	adj. 中等收入的
+middle-skill	adj. 中等技能的
 middleman	n. 中间商
 midpoint	n. 中点
 migrant	n. 移民；流动人口 adj. 迁移的
 migrate	v. 迁移；移居
 migration	n. 迁移；移民；人口流动
 milestone	n. 里程碑
+mincer	adj. 明瑟（工资方程）的
 mindset	n. 心态；思维模式
 minima	n. 最小值（minimum 的复数）
 minimal	adj. 最小的；极少的
 minimally	adv. 最低限度地
+minimax	n. 最小最大（准则） adj. 最小最大的
 minimization	n. 最小化
 minimize	v. 使最小化；减到最少
 minimum	n. 最小值；最低限度 adj. 最低的
@@ -3438,14 +3824,19 @@ minister	n. 部长；大臣
 ministry	n. （政府）部
 minor	adj. 较小的；次要的 n. 未成年人；辅修
 minority	n. 少数；少数群体
+mirrlees	adj. 米尔利斯（最优税收）的
+mirrleesian	adj. 米尔利斯式的
 mirror	v. 反映；映照 n. 镜子
 misallocation	n. 错配；资源错配
+misclassification	n. 错误分类；误分类（雇佣身份）
 misconception	n. 误解；错误观念
 misconduct	n. 不当行为；渎职
 misinterpret	v. 误解；曲解
 mislead	v. 误导
 misleading	adj. 误导性的
 mismatch	n. 错配；不匹配 v. 不匹配
+mismeasured	adj. 测量有误的
+mismeasurement	n. 测量误差；误测
 misperception	n. 误解；错误认知
 mispricing	n. 错误定价
 misreport	v. 误报；虚报
@@ -3456,8 +3847,12 @@ mitigate	v. 缓解；减轻
 mitigation	n. 缓解；减轻
 mix	v. 混合 n. 组合；构成
 mixed	adj. 混合的；好坏参半的
+mixed-logit	adj. 混合罗吉特（模型）的
+mixed-ownership	adj. 混合所有制的
+mixed-strategy	adj. 混合策略的
 mixture	n. 混合；混合物；混合分布
 MLE	abbr. 极大似然估计
+MNC	abbr. 跨国公司
 mobility	n. 流动性；移动性
 mobilization	n. 动员
 mobilize	v. 动员；调动
@@ -3480,19 +3875,26 @@ modify	v. 修改；调整；修饰
 module	n. 模块；单元
 moment	n. 矩；时刻；重要性
 momentum	n. 动量；势头；动量效应
+monetarism	n. 货币主义
+monetarist	adj. 货币主义的 n. 货币主义者
 monetary	adj. 货币的；金融的
 monetization	n. 货币化；变现
 monetize	v. 货币化；变现
+moneylender	n. 放债人；高利贷者
 monitor	v. 监测；监督 n. 监测器；显示器
 monitoring	n. 监测；监督
+monocentric	adj. 单中心的
 monopolist	n. 垄断者
 monopolistic	adj. 垄断的；垄断性的
 monopoly	n. 垄断；专营
+monopsonist	n. 买方垄断者
+monopsonistic	adj. 买方垄断的
 monopsony	n. 买方垄断
 monotone	adj. 单调的
 monotonic	adj. 单调的
 monotonically	adv. 单调地
 monotonicity	n. 单调性
+monte-carlo	adj. 蒙特卡洛（模拟）的
 moral	adj. 道德的 n. 寓意
 morale	n. 士气
 morbidity	n. 发病率
@@ -3500,16 +3902,23 @@ moreover	adv. 此外；而且
 morphology	n. 形态学；形态
 mortality	n. 死亡率
 mortgage	n. 抵押贷款；按揭 v. 抵押
+most-favored-nation	adj. 最惠国的
 motion	n. 运动；动议
 motivate	v. 激励；促使；作为……的动机
 motivation	n. 动机；动力；激励
 motive	n. 动机；目的
+mover	n. 迁移者；变动者；推动者
 MPC	abbr. 边际消费倾向
 MSE	abbr. 均方误差
+MTE	abbr. 边际处理效应
+MTR	abbr. 边际税率；边际处理响应
+multi-sided	adj. 多边的（平台、市场）
 multicollinearity	n. 多重共线性
 multidimensional	adj. 多维的
 multidisciplinary	adj. 多学科的
+multihoming	n. 多归属（平台）
 multilateral	adj. 多边的
+multilateral-resistance	adj. 多边阻力的
 multilevel	adj. 多层次的；多层的
 multinational	adj. 跨国的 n. 跨国公司
 multinomial	adj. 多项的
@@ -3518,20 +3927,27 @@ multiplicative	adj. 乘法的；乘积形式的
 multiplicity	n. 多重性；多样性
 multiplier	n. 乘数；乘子
 multiply	v. 乘；成倍增加
+multiproduct	adj. 多产品的
 multivariate	adj. 多元的；多变量的
+multiway	adj. 多维的（聚类）
+mundell-fleming	adj. 蒙代尔—弗莱明（模型）的
 municipal	adj. 市的；市政的
 municipality	n. 自治市；市政当局
 mutual	adj. 相互的；共同的
 mutually	adv. 相互地；彼此
+MVPF	abbr. 公共资金边际价值
 myopic	adj. 短视的；近视的
 myriad	n. 无数 adj. 无数的
 myth	n. 神话；谬论
+n-gram	n. n元语法；n元组
+NAIRU	abbr. 非加速通胀失业率
 naive	adj. 朴素的；天真的；简单的
 namely	adv. 即；也就是
 narrative	n. 叙述；叙事 adj. 叙述的
 narrow	adj. 狭窄的；狭义的 v. 缩小；收窄
 narrowly	adv. 狭义地；勉强地
 nascent	adj. 新生的；初期的
+nash	adj. 纳什（均衡、谈判解）的
 national	adj. 国家的；全国的 n. 国民
 nationalism	n. 民族主义
 nationality	n. 国籍；民族
@@ -3541,12 +3957,18 @@ natural	adj. 自然的；天然的；正常的
 naturally	adv. 自然地；当然
 nature	n. 性质；本质；自然
 navigate	v. 应对；导航
+NBER	abbr. 美国国家经济研究局
+NCSKEW	abbr. 负收益偏态系数（股价崩盘风险）
+nearest-neighbor	adj. 最近邻的
+nearshoring	n. 近岸外包；近岸化
 necessarily	adv. 必然地；必定
 necessary	adj. 必要的；必需的
 necessitate	v. 使成为必要；需要
 necessity	n. 必要性；必需品
+NEER	abbr. 名义有效汇率
 negate	v. 否定；抵消
 negative	adj. 负的；消极的；否定的
+negative-binomial	adj. 负二项的
 negatively	adv. 负向地；消极地
 neglect	v. 忽视；忽略 n. 忽视
 negligence	n. 过失；疏忽
@@ -3558,30 +3980,67 @@ neoclassical	adj. 新古典的
 neoliberal	adj. 新自由主义的
 nepotism	n. 裙带关系；任人唯亲
 nested	adj. 嵌套的
+nested-logit	adj. 嵌套罗吉特（模型）的
 net	adj. 净的 n. 网络；网
+net-zero	adj. 净零（排放）的
 network	n. 网络 v. 建立联系
 neural	adj. 神经的
 neutral	adj. 中性的；中立的
 neutrality	n. 中性；中立
+never-taker	n. 永不接受者（工具变量框架）
+never-treated	adj. 从未处理的
 nevertheless	adv. 然而；不过
+new-classical	adj. 新古典宏观经济学的
+new-keynesian	adj. 新凯恩斯主义的；新凯恩斯（模型）的
+newey-west	adj. 纽威—韦斯特（标准误）的
 nexus	n. 联系；关系
+neyman-orthogonal	adj. 奈曼正交的
 NGO	abbr. 非政府组织
 niche	n. 细分市场；生态位；适当位置
+nightlights	n. 夜间灯光（数据）
+NKPC	abbr. 新凯恩斯菲利普斯曲线
+no-anticipation	adj. 无预期（效应）的
+no-arbitrage	adj. 无套利的
+no-poach	adj. 禁止挖角的
+no-ponzi	adj. 非庞氏（博弈条件）的
 noise	n. 噪声；干扰
+noise-trader	n. 噪声交易者 adj. 噪声交易者的
 noisy	adj. 有噪声的；嘈杂的
 nominal	adj. 名义的；名目上的
 nominally	adv. 名义上
+non-ricardian	adj. 非李嘉图（式）的
+nonbank	adj. 非银行的 n. 非银行金融机构
+noncompete	adj. 竞业禁止的 n. 竞业禁止协议
+noncontractible	adj. 不可缔约的；无法写入合同的
+nonconvex	adj. 非凸的
+nonconvexity	n. 非凸性
+noncooperative	adj. 非合作的（博弈）
+nondecreasing	adj. 非递减的；单调不减的
+nondistortionary	adj. 非扭曲性的
+nonemployment	n. 非就业（失业与退出劳动力）
 nonetheless	adv. 尽管如此；然而
+nonexcludable	adj. 非排他的
+nonfinancial	adj. 非金融的
+nonhomothetic	adj. 非位似的；非齐次位似的（偏好）
+nonincreasing	adj. 非递增的；单调不增的
 nonlinear	adj. 非线性的
 nonlinearity	n. 非线性
 nonmarket	adj. 非市场的
 nonnegative	adj. 非负的
 nonparametric	adj. 非参数的
+nonperforming	adj. 不良的（贷款）
 nonprofit	adj. 非营利的 n. 非营利组织
 nonrandom	adj. 非随机的
+nonrenewable	adj. 不可再生的
 nonresponse	n. 无应答；未回应
+nonrival	adj. 非竞争性的
+nonrivalry	n. 非竞争性
+nonsatiation	n. 非饱和性；非餍足性
+nonstandard	adj. 非标准的；非正规的（就业）
 nonstationarity	n. 非平稳性
 nonstationary	adj. 非平稳的
+nontariff	adj. 非关税的
+nontradable	adj. 不可贸易的 n. 非贸易品
 nontrivial	adj. 不平凡的；重要的
 nonzero	adj. 非零的
 norm	n. 规范；准则；范数
@@ -3591,6 +4050,7 @@ normalization	n. 标准化；归一化；正常化
 normalize	v. 标准化；归一化；使正常化
 normally	adv. 通常；正常地
 normative	adj. 规范的；规范性的
+not-yet-treated	adj. 尚未处理的
 notable	adj. 显著的；值得注意的
 notably	adv. 尤其；显著地
 notation	n. 符号；记号；标记法
@@ -3600,6 +4060,9 @@ notwithstanding	prep. 尽管 adv. 尽管如此
 novel	adj. 新颖的；新的 n. 小说
 novelty	n. 新颖性；新奇
 novice	n. 新手；初学者
+nowcast	n. 即时预测 v. 即时预测
+NPL	abbr. 不良贷款
+NPV	abbr. 净现值
 nuance	n. 细微差别
 nuanced	adj. 细致的；微妙的
 nuclear	adj. 核的；核心的
@@ -3607,6 +4070,7 @@ nuclei	n. 核（nucleus 的复数）
 nucleus	n. 核心；细胞核
 nudge	n. 助推 v. 助推；轻推
 null	adj. 零的；无效的 n. 零假设；空值
+numeraire	n. 计价物；计价单位
 numerator	n. 分子
 numeric	adj. 数值的
 numerical	adj. 数值的；数字的
@@ -3645,13 +4109,24 @@ occupy	v. 占据；占用；从事
 occur	v. 发生；出现；存在
 occurrence	n. 发生；出现；事件
 odds	n. 几率；优势比；可能性
+odyssean	adj. 奥德赛式的（承诺型前瞻指引）
+OECD	abbr. 经济合作与发展组织
+off-balance-sheet	adj. 表外的
+off-budget	adj. 预算外的
 offering	n. 发行；产品；提供物
 offset	v. 抵消；弥补 n. 抵消；补偿
+offshorability	n. 可离岸性；可外包性
 offshore	adj. 离岸的；海外的 adv. 离岸
 offshoring	n. 离岸外包
 offspring	n. 子女；后代
+okun	adj. 奥肯（定律）的
+OLG	abbr. 世代交叠模型
+oligopolist	n. 寡头厂商；寡头垄断者
 oligopolistic	adj. 寡头垄断的
 oligopoly	n. 寡头垄断
+oligopsonistic	adj. 买方寡头垄断的
+oligopsony	n. 买方寡头垄断
+olley-pakes	adj. 奥利—佩克斯（生产函数估计法）的
 OLS	abbr. 普通最小二乘法
 omission	n. 遗漏；省略
 omit	v. 遗漏；省略
@@ -3662,8 +4137,10 @@ one-off	adj. 一次性的
 one-sided	adj. 单侧的；片面的
 ongoing	adj. 持续的；进行中的
 onset	n. 开始；发作
+onshoring	n. 在岸化；产业回流
 ontology	n. 本体论
 opaque	adj. 不透明的；难懂的
+open-access	adj. 开放获取的；自由进入的（资源）
 open-ended	adj. 开放式的；无限期的
 operate	v. 运作；经营；操作；起作用
 operation	n. 运营；操作；运算；行动
@@ -3677,6 +4154,8 @@ opportunity	n. 机会；机遇
 oppose	v. 反对；对抗
 opposite	adj. 相反的 n. 对立面
 opt	v. 选择
+opt-in	n. 选择加入 adj. 选择加入的
+opt-out	n. 选择退出 adj. 选择退出的
 optimal	adj. 最优的；最佳的
 optimality	n. 最优性
 optimally	adv. 最优地
@@ -3701,13 +4180,17 @@ origin	n. 起源；来源；原点
 original	adj. 原始的；最初的；原创的
 originally	adv. 最初；起初
 originate	v. 起源；发起
+originate-to-distribute	adj. 发起—分销（模式）的
 orthodox	adj. 正统的；传统的
 orthogonal	adj. 正交的；不相关的
 orthogonality	n. 正交性
+orthogonalize	v. 正交化
 oscillate	v. 振荡；波动
 oscillation	n. 振荡；波动
 ostensibly	adv. 表面上
+out-of-pocket	adj. 自付的；现金支付的
 out-of-sample	adj. 样本外的
+out-of-the-money	adj. 虚值的（期权）
 outbreak	n. 爆发；暴发
 outcome	n. 结果；结局；结果变量
 outflow	n. 流出；外流
@@ -3723,18 +4206,25 @@ outsider	n. 局外人
 outsourcing	n. 外包
 outstanding	adj. 杰出的；未偿付的；未解决的
 outweigh	v. 超过；比……重要
+OVB	abbr. 遗漏变量偏误
 over-the-counter	adj. 场外交易的；非处方的
 overall	adj. 总体的；全面的 adv. 总体上
 overarching	adj. 首要的；总体的
 overcome	v. 克服；战胜
 overconfidence	n. 过度自信
+overdispersion	n. 过度离散
+overeducation	n. 过度教育
 overestimate	v. 高估 n. 高估
+overfit	v. 过度拟合 n. 过拟合
 overfitting	n. 过拟合
 overhead	n. 管理费用；间接费用 adj. 间接的
 overidentification	n. 过度识别
+overidentified	adj. 过度识别的
 overidentifying	adj. 过度识别的
+overinvestment	n. 过度投资
 overlap	v. 重叠；交叠 n. 重叠；共同支撑
 overlapping	adj. 重叠的
+overlapping-generations	adj. 世代交叠的
 overly	adv. 过度地；过分
 overreaction	n. 过度反应
 oversample	v. 过度抽样
@@ -3748,9 +4238,11 @@ overview	n. 概述；综述
 overweight	adj. 超重的 v. 增持
 overwhelming	adj. 压倒性的；巨大的
 overwhelmingly	adv. 压倒性地
+own-account	adj. 自营的（劳动者）
 ownership	n. 所有权；所有制；持股
 p-hacking	n. p值操纵；选择性报告显著结果
 p-value	n. p值；概率值
+paasche	adj. 帕氏（指数）的
 pace	n. 速度；步伐；节奏 v. 调整速度；踱步 prep. 恕……不敢苟同（礼貌地表示异议）
 package	n. 一揽子计划；包裹；软件包 v. 打包；包装
 pact	n. 协定；公约；条约
@@ -3770,6 +4262,7 @@ paradoxical	adj. 自相矛盾的；悖论的；反常的
 paradoxically	adv. 矛盾的是；自相矛盾地
 paragraph	n. 段落；（法律条文的）款
 parallel	adj. 平行的；并行的；类似的 n. 相似之处；类比；平行线 v. 与……相似；与……并行
+parallel-trend	adj. 平行趋势的
 parameter	n. 参数；参量；界限；范围
 parameterization	n. 参数化；参数设定
 parameterize	v. 参数化；用参数表示
@@ -3785,6 +4278,9 @@ parenthetical	adj. 插入的；括号内的；附带说明的
 parenthetically	adv. 附带地；作为插入语
 parenting	n. 养育；育儿；教养方式
 pareto	adj. 帕累托的（如帕累托最优、帕累托改进）
+pareto-efficient	adj. 帕累托有效的
+pareto-improving	adj. 帕累托改进的
+pareto-optimal	adj. 帕累托最优的
 parity	n. 平价；对等；均等；奇偶性
 parliament	n. 议会；国会
 parliamentary	adj. 议会的；国会的；议会制的
@@ -3796,6 +4292,7 @@ part-time	adj. 兼职的；非全日制的 adv. 兼职地
 partial	adj. 部分的；局部的；偏（导数、相关等）的；偏袒的
 partial-equilibrium	adj. 局部均衡的
 partially	adv. 部分地；不完全地
+partially-identified	adj. 部分识别的
 participant	n. 参与者；被试；受访者；参加者
 participate	v. 参与；参加
 participation	n. 参与；参加；参与率（如劳动参与率）
@@ -3831,12 +4328,14 @@ pattern	n. 模式；规律；格局；图案 v. 仿照；形成模式
 paucity	n. 缺乏；稀少；不足
 pay-as-you-go	adj. 现收现付的（养老金制度）
 pay-for-performance	n. 绩效薪酬；按绩效付费
+pay-performance	adj. 薪酬—业绩（敏感度）的
 payable	adj. 应付的；可支付的 n. 应付账款
 payback	n. 回报；投资回收；回收期
 payer	n. 付款人；支付方；缴费者
 payoff	n. 收益；支付（博弈论）；回报；结果
 payout	n. 支出；派息；赔付；分红
 payroll	n. 工资单；工资总额；在职员工总数
+PBOC	abbr. 中国人民银行
 PCA	abbr. 主成分分析
 PCE	abbr. 个人消费支出
 PDF	abbr. 概率密度函数；便携式文档格式
@@ -3844,6 +4343,7 @@ PE	abbr. 私募股权；市盈率
 peak	n. 峰值；顶峰；高峰 v. 达到峰值 adj. 高峰的；最高的
 peasant	n. 农民；小农；佃农
 peasantry	n. 农民阶层；农民
+pecking-order	adj. 融资优序的
 peculiar	adj. 特有的；独特的；奇怪的
 pecuniary	adj. 金钱的；货币的；（外部性）货币性的
 pedagogical	adj. 教学的；教学法的；教育学的
@@ -3853,6 +4353,7 @@ peer-reviewed	adj. 经同行评审的
 peer-to-peer	adj. 点对点的；对等的（如网络借贷）
 peg	v. 钉住（汇率）；挂钩；固定 n. 钉住汇率制；挂钩；钉子
 penal	adj. 刑事的；刑罚的；惩罚性的
+penalization	n. 惩罚；惩罚化（正则化）
 penalize	v. 惩罚；处罚；使处于不利地位
 penalty	n. 惩罚；罚款；处罚；惩罚项
 pending	adj. 待定的；未决的 prep. 在……之前；等待……时
@@ -3865,6 +4366,7 @@ per-capita	adj. 人均的 adv. 按人均计算
 perceive	v. 感知；认为；察觉；理解
 percent	n. 百分比；百分之一 adj. 百分之……的 adv. 以百分之……
 percentage	n. 百分比；百分率；比例
+percentage-point	n. 百分点 adj. 百分点的
 percentile	n. 百分位数；百分位
 perceptible	adj. 可察觉的；可感知的；明显的
 perception	n. 感知；看法；认知；观念
@@ -3888,6 +4390,7 @@ perishable	adj. 易腐烂的；易变质的 n. 易腐品
 perk	n. 津贴；额外待遇；在职消费
 permanence	n. 持久性；永久性
 permanent	adj. 永久的；长期的；持久的；常设的
+permanent-income	adj. 持久收入（假说）的
 permanently	adv. 永久地；长期地
 permeate	v. 渗透；弥漫；遍及
 permissible	adj. 允许的；容许的；许可的
@@ -3934,6 +4437,7 @@ phenomenon	n. 现象；奇迹；非凡的人或事
 phenotype	n. 表型；表现型
 philanthropic	adj. 慈善的；博爱的
 philanthropy	n. 慈善；慈善事业；博爱
+phillips	adj. 菲利普斯（曲线）的
 philosopher	n. 哲学家；哲人
 philosophical	adj. 哲学的；哲学上的；达观的
 philosophy	n. 哲学；理念；原则；人生观
@@ -3957,6 +4461,7 @@ pipeline	n. 管道；渠道；（研发等）储备项目
 pitfall	n. 陷阱；隐患；缺陷
 pivot	n. 枢纽；中心；转向 v. 转向；以……为中心
 pivotal	adj. 关键的；枢纽的；中枢的
+place-based	adj. 基于地区的；区域导向的（政策）
 placebo	n. 安慰剂；安慰剂检验
 placebo-controlled	adj. 安慰剂对照的
 placement	n. 安置；配置；职业介绍；（证券）配售
@@ -3967,12 +4472,14 @@ plant	n. 工厂；车间；植物 v. 种植；安置
 plantation	n. 种植园；人工林
 plateau	n. 平台期；平稳期；高原 v. 进入平稳期
 platform	n. 平台；纲领；站台
+platformization	n. 平台化
 plausibility	n. 合理性；可信性
 plausible	adj. 合理的；可信的；貌似可能的
 plausibly	adv. 合理地；似乎可信地
 plea	n. 请求；恳求；抗辩；认罪答辩
 plebiscite	n. 全民投票；公民投票
 pledge	n. 承诺；保证；抵押；质押 v. 承诺；保证；抵押
+pledgeability	n. 可抵押性；可质押性
 plenary	adj. 全体出席的；全体的 n. 全体会议；大会
 plethora	n. 大量；过多；过剩
 plight	n. 困境；苦境
@@ -3988,6 +4495,7 @@ plurality	n. 相对多数；多元性；众多
 plus	prep. 加上；外加 conj. 而且；此外 n. 优势；加号 adj. 正的；有利的
 PMF	abbr. 概率质量函数
 PMI	abbr. 采购经理人指数
+point-identified	adj. 点识别的
 pointwise	adj. 逐点的 adv. 逐点地
 poisson	adj. 泊松的（如泊松分布、泊松回归）
 polar	adj. 极地的；两极的；截然相反的
@@ -4006,6 +4514,7 @@ pollster	n. 民意调查员；民调机构
 pollutant	n. 污染物
 pollute	v. 污染；玷污
 pollution	n. 污染；污染物
+polygyny	n. 一夫多妻制
 polynomial	n. 多项式 adj. 多项式的
 pool	v. 合并；汇集；混合 n. 池；库；共享资源
 pooled	adj. 混合的；合并的（如混合回归）
@@ -4038,8 +4547,11 @@ positivity	n. 积极性；正面性；（因果推断）正值性
 possess	v. 拥有；具有；支配
 possession	n. 拥有；财产；所有物；占有
 post-crisis	adj. 危机后的
+post-double-selection	adj. 后双重选择的
 post-hoc	adj. 事后的；事后检验的
 post-industrial	adj. 后工业的
+post-keynesian	adj. 后凯恩斯主义的 n. 后凯恩斯主义者
+post-lasso	adj. 后套索的（回归）
 post-period	n. 处理后时期；后期
 post-reform	adj. 改革后的
 post-secondary	adj. 中学后的；高等教育的
@@ -4060,10 +4572,12 @@ posture	n. 姿态；立场；姿势
 postwar	adj. 战后的
 potent	adj. 强有力的；有效的；有影响力的
 potential	adj. 潜在的；可能的 n. 潜力；潜能；电势
+potential-outcome	n. 潜在结果 adj. 潜在结果的
 potentially	adv. 潜在地；可能地
 poverty	n. 贫困；贫穷；匮乏
 power	n. 权力；（统计检验）功效；幂；能力 v. 驱动；为……提供动力
 power-law	n. 幂律 adj. 幂律的
+pp	abbr. 百分点；页
 PPF	abbr. 生产可能性边界
 PPI	abbr. 生产者价格指数
 PPML	abbr. 泊松伪最大似然估计
@@ -4126,6 +4640,7 @@ predictive	adj. 预测的；预测性的
 predictor	n. 预测变量；预测因子；预测指标
 predispose	v. 使易于；使倾向于
 predisposition	n. 倾向；易感性；素质
+predistribution	n. 预分配；初次分配干预
 predominance	n. 优势；主导地位；占多数
 predominant	adj. 主要的；占主导地位的；占优势的
 predominantly	adv. 主要地；占绝大多数地
@@ -4167,6 +4682,7 @@ prescription	n. 处方；药方；规定
 prescriptive	adj. 规定性的；规范性的；指令性的
 presence	n. 存在；出席；在场；影响力
 present	adj. 当前的；现在的；出席的 v. 展示；提出；呈现 n. 现在
+present-biased	adj. 现时偏向的；当下偏好的
 presentation	n. 展示；报告；陈述；呈现
 presently	adv. 目前；现在；不久
 preservation	n. 保存；保护；维护
@@ -4199,9 +4715,11 @@ preventive	adj. 预防性的；预防的
 previous	adj. 以前的；先前的；之前的
 previously	adv. 以前；先前；此前
 price	n. 价格；代价 v. 定价；标价
+price-fixing	n. 价格操纵；价格合谋 adj. 价格合谋的
 price-maker	n. 价格制定者
 price-taker	n. 价格接受者
 pricing	n. 定价；定价策略；价格设定
+pricing-to-market	n. 按市场定价 adj. 按市场定价的
 primacy	n. 首要地位；首位；优先
 primal	adj. 原始的；基本的；（对偶）原问题的
 primarily	adv. 主要地；首先；根本上
@@ -4222,6 +4740,7 @@ priority	n. 优先；优先事项；优先权
 prisoner	n. 囚犯；囚徒（如囚徒困境）
 privacy	n. 隐私；私密；隐私权
 private	adj. 私人的；私营的；私有的；非公开的
+private-value	adj. 私人价值的（拍卖）
 privately	adv. 私下地；私营地；非公开地
 privatization	n. 私有化；民营化
 privatize	v. 使私有化；使民营化
@@ -4276,6 +4795,7 @@ profile	n. 概况；特征；轮廓；简介 v. 描述；剖析；介绍
 profit	n. 利润；收益；盈利 v. 获利；有益于
 profit-maximizing	adj. 利润最大化的
 profit-sharing	n. 利润分享 adj. 利润分享的
+profit-shifting	n. 利润转移 adj. 利润转移的
 profitability	n. 盈利能力；获利能力；利润率
 profitable	adj. 有利可图的；盈利的；有益的
 profound	adj. 深远的；深刻的；极度的
@@ -4324,12 +4844,14 @@ propagate	v. 传播；传导；繁殖
 propagation	n. 传播；传导；繁殖
 propel	v. 推动；推进；驱使
 propensity	n. 倾向；倾向性
+propensity-score	adj. 倾向得分的
 proper	adj. 适当的；恰当的；真正的；本身的
 properly	adv. 适当地；正确地；恰当地
 property	n. 性质；属性；财产；产权
 proponent	n. 支持者；倡导者；拥护者
 proportion	n. 比例；部分；比重 v. 使成比例
 proportional	adj. 成比例的；比例的；相称的
+proportional-hazards	adj. 比例风险的
 proportionality	n. 比例性；相称性；比例原则
 proportionally	adv. 成比例地；相应地
 proportionate	adj. 相称的；成比例的
@@ -4338,6 +4860,7 @@ proposal	n. 提议；建议；方案；（研究）申请书
 propose	v. 提出；建议；提议
 proposition	n. 命题；主张；提议
 propound	v. 提出；提议
+propping	n. 支持；利益输入（控股股东支持上市公司）
 proprietary	adj. 专有的；专利的；私有的
 proprietor	n. 业主；所有者；经营者
 proprietorship	n. 所有权；独资企业（如个人独资）
@@ -4362,6 +4885,7 @@ protective	adj. 保护的；保护性的；防护的
 protein	n. 蛋白质
 protest	n. 抗议；抗议活动 v. 抗议；反对；申明
 protester	n. 抗议者
+proto-industrialization	n. 原始工业化
 protocol	n. 协议；规程；方案；议定书
 prototype	n. 原型；样机；典型
 prototypical	adj. 典型的；原型的
@@ -4385,12 +4909,16 @@ proximal	adj. 近端的；直接的（原因）
 proximate	adj. 直接的；最接近的；近似的
 proximity	n. 邻近；接近；距离近
 proxy	n. 代理变量；替代指标；代理人 v. 代理；替代
+proxy-means	adj. 代理家计（调查）的
 prudence	n. 审慎；谨慎
 prudent	adj. 审慎的；谨慎的；精明的
 prudential	adj. 审慎的（如审慎监管）；谨慎的
 pseudo	adj. 伪的；假的；拟的
+pseudo-maximum	adj. 伪最大（似然）的
+pseudo-out-of-sample	adj. 伪样本外的
 pseudo-panel	n. 伪面板（数据）
 pseudo-random	adj. 伪随机的
+PSID	abbr. 收入动态追踪调查（美国）
 PSM	abbr. 倾向得分匹配
 PSU	abbr. 初级抽样单位
 psyche	n. 心理；精神；灵魂
@@ -4401,6 +4929,7 @@ psychologist	n. 心理学家
 psychology	n. 心理学；心理
 psychometric	adj. 心理测量的；心理测量学的
 psychosocial	adj. 心理社会的
+PTA	abbr. 优惠贸易协定
 public	adj. 公共的；公众的；公开的；上市的 n. 公众
 public-good	n. 公共品；公共物品
 public-private	adj. 公私合作的；政府与社会资本合作的
@@ -4430,10 +4959,15 @@ purview	n. 范围；权限；视界
 putative	adj. 推定的；假定的；公认的
 puzzle	n. 难题；谜题；谜团 v. 使困惑
 PV	abbr. 现值；光伏
+PWT	abbr. 佩恩表
 pyramid	n. 金字塔；金字塔结构（如金字塔式控股）
+q-theory	n. 托宾q理论；投资q理论
+q-value	n. q值
 QALY	abbr. 质量调整生命年
 QE	abbr. 量化宽松
 QFII	abbr. 合格境外机构投资者
+QMLE	abbr. 准最大似然估计
+QT	abbr. 量化紧缩
 qua	prep. 作为；以……的身份
 quadrant	n. 象限；四分之一圆
 quadratic	adj. 二次的；平方的 n. 二次项；二次方程
@@ -4445,6 +4979,8 @@ qualify	v. 使有资格；限定；修饰
 qualitative	adj. 定性的；质的；性质上的
 qualitatively	adv. 定性地；质上
 quality	n. 质量；品质；特性 adj. 优质的
+quality-adjusted	adj. 质量调整的
+quality-ladder	adj. 质量阶梯（模型）的
 quandary	n. 困境；窘境
 quanta	n. 量子；份额（quantum 的复数）
 quantifiable	adj. 可量化的；可计量的
@@ -4466,11 +5002,16 @@ quasi-concave	adj. 拟凹的
 quasi-convex	adj. 拟凸的
 quasi-experiment	n. 准实验
 quasi-experimental	adj. 准实验的
+quasi-fiscal	adj. 准财政的
+quasi-hyperbolic	adj. 准双曲（贴现）的
 quasi-likelihood	n. 拟似然；准似然
 quasi-linear	adj. 拟线性的
+quasi-maximum	adj. 准最大（似然）的
 quasi-natural	adj. 准自然的（如准自然实验）
 quasi-random	adj. 准随机的
 quasi-rent	n. 准租金
+quasiconcavity	n. 拟凹性
+quasiconvexity	n. 拟凸性
 quasilinear	adj. 拟线性的
 quell	v. 平息；镇压；减轻
 query	n. 疑问；查询；询问 v. 质疑；询问；查询
@@ -4504,7 +5045,9 @@ raise	v. 提高；筹集；提出；抚养 n. 加薪
 rally	n. 集会；反弹；回升 v. 召集；反弹；回升
 ramification	n. 后果；影响；分支
 rampant	adj. 猖獗的；泛滥的；蔓延的
+ramsey	adj. 拉姆齐（模型、定价、法则）的
 random	adj. 随机的；任意的
+random-coefficient	adj. 随机系数的
 random-effects	adj. 随机效应的
 random-walk	n. 随机游走 adj. 随机游走的
 randomization	n. 随机化；随机分配
@@ -4514,6 +5057,8 @@ randomly	adv. 随机地；任意地
 randomness	n. 随机性
 range	n. 范围；区间；极差；值域 v. 变动；分布于；排列
 rank	n. 排名；等级；秩 v. 排名；排序；位列
+rank-order	adj. 排序的（锦标赛）
+rank-rank	adj. 秩—秩（代际流动）的
 ranking	n. 排名；排序；等级
 rapid	adj. 快速的；迅速的
 rapidly	adv. 迅速地；快速地
@@ -4530,18 +5075,23 @@ rating	n. 评级；评分；等级
 ratio	n. 比率；比例；比值
 ration	n. 配给量；定量 v. 配给；定量供应
 rational	adj. 理性的；合理的；有理的
+rational-inattention	adj. 理性疏忽的
 rationale	n. 基本原理；理由；依据
 rationality	n. 理性；合理性
+rationalizability	n. 可理性化
+rationalizable	adj. 可理性化的
 rationalization	n. 合理化；辩解；精简
 rationalize	v. 合理化；为……辩解；精简
 rationally	adv. 理性地；合理地
 rationing	n. 配给；定量供应；（如信贷）配给
 raw	adj. 原始的（如原始数据）；未加工的；生的
+rawlsian	adj. 罗尔斯的；罗尔斯主义的
 RBC	abbr. 真实经济周期（理论）
 RCA	abbr. 显示性比较优势
 RCT	abbr. 随机对照试验
 RD	abbr. 断点回归；研究与开发
 RDD	abbr. 断点回归设计
+re-export	n. 转口 v. 转口；再出口
 react	v. 反应；回应；起化学反应
 reaction	n. 反应；回应；反作用
 reactionary	adj. 反动的；保守的 n. 反动分子
@@ -4572,6 +5122,7 @@ reassess	v. 重新评估；重新考虑
 reassuringly	adv. 令人放心地；令人安心的是
 rebalance	v. 再平衡；重新调整
 rebalancing	n. 再平衡；结构调整
+rebase	v. 重新定基；调整基期
 rebate	n. 返利；退款；折扣
 rebel	n. 叛乱者；反叛者 v. 反叛；反抗
 rebellion	n. 叛乱；反抗；起义
@@ -4657,6 +5208,7 @@ refinance	v. 再融资；重新融资
 refinancing	n. 再融资；借新还旧
 refine	v. 改进；完善；提炼；精炼
 refinement	n. 改进；完善；精炼；细化
+reflation	n. 再通胀；通货再膨胀
 reflect	v. 反映；体现；反思；反射
 reflection	n. 反映；反思；反射；映像
 reflective	adj. 反思的；反射的；反映……的
@@ -4669,6 +5221,7 @@ reformulate	v. 重新表述；重新制定
 refrain	v. 克制；避免 n. 副歌；叠句
 refugee	n. 难民
 refund	n. 退款；退还 v. 退还；偿还
+refundable	adj. 可退还的（税收抵免）
 refusal	n. 拒绝；回绝；拒答
 refutation	n. 驳斥；反驳
 refute	v. 驳斥；反驳；否定
@@ -4678,6 +5231,7 @@ regarding	prep. 关于；就……而言
 regardless	adv. 不管怎样；无论如何；不顾
 regeneration	n. 再生；复兴；更新
 regime	n. 体制；制度；政权；（模型）区制
+regime-switching	adj. 区制转换的
 region	n. 地区；区域；范围
 regional	adj. 地区的；区域的；地方的
 regionalism	n. 地区主义；区域主义
@@ -4687,7 +5241,10 @@ registry	n. 登记处；注册处；登记簿
 regress	v. 回归；对……做回归；倒退；退化 n. 倒退
 regressand	n. 被解释变量；因变量；回归子
 regression	n. 回归；回归分析；倒退
+regression-discontinuity	adj. 断点回归的
+regression-kink	adj. 拐点回归的
 regressive	adj. 累退的（如累退税）；倒退的；回归的
+regressivity	n. 累退性
 regressor	n. 回归变量；自变量；解释变量
 regular	adj. 定期的；规则的；正常的；正则的
 regularity	n. 规律性；规则性；正则性
@@ -4699,6 +5256,7 @@ regulator	n. 监管机构；监管者；调节器
 regulatory	adj. 监管的；管制的；调节的
 rehabilitate	v. 使康复；修复；使恢复名誉
 rehabilitation	n. 康复；修复；改造
+rehypothecation	n. 再抵押
 reign	n. 统治；统治时期 v. 统治；盛行
 reimburse	v. 报销；偿还；补偿
 reimbursement	n. 报销；偿还；补偿
@@ -4713,6 +5271,7 @@ reject	v. 拒绝；拒绝（原假设）；排斥
 rejection	n. 拒绝；拒绝（原假设）；排斥
 rejoinder	n. 答辩；回应；反驳
 relate	v. 联系；涉及；相关；讲述
+related-party	adj. 关联方的
 relatedly	adv. 与此相关地；相关地
 relation	n. 关系；联系；亲属
 relational	adj. 关系的；关系型的
@@ -4755,6 +5314,7 @@ remit	n. 职权范围 v. 汇款；免除；移交
 remittance	n. 汇款；侨汇
 remnant	n. 残余；遗迹；剩余部分
 remote	adj. 偏远的；遥远的；远程的；微小的
+remote-sensing	adj. 遥感的
 remotely	adv. 远程地；遥远地；略微（多用于否定）
 removal	n. 移除；去除；免职；搬迁
 remove	v. 移除；去除；消除；免职
@@ -4768,6 +5328,7 @@ renewal	n. 更新；续约；复兴
 renminbi	n. 人民币
 renowned	adj. 著名的；有声望的
 rent	n. 租金；（经济）租；地租 v. 租用；出租
+rent-seeker	n. 寻租者
 rent-seeking	n. 寻租 adj. 寻租的
 rent-sharing	n. 租金分享
 rental	n. 租金；租赁 adj. 租赁的；出租的
@@ -4781,6 +5342,7 @@ repatriation	n. 遣返；（资金、利润）汇回
 repay	v. 偿还；报答
 repayment	n. 偿还；还款；还款额
 repeal	v. 废除；撤销 n. 废除；撤销
+repeat-sales	adj. 重复销售（法）的
 repeatedly	adv. 反复地；多次地；一再
 repercussion	n. 影响；反响；后果
 repertoire	n. 全部技能；储备；全部剧目
@@ -4799,6 +5361,7 @@ repository	n. 存储库；资料库；仓库
 represent	v. 代表；表示；表现；相当于
 representation	n. 表示；表征；代表；代表权
 representative	adj. 有代表性的；代表的；代议制的 n. 代表；众议员
+representative-agent	adj. 代表性主体的
 representativeness	n. 代表性
 repress	v. 压制；镇压；抑制
 repression	n. 镇压；压制；抑制（如金融抑制）
@@ -4819,6 +5382,7 @@ repute	n. 名声；声望
 require	v. 需要；要求；规定
 requirement	n. 要求；需求；必要条件
 requisite	adj. 必需的；必要的 n. 必需品；必要条件
+rerandomization	n. 再随机化
 resample	v. 重抽样；再抽样
 resampling	n. 重抽样；再抽样
 rescale	v. 重新标度；重新缩放
@@ -4852,6 +5416,7 @@ resilient	adj. 有韧性的；有弹性的；能迅速恢复的
 resist	v. 抵抗；抵制；抗拒
 resistance	n. 抵抗；阻力；抵制；耐药性
 resistant	adj. 抵抗的；抗……的；耐……的
+reskilling	n. 再技能化；技能再培训
 resolute	adj. 坚决的；坚定的
 resolution	n. 决议；解决；决心；分辨率
 resolve	v. 解决；决心；决议；分解 n. 决心
@@ -4914,11 +5479,13 @@ revaluation	n. 升值；重估；重新评价
 revamp	v. 改造；修改；翻新 n. 改造
 reveal	v. 揭示；显示；披露
 revealed	adj. 显示的（如显示性偏好）；揭示的
+revealed-preference	adj. 显示偏好的
 revelation	n. 揭示；披露；启示
 revenue	n. 收入；财政收入；营业收入；税收
 revenue-neutral	adj. 收入中性的
 reversal	n. 反转；逆转；撤销
 reverse	v. 逆转；颠倒；撤销 adj. 反向的；相反的 n. 相反；背面
+reverse-repo	n. 逆回购
 reversible	adj. 可逆的；可撤销的
 reversion	n. 回归（如均值回归）；复归；恢复
 revert	v. 恢复；回复；归还
@@ -4947,6 +5514,8 @@ RHS	abbr. （方程）右边；右侧
 ricardian	adj. 李嘉图的（如李嘉图等价）
 ridge	n. 岭（如岭回归）；山脊
 rife	adj. 普遍的；充斥的；盛行的
+right-censored	adj. 右删失的
+right-to-work	adj. 工作权（法）的；禁止强制入会的
 right-wing	adj. 右翼的；右派的
 rightly	adv. 正确地；合理地；理所当然地
 rigid	adj. 刚性的；僵化的；严格的
@@ -4954,6 +5523,7 @@ rigidity	n. 刚性；僵化；严格
 rigor	n. 严谨；严格；严密
 rigorous	adj. 严格的；严谨的；严密的
 rigorously	adv. 严格地；严谨地
+ring-fencing	n. 风险隔离；围栏隔离
 riot	n. 暴乱；骚乱 v. 暴动
 ripple	n. 涟漪；波及效应 v. 波及；扩散
 risk	n. 风险；危险 v. 冒……的风险
@@ -4963,6 +5533,7 @@ risk-free	adj. 无风险的
 risk-neutral	adj. 风险中性的
 risk-seeking	adj. 风险偏好的；风险追求的
 risk-sharing	n. 风险分担 adj. 风险分担的
+risk-shifting	n. 风险转移 adj. 风险转移的
 risk-taking	n. 冒险；风险承担
 risk-weighted	adj. 风险加权的
 risky	adj. 有风险的；危险的
@@ -4970,11 +5541,13 @@ ritual	n. 仪式；惯例 adj. 仪式的
 rival	n. 对手；竞争者 v. 与……匹敌 adj. 竞争的
 rivalrous	adj. 竞争性的（如竞争性物品）
 rivalry	n. 竞争；对抗；竞争性
+RKD	abbr. 拐点回归设计
 RMB	abbr. 人民币
 RMSE	abbr. 均方根误差
 ROA	abbr. 总资产收益率；资产回报率
 roadmap	n. 路线图；规划
 robotics	n. 机器人学；机器人技术
+robotization	n. 机器人化
 robust	adj. 稳健的；可靠的；强健的
 robustly	adv. 稳健地
 robustness	n. 稳健性；鲁棒性
@@ -4987,17 +5560,22 @@ rolling	adj. 滚动的（如滚动窗口）；连续的
 rollout	n. 推出；推广；铺开
 rollover	n. 展期；延期；翻转
 root	n. 根源；根；（方程的）根 v. 扎根；根源于
+ROSCA	abbr. 轮转储蓄与信贷协会；标会
 rotate	v. 旋转；轮换；（因子）旋转
 rotation	n. 旋转；轮换；轮作
 rough	adj. 粗略的；大致的；粗糙的
 roughly	adv. 大约；大致；粗略地
 round	n. 轮；回合 v. 四舍五入；使成圆形 adj. 圆的；整数的
+round-tripping	n. 返程投资；资金回流
 rounding	n. 四舍五入；舍入
 route	n. 路线；途径；渠道 v. 发送；按路线递送
 routine	n. 常规；惯例；例程 adj. 常规的；日常的
+routine-biased	adj. 常规偏向型的
 routinely	adv. 例行地；常规地；经常地
+routinization	n. 常规化；程式化
 row	n. 行；排；争吵
 royalty	n. 特许权使用费；版税；皇室
+RRR	abbr. 存款准备金率
 RSS	abbr. 残差平方和；简易信息聚合
 RTA	abbr. 区域贸易协定
 rubric	n. 评分标准；量规；标题；规则
@@ -5012,12 +5590,15 @@ rupture	n. 断裂；破裂 v. 破裂；断裂
 rural	adj. 农村的；乡村的
 rural-to-urban	adj. 从农村到城市的（如城乡迁移）
 rural-urban	adj. 城乡的
+saddle-path	n. 鞍点路径 adj. 鞍点路径的
+safe-haven	adj. 避险的
 safeguard	n. 保障；保护措施 v. 保护；维护
 salaried	adj. 领薪水的；受薪的
 salary	n. 薪水；工资
 salience	n. 显著性；突出性
 salient	adj. 显著的；突出的；最重要的
 sample	n. 样本；样品 v. 抽样；取样
+sample-splitting	n. 样本分割
 sampling	n. 抽样；取样；采样
 sanction	n. 制裁；处罚；批准 v. 制裁；批准
 sanitation	n. 卫生设施；环境卫生
@@ -5025,11 +5606,14 @@ SAR	abbr. 空间自回归（模型）；特别行政区
 satellite	n. 卫星 adj. 卫星的；附属的
 satisfaction	n. 满意；满足；满意度
 satisfactory	adj. 令人满意的；符合要求的
+satisficing	n. 满意化（决策） adj. 寻求满意解的
 satisfy	v. 满足；符合；使满意
 saturate	v. 使饱和；浸透
 saturation	n. 饱和；饱和度
 saving	n. 储蓄；节省；节约
 savings	n. 储蓄；存款；积蓄
+say-on-pay	n. 薪酬话语权（股东对高管薪酬投票）
+SBTC	abbr. 技能偏向型技术进步
 scalability	n. 可扩展性；可伸缩性
 scalable	adj. 可扩展的；可规模化的
 scalar	n. 标量；纯量 adj. 标量的
@@ -5039,6 +5623,7 @@ scarce	adj. 稀缺的；短缺的
 scarcity	n. 稀缺；稀缺性；短缺
 scatter	v. 分散；散布 n. 散布；散点
 scatterplot	n. 散点图
+SCC	abbr. 碳的社会成本
 scenario	n. 情景；情形；设想
 schedule	n. 时间表；计划表；（经济学）表；明细表 v. 安排；预定
 schema	n. 图式；模式；架构
@@ -5049,6 +5634,7 @@ scholar	n. 学者
 scholarly	adj. 学术的；学者的
 scholarship	n. 学术；学识；奖学金
 schooling	n. 学校教育；受教育年限
+schumpeterian	adj. 熊彼特的；熊彼特式的
 SCM	abbr. 合成控制法；供应链管理
 scope	n. 范围；领域；余地
 score	n. 得分；分数；评分 v. 得分；评分
@@ -5059,13 +5645,20 @@ screening	n. 筛选；筛查；甄别
 scrutinize	v. 仔细审查；详细检查
 scrutiny	n. 审查；仔细检查；监督
 SD	abbr. 标准差
+SDF	abbr. 随机贴现因子
 SDG	abbr. 可持续发展目标
+SDID	abbr. 合成双重差分
 SDM	abbr. 空间杜宾模型
 SE	abbr. 标准误
 search	n. 搜寻；搜索 v. 搜寻；搜索；查找
+search-and-matching	adj. 搜寻与匹配的
 seasonal	adj. 季节性的；季节的
 seasonality	n. 季节性
 seasonally	adv. 季节性地
+second-best	adj. 次优的 n. 次优
+second-degree	adj. 二级的（价格歧视）；二度的
+second-price	adj. 第二价格的（拍卖）
+second-stage	adj. 第二阶段的
 secondary	adj. 次要的；二级的；二手的；中等（教育）的
 section	n. 部分；节；章节；截面
 sector	n. 部门；行业；产业；领域
@@ -5074,6 +5667,7 @@ secular	adj. 长期的；世俗的
 secure	adj. 安全的；稳定的；有担保的 v. 获得；确保；担保
 securities	n. 证券（security 的复数）
 securitization	n. 证券化
+securitize	v. 证券化
 security	n. 安全；保障；证券；担保
 seek	v. 寻求；试图；寻找
 seemingly	adv. 表面上；看似；似乎
@@ -5082,8 +5676,11 @@ segmentation	n. 分割；细分；市场细分
 segregate	v. 隔离；分离；分开
 segregation	n. 隔离；分离；（居住）隔离
 seigniorage	n. 铸币税；铸币收入
+seignorage	n. 铸币税
 select	v. 选择；挑选 adj. 精选的；挑选出来的
 selection	n. 选择；选拔；（样本）选择
+selection-on-observables	n. 基于可观测变量的选择 adj. 可观测选择的
+selection-on-unobservables	n. 基于不可观测变量的选择
 selective	adj. 选择性的；有选择的
 selectively	adv. 有选择地；选择性地
 selectivity	n. 选择性
@@ -5095,17 +5692,21 @@ self-enforcing	adj. 自我执行的；自我实施的
 self-esteem	n. 自尊；自尊心
 self-fulfilling	adj. 自我实现的
 self-interest	n. 自利；私利
+self-preferencing	n. 自我优待（平台）
 self-report	n. 自我报告；自陈 v. 自我报告
 self-reported	adj. 自我报告的；自报的
 self-selection	n. 自选择；自我选择
 self-sufficiency	n. 自给自足
 self-sufficient	adj. 自给自足的
 sell-off	n. 抛售；大量出售
+sell-side	adj. 卖方的
 SEM	abbr. 结构方程模型；均值标准误
 semantic	adj. 语义的；语义学的
 semester	n. 学期
 semi-elasticity	n. 半弹性
+semi-endogenous	adj. 半内生（增长）的
 semi-structured	adj. 半结构化的
+semielasticity	n. 半弹性
 seminal	adj. 开创性的；影响深远的
 seminar	n. 研讨会；讨论课
 semiparametric	adj. 半参数的
@@ -5114,8 +5715,10 @@ seniority	n. 资历；年资；优先级
 sensitive	adj. 敏感的；灵敏的
 sensitivity	n. 敏感性；灵敏度
 sentiment	n. 情绪；情感；观点
+separability	n. 可分性
 separate	adj. 单独的；分开的；独立的 v. 分离；区分；分开
 separately	adv. 分别地；单独地
+separating	adj. 分离的（如分离均衡）
 separation	n. 分离；离职；分居
 sequence	n. 序列；顺序；次序 v. 排序；测序
 sequential	adj. 序贯的；顺序的；相继的
@@ -5123,8 +5726,11 @@ sequentially	adv. 依次地；顺序地
 serial	adj. 序列的；连续的；系列的
 series	n. 序列；系列；丛书
 service	n. 服务；服务业；（债务）偿付 v. 提供服务；偿付（债务）
+servicification	n. 服务化（制造业）
+servitization	n. 服务化（制造企业）
 SES	abbr. 社会经济地位
 session	n. 会议；会期；（实验）场次
+set-identified	adj. 集识别的
 setback	n. 挫折；倒退
 setting	n. 背景；环境；情境；设置
 settle	v. 解决；结算；定居
@@ -5137,10 +5743,16 @@ severity	n. 严重性；严重程度
 SEZ	abbr. 经济特区
 SFA	abbr. 随机前沿分析
 shadow	adj. 影子的；隐性的 n. 阴影；影子
+shadow-banking	n. 影子银行 adj. 影子银行的
+shapefile	n. 矢量数据文件；形状文件
+shapley	adj. 沙普利（值）的
 share	n. 份额；占比；股份 v. 分享；共有
+share-weighted	adj. 份额加权的
+sharecropper	n. 分成佃农
 sharecropping	n. 分成租佃制；分益耕作
 shareholder	n. 股东
 shareholding	n. 持股；股权
+sharpe	adj. 夏普（比率）的
 sharply	adv. 急剧地；明显地；尖锐地
 sheer	adj. 纯粹的；完全的；陡峭的
 shield	n. 屏障；盾 v. 保护；屏蔽
@@ -5149,10 +5761,12 @@ shift-share	adj. 移动份额的；偏离份额的
 shirk	v. 偷懒；逃避（责任）
 shirking	n. 偷懒；卸责
 shock	n. 冲击；震惊 v. 使震惊
+shock-level	adj. 冲击层面的
 short-lived	adj. 短暂的；短命的
 short-run	adj. 短期的
 short-selling	n. 卖空
 short-term	adj. 短期的
+short-time	adj. 短时工作（制）的
 shortage	n. 短缺；不足
 shortcoming	n. 缺点；不足；短处
 shortfall	n. 缺口；不足额；差额
@@ -5160,6 +5774,7 @@ shrink	v. 收缩；缩小；减少
 shrinkage	n. 收缩；缩减；（估计量）压缩
 sibling	n. 兄弟姐妹
 sic	adv. 原文如此
+sigma-convergence	n. σ收敛
 signal	n. 信号；标志 v. 发出信号；表明；传递信号
 signaling	n. 信号传递；信号发送
 signatory	n. 签署方；签约国
@@ -5179,6 +5794,9 @@ simulation	n. 模拟；仿真
 simultaneity	n. 同时性；联立性
 simultaneous	adj. 同时的；联立的
 simultaneously	adv. 同时地
+single-crossing	adj. 单交叉的（条件、性质）
+single-homing	n. 单归属（平台） adj. 单归属的
+single-peaked	adj. 单峰的（偏好）
 singular	adj. 奇异的；单数的；独特的
 site	n. 地点；场所；网站 v. 选址；设置
 situate	v. 使位于；将……置于（某背景中）
@@ -5192,18 +5810,22 @@ skill	n. 技能；技巧
 skill-biased	adj. 技能偏向型的
 skilled	adj. 熟练的；技术性的；有技能的
 slack	n. 松弛；闲置；余量 adj. 松弛的；疲软的
+slackness	n. 松弛性（互补松弛）
 slavery	n. 奴隶制；奴役
 slightly	adv. 略微；稍微
 slippage	n. 滑点；下滑；偏离
 slope	n. 斜率；坡度 v. 倾斜
+slowbalization	n. 慢全球化；全球化放缓
 slowdown	n. 放缓；减速
 sluggish	adj. 低迷的；迟缓的
 slum	n. 贫民窟
 slump	n. 暴跌；萧条；衰退 v. 暴跌；骤降
+slutsky	adj. 斯勒茨基（方程、分解）的
 smallholder	n. 小农；小农户
 SME	abbr. 中小企业
 SMM	abbr. 模拟矩估计法
 smooth	adj. 平滑的；平稳的；顺利的 v. 平滑；使平稳
+smooth-transition	adj. 平滑转换的
 smoothing	n. 平滑；平滑化；（消费）平滑
 snapshot	n. 快照；简要概况
 so-called	adj. 所谓的
@@ -5222,6 +5844,7 @@ sole	adj. 唯一的；单独的；独有的
 solely	adv. 仅仅；唯一地；单独地
 solicit	v. 征求；请求；招揽
 solidarity	n. 团结；团结一致
+solow	adj. 索洛（模型、剩余）的
 solution	n. 解决方案；解；溶液
 solve	v. 解决；求解；解答
 solvency	n. 偿付能力；清偿能力
@@ -5265,6 +5888,7 @@ spell	n. 一段时间；时期 v. 拼写
 spending	n. 支出；开支；花费
 spherical	adj. 球形的；球面的
 spike	n. 激增；尖峰；峰值 v. 激增
+spike-and-slab	adj. 尖峰—平板（先验）的
 spillover	n. 溢出；溢出效应
 spin-off	n. 分拆；衍生公司；副产品
 spline	n. 样条；样条函数
@@ -5283,6 +5907,8 @@ stability	n. 稳定；稳定性
 stabilization	n. 稳定；稳定化
 stabilize	v. 稳定；使稳定
 stable	adj. 稳定的；稳固的
+stablecoin	n. 稳定币
+stackelberg	adj. 斯塔克尔伯格（竞争、领导者）的
 staff	n. 员工；职员；全体人员 v. 配备人员
 stage	n. 阶段；时期；舞台 v. 举办；分阶段进行
 stagflation	n. 滞胀
@@ -5305,6 +5931,8 @@ startup	n. 初创企业；创业公司
 state	n. 国家；州；状态 v. 陈述；声明；说明
 state-of-the-art	adj. 最先进的；最新的
 state-owned	adj. 国有的
+state-space	adj. 状态空间的
+stated-preference	adj. 陈述偏好的
 statement	n. 陈述；声明；报表
 static	adj. 静态的；静止的；不变的
 stationarity	n. 平稳性
@@ -5316,6 +5944,7 @@ statistics	n. 统计学；统计数据
 status	n. 地位；状态；身份
 statute	n. 法规；成文法；章程
 statutory	adj. 法定的；法律规定的
+stayer	n. 留守者；未迁移者；留任者
 steadily	adv. 稳定地；稳步地
 steady	adj. 稳定的；平稳的；稳步的
 steady-state	adj. 稳态的
@@ -5326,17 +5955,22 @@ stepping-stone	n. 垫脚石；跳板
 stepwise	adj. 逐步的 adv. 逐步地
 stereotype	n. 刻板印象；成见 v. 对……形成刻板印象
 sterilization	n. 冲销；绝育；消毒
+sterilized	adj. 冲销的（外汇干预）；消毒的
 stewardship	n. 管理；管家职责；受托责任
 stickiness	n. 粘性；黏性
 sticky	adj. 粘性的；黏性的；棘手的
+sticky-information	adj. 粘性信息的
+sticky-price	adj. 粘性价格的
 stigma	n. 污名；耻辱；羞耻感
 stimulate	v. 刺激；激发；促进
 stimuli	n. 刺激；刺激物（stimulus 的复数）
 stimulus	n. 刺激；刺激措施；刺激物
 stipulate	v. 规定；约定
 stochastic	adj. 随机的
+stochastic-volatility	adj. 随机波动率的
 stock	n. 股票；存量；库存；资本存量 v. 储备；库存
 stockholder	n. 股东
+stolper-samuelson	adj. 斯托尔珀—萨缪尔森（定理）的
 storage	n. 储存；存储；仓储
 straightforward	adj. 直接的；简单的；明确的
 straightforwardly	adv. 直接地；简单地；明确地
@@ -5346,6 +5980,7 @@ strata	n. 层；阶层（stratum 的复数）
 strategic	adj. 战略的；策略性的
 strategically	adv. 战略上；策略性地
 strategy	n. 战略；策略
+strategy-proof	adj. 防策略操纵的；策略证明的
 stratification	n. 分层；阶层化
 stratify	v. 分层；使分层
 stratum	n. 层；阶层
@@ -5363,11 +5998,13 @@ strive	v. 努力；力求；奋斗
 structural	adj. 结构的；结构性的
 structurally	adv. 结构上
 structure	n. 结构；构造；体系 v. 构建；组织；安排
+structure-conduct-performance	adj. 结构—行为—绩效（范式）的
 stunting	n. 发育迟缓
 style	n. 风格；方式；类型
 stylized	adj. 典型化的；程式化的
 subfield	n. 子领域；分支学科
 subgame	n. 子博弈
+subgame-perfect	adj. 子博弈完美的
 subgroup	n. 子组；亚组；子群
 subject	n. 被试；对象；主题；学科 adj. 受……支配的；易受……的 v. 使受到；使服从
 subjective	adj. 主观的
@@ -5375,6 +6012,8 @@ subjectively	adv. 主观地
 subjectivity	n. 主观性
 submission	n. 提交；投稿；服从
 submit	v. 提交；呈递；服从
+submodular	adj. 子模的；次模的
+submodularity	n. 子模性；次模性
 subnational	adj. 地方的；次国家级的
 suboptimal	adj. 次优的；非最优的
 subordinate	adj. 从属的；次要的；次级的 n. 下属；部下 v. 使从属
@@ -5413,9 +6052,11 @@ successive	adj. 连续的；相继的
 successively	adv. 相继地；连续地
 successor	n. 继任者；后继者
 succinct	adj. 简洁的；简明的
+sudden-stop	n. 资本流入骤停 adj. 骤停的
 suffice	v. 足够；满足需要
 sufficiency	n. 充分性；足够
 sufficient	adj. 充分的；足够的
+sufficient-statistic	adj. 充分统计量（方法）的
 sufficiently	adv. 充分地；足够地
 suffrage	n. 选举权；投票权
 suggest	v. 表明；暗示；建议；提出
@@ -5425,10 +6066,13 @@ summarize	v. 总结；概括
 summary	n. 摘要；总结；概要 adj. 概括的；汇总的
 summation	n. 求和；总和
 sunk	adj. 沉没的（sink 的过去分词）
+superconsistent	adj. 超一致的
 superficial	adj. 表面的；肤浅的
 superior	adj. 更优的；优越的；上级的 n. 上级
 superiority	n. 优越性；优势
 supermodular	adj. 超模的
+supermodularity	n. 超模性
+superpopulation	n. 超总体
 superscript	n. 上标
 supersede	v. 取代；替代
 supervise	v. 监督；管理；指导
@@ -5440,6 +6084,7 @@ supplant	v. 取代；替代
 supplement	n. 补充；增补；附录；补充剂 v. 补充；增补
 supplementary	adj. 补充的；附加的；增补的
 supplier	n. 供应商；供应者
+supplier-induced	adj. 供方诱导的（需求）
 supply	n. 供给；供应；供应量 v. 供应；提供
 supply-side	adj. 供给侧的；供给方的
 support	n. 支持；支撑；支撑集 v. 支持；证实；支撑
@@ -5455,6 +6100,7 @@ surge	n. 激增；飙升 v. 激增；飙升
 surmise	v. 推测；猜测 n. 推测
 surpass	v. 超过；超越
 surplus	n. 剩余；盈余；顺差；过剩 adj. 过剩的；剩余的
+surplus-labor	adj. 剩余劳动力的
 surprisingly	adv. 令人惊讶地；出人意料地
 surrogate	n. 替代物；代理 adj. 替代的；代理的
 surveillance	n. 监控；监督；监测
@@ -5483,6 +6129,7 @@ symmetry	n. 对称；对称性
 symposia	n. 研讨会；专题讨论会（symposium 的复数）
 symposium	n. 研讨会；专题讨论会
 symptom	n. 症状；征兆
+synchronicity	n. 同步性（股价同步性）
 synchronization	n. 同步；同步化
 synchronize	v. 同步；使同步
 synchronous	adj. 同步的
@@ -5495,9 +6142,12 @@ syntheses	n. 综合；合成（synthesis 的复数）
 synthesis	n. 综合；合成
 synthesize	v. 综合；合成
 synthetic	adj. 合成的；综合的；人造的
+synthetic-control	adj. 合成控制（法）的
 systematic	adj. 系统的；系统性的；有条理的
 systematically	adv. 系统地；有系统地
 systemic	adj. 系统性的；系统的；全身的
+t-statistic	n. t统计量
+t-test	n. t检验
 tabular	adj. 表格的；列表的
 tabulate	v. 列表；制表
 tabulation	n. 列表；制表；表格
@@ -5519,9 +6169,13 @@ target	n. 目标；指标；对象 v. 以……为目标；针对；瞄准
 targeting	n. 目标制；瞄准；定位
 tariff	n. 关税；税率；价目表
 task	n. 任务；工作；作业
+task-based	adj. 基于任务的
+taste-based	adj. 偏好型的（歧视）
+tatonnement	n. 试探过程；瓦尔拉斯摸索过程
 tautology	n. 同义反复；重言式
 tax	n. 税；税收 v. 征税；对……课税
 tax-exempt	adj. 免税的
+tax-sharing	adj. 分税（制）的
 taxable	adj. 应纳税的；应税的
 taxation	n. 税收；征税；税制
 taxonomy	n. 分类法；分类体系；分类学
@@ -5529,10 +6183,13 @@ taxpayer	n. 纳税人
 technical	adj. 技术的；技术性的；专业的
 technically	adv. 技术上；严格来说
 technique	n. 技术；方法；技巧
+technocratic	adj. 技术官僚的
 technological	adj. 技术的；技术上的
 technology	n. 技术；科技；工艺
 tedious	adj. 冗长乏味的；繁琐的
 telecommunications	n. 电信；通信
+telework	n. 远程办公 v. 远程办公
+teleworkability	n. 可远程办公性
 temper	v. 缓和；调和 n. 脾气
 temporal	adj. 时间的；时序的；暂时的
 temporally	adv. 时间上；暂时地
@@ -5557,6 +6214,7 @@ terminal	adj. 最终的；终端的；末期的 n. 终端；航站楼
 terminate	v. 终止；结束
 termination	n. 终止；结束；解雇
 terminology	n. 术语；术语学
+terms-of-trade	adj. 贸易条件的
 terrain	n. 地形；领域
 territorial	adj. 领土的；地域的
 territory	n. 领土；领域；地区
@@ -5567,9 +6225,14 @@ testify	v. 证明；作证
 testimony	n. 证词；证明
 testing	n. 检验；测试
 text	n. 文本；正文；课文
+text-as-data	adj. 文本即数据的
 textile	n. 纺织品 adj. 纺织的
 textual	adj. 文本的；原文的
+tf-idf	n. 词频—逆文档频率
 TFP	abbr. 全要素生产率
+TFPQ	abbr. 实物型全要素生产率
+TFPR	abbr. 收入型全要素生产率
+theil	adj. 泰尔（指数）的
 thematic	adj. 主题的
 theme	n. 主题；题目
 thence	adv. 从那里；因此
@@ -5588,6 +6251,8 @@ therein	adv. 在其中；在那里
 thereof	adv. 其；由此
 theses	n. 论文；论点（thesis 的复数）
 thesis	n. 论文；学位论文；论点
+thin-tailed	adj. 薄尾的
+third-degree	adj. 三级的（价格歧视）；三度的
 thorough	adj. 彻底的；详尽的；周密的
 thoroughly	adv. 彻底地；详尽地
 threat	n. 威胁
@@ -5599,12 +6264,15 @@ throughout	prep. 遍及；贯穿 adv. 自始至终；到处
 throughput	n. 吞吐量；产量；处理量
 thus	adv. 因此；从而；如此
 tie	n. 联系；纽带；平局 v. 联系；绑定；打平
+tiebout	adj. 蒂伯特（用脚投票、分选）的
 tier	n. 层级；等级；层
 tight	adj. 紧的；紧缩的；严格的
 tighten	v. 收紧；紧缩；加强
 tightening	n. 紧缩；收紧
 tightness	n. 紧张程度；紧度
+time-consistent	adj. 时间一致的
 time-consuming	adj. 耗时的
+time-inconsistency	n. 时间不一致性
 time-inconsistent	adj. 时间不一致的
 time-invariant	adj. 不随时间变化的；时不变的
 time-series	adj. 时间序列的
@@ -5614,13 +6282,22 @@ timeline	n. 时间线；时间表
 timely	adj. 及时的；适时的
 timing	n. 时机；时间安排；时点
 tit-for-tat	n. 以牙还牙；针锋相对 adj. 针锋相对的
+titling	n. 确权；颁发产权证书
+tobin	adj. 托宾（q值、托宾税）的
+tobit	n. 托比特模型；截取回归 adj. 托比特的
 token	n. 象征；代币；标记 adj. 象征性的
+tokenization	n. 代币化；通证化；（文本）分词
+tokenize	v. 分词；切分词元；代币化
 tolerance	n. 容忍；容差；耐受性
 tolerate	v. 容忍；忍受
 toll	n. 通行费；伤亡人数；损失
+too-big-to-fail	adj. 大而不能倒的
+top-coded	adj. 顶部编码的；上限截断的
 top-down	adj. 自上而下的
 topic	n. 主题；话题；题目
 topology	n. 拓扑；拓扑学；拓扑结构
+tornqvist	adj. 托恩奎斯特（指数）的
+total-factor	adj. 全要素的（生产率）
 tourism	n. 旅游业；观光
 toxic	adj. 有毒的；有害的
 trace	v. 追溯；追踪；描绘 n. 痕迹；（矩阵的）迹
@@ -5631,6 +6308,8 @@ tractability	n. 易处理性；可处理性
 tractable	adj. 易处理的；可处理的；易驾驭的
 tradable	adj. 可交易的；可贸易的
 trade	n. 贸易；交易；行业 v. 交易；进行贸易
+trade-creating	adj. 贸易创造的
+trade-diverting	adj. 贸易转移的
 trade-off	n. 权衡；取舍
 tradeable	adj. 可交易的；可贸易的
 trademark	n. 商标
@@ -5664,6 +6343,7 @@ transitive	adj. 传递的；及物的
 transitivity	n. 传递性
 transitory	adj. 暂时的；短暂的
 translate	v. 转化为；翻译；转换
+translog	adj. 超越对数的 n. 超越对数函数
 transmission	n. 传导；传播；传输
 transmit	v. 传输；传递；传播
 transnational	adj. 跨国的
@@ -5672,25 +6352,31 @@ transparent	adj. 透明的；清晰的
 transport	n. 运输；交通 v. 运输；运送
 transportation	n. 运输；交通运输
 transpose	n. 转置 v. 转置；调换
+transshipment	n. 转运
 transversality	n. 横截性
 treasury	n. 国库；财政部；国债
 treat	v. 处理；对待；治疗
 treatise	n. 论文；专著
 treatment	n. 处理；治疗；对待
+treatment-on-the-treated	n. 处理组处理效应 adj. 对受处理者的
 treaty	n. 条约
+trembling-hand	adj. 颤抖手（完美）的
 tremendous	adj. 巨大的；极大的
 trend	n. 趋势；趋向；潮流 v. 趋向
+trend-stationary	adj. 趋势平稳的
 trial	n. 试验；审判；试用
 triangular	adj. 三角的；三角形的
 triangulate	v. 三角验证；三角测量
 triangulation	n. 三角验证；三角测量
 tribal	adj. 部落的
+trickle-down	adj. 涓滴（效应）的
 trigger	v. 引发；触发 n. 触发因素；诱因
 trilemma	n. 三元悖论；三难困境
 trillion	n. 万亿；兆
 trim	v. 截尾；削减；修剪
 trimming	n. 截尾；修剪；削减
 triple	adj. 三重的；三倍的 v. 增至三倍
+triple-difference	n. 三重差分 adj. 三重差分的
 trivial	adj. 琐碎的；不重要的；平凡的
 trivially	adv. 显然地；平凡地；琐碎地
 trough	n. 谷底；低谷；槽
@@ -5701,6 +6387,7 @@ trustee	n. 受托人；理事
 trustworthiness	n. 可信度；可靠性
 trustworthy	adj. 值得信赖的；可靠的
 truthful	adj. 如实的；真实的；诚实的
+TSF	abbr. 社会融资规模
 TSLS	abbr. 两阶段最小二乘法
 tuition	n. 学费；教学
 tuning	n. 调节；调参；调优
@@ -5709,7 +6396,9 @@ turbulence	n. 动荡；湍流
 turmoil	n. 动荡；混乱
 turnout	n. 投票率；出席人数
 turnover	n. 营业额；周转；人员流动率；换手率
+TVE	abbr. 乡镇企业
 TWFE	abbr. 双向固定效应
+two-part	adj. 两部（收费制）的；两部分的
 two-period	adj. 两期的
 two-sided	adj. 双边的；双侧的
 two-stage	adj. 两阶段的
@@ -5721,12 +6410,14 @@ typical	adj. 典型的；有代表性的
 typically	adv. 通常；典型地
 typify	v. 代表；成为……的典型
 typology	n. 类型学；分类
+u-shaped	adj. U形的
 UBI	abbr. 全民基本收入
 ubiquitous	adj. 无处不在的；普遍存在的
 UI	abbr. 失业保险；用户界面
 UIP	abbr. 非抵补利率平价
 ultimate	adj. 最终的；根本的；终极的
 ultimately	adv. 最终；根本上
+ultra-poor	adj. 极端贫困的 n. 极端贫困人口
 unaffected	adj. 未受影响的
 unambiguous	adj. 明确的；无歧义的
 unambiguously	adv. 明确地；毫无疑问地
@@ -5743,6 +6434,7 @@ unchanged	adj. 未改变的；不变的
 unclear	adj. 不清楚的；不明确的
 unconditional	adj. 无条件的
 unconditionally	adv. 无条件地
+unconfounded	adj. 无混杂的
 unconfoundedness	n. 无混杂性；非混杂性
 unconstrained	adj. 无约束的
 unconventional	adj. 非常规的；非传统的
@@ -5754,10 +6446,12 @@ underdevelopment	n. 欠发达；不发达
 underemployment	n. 就业不足；不充分就业
 underestimate	v. 低估 n. 低估
 underestimation	n. 低估
+underfitting	n. 欠拟合
 undergo	v. 经历；经受
 undergone	v. 经历；经受（undergo 的过去分词）
 undergraduate	n. 本科生 adj. 本科的
 underidentification	n. 识别不足；不可识别
+underidentified	adj. 识别不足的
 underinvestment	n. 投资不足
 underlie	v. 构成……的基础；是……的根源
 underline	v. 强调；在……下面划线
@@ -5768,6 +6462,7 @@ underpin	v. 支撑；构成……的基础
 underpinning	n. 基础；支柱；理论基础
 underpricing	n. 抑价；定价过低
 underprivileged	adj. 弱势的；贫困的
+underprovision	n. 供给不足
 underrepresented	adj. 代表性不足的
 underscore	v. 强调；突出
 understate	v. 低估；少报；轻描淡写
@@ -5819,6 +6514,8 @@ unique	adj. 唯一的；独特的；独有的
 uniquely	adv. 唯一地；独特地
 uniqueness	n. 唯一性；独特性
 unit	n. 单位；单元；部门
+unit-root	adj. 单位根的
+unit-value	adj. 单位价值的
 unitary	adj. 单一的；统一的；单位的
 unity	n. 统一；团结；一致
 univariate	adj. 单变量的；一元的
@@ -5855,12 +6552,14 @@ unsupervised	adj. 无监督的
 unsurprisingly	adv. 不出所料地
 unsustainable	adj. 不可持续的
 untapped	adj. 未开发的；未利用的
+untargeted	adj. 非目标的（矩）；未瞄准的
 untenable	adj. 站不住脚的；无法维持的
 untreated	adj. 未处理的；未治疗的
 unveil	v. 揭示；公布；推出
 unwarranted	adj. 无根据的；不必要的
 unweighted	adj. 未加权的
 up-to-date	adj. 最新的；现代的
+upcoding	n. 升级编码（医疗报销）
 update	v. 更新；修正 n. 更新
 upfront	adj. 预付的；前期的 adv. 预先
 upgrade	v. 升级；提升 n. 升级
@@ -5868,7 +6567,9 @@ upgrading	n. 升级；产业升级
 upheaval	n. 剧变；动荡
 upheld	v. 维护；支持（uphold 的过去式和过去分词）
 uphold	v. 维护；支持；维持
+upper-hemicontinuous	adj. 上半连续的
 upside	n. 上行；上涨潜力；好处
+upskilling	n. 技能提升
 upstream	adj. 上游的 adv. 在上游
 upstreamness	n. 上游度
 upswing	n. 上升；好转
@@ -5898,6 +6599,7 @@ valuation	n. 估值；评估；定价
 value	n. 价值；值；数值 v. 评价；重视；估价
 value-added	n. 增加值；附加值 adj. 增值的
 value-at-risk	n. 风险价值
+value-weighted	adj. 市值加权的
 vanish	v. 消失；趋于零
 VAR	abbr. 向量自回归；风险价值
 variability	n. 变异性；变化性；波动性
@@ -5906,6 +6608,7 @@ variance	n. 方差；差异；变异
 variant	n. 变体；变种 adj. 变异的；不同的
 variate	n. 变量；随机变量；变元
 variation	n. 变化；变异；差异
+variational	adj. 变分的
 variety	n. 种类；多样性；品种
 various	adj. 各种各样的；不同的
 vary	v. 变化；不同；改变；变动
@@ -5940,6 +6643,7 @@ viability	n. 可行性；生存能力
 viable	adj. 可行的；能生存的
 vicinity	n. 附近；邻近
 vicious	adj. 恶性的；恶毒的
+vickrey	adj. 维克里（拍卖）的；第二价格密封拍卖的
 victim	n. 受害者；牺牲品
 viewpoint	n. 观点；视角
 VIF	abbr. 方差膨胀因子
@@ -5963,6 +6667,7 @@ visualization	n. 可视化
 visualize	v. 可视化；设想
 visually	adv. 视觉上；直观地
 vital	adj. 至关重要的；生命的
+VIX	abbr. 波动率指数；恐慌指数
 viz	adv. 即；也就是说
 vocational	adj. 职业的
 void	adj. 无效的；空的 n. 空白；空缺
@@ -5972,16 +6677,24 @@ volume	n. 量；成交量；体积；卷
 voluntarily	adv. 自愿地；主动地
 voluntary	adj. 自愿的；自发的；志愿的
 volunteer	n. 志愿者 v. 自愿；主动提供
+vote-buying	n. 贿选；买票
 voter	n. 选民；投票人
 voting	n. 投票；表决
 voucher	n. 代金券；凭证；凭单
+VSL	abbr. 统计生命价值
 vulnerability	n. 脆弱性；易受伤害性
 vulnerable	adj. 脆弱的；易受伤害的；弱势的
 WACC	abbr. 加权平均资本成本
 wage	n. 工资；薪资
+wage-posting	adj. 工资公告（模型）的
+wage-price	adj. 工资—价格（螺旋）的
+wage-setting	n. 工资设定 adj. 工资设定的
 waive	v. 放弃；免除；豁免
 waiver	n. 豁免；弃权；免除
+wald	adj. 沃尔德（检验、估计量）的
+walrasian	adj. 瓦尔拉斯的；瓦尔拉斯式的
 wane	v. 减弱；衰退
+warm-glow	adj. 温情效应的；光热效应的
 warrant	v. 证明……正当；值得；保证 n. 认股权证；授权令
 warranty	n. 保修；担保
 wary	adj. 谨慎的；小心的
@@ -5989,11 +6702,15 @@ wasting	n. 消瘦；浪费
 watershed	n. 分水岭；转折点
 wave	n. 浪潮；（调查）轮次；波
 wavelet	n. 小波
+weak-instrument	adj. 弱工具变量的
 weaken	v. 削弱；减弱
 weakly	adv. 弱地；微弱地
 weakness	n. 弱点；缺点；疲软
 wealth	n. 财富
 wealthy	adj. 富裕的；富有的
+weaponization	n. 武器化
+web-scraped	adj. 网络爬取的
+weibull	adj. 韦布尔（分布）的
 weigh	v. 权衡；称重；重达
 weight	n. 权重；重量 v. 加权
 weighting	n. 加权；权重
@@ -6021,9 +6738,13 @@ widely	adv. 广泛地；普遍地
 widen	v. 扩大；加宽
 widespread	adj. 广泛的；普遍的
 wield	v. 行使；运用；拥有
+wild-bootstrap	n. 野自助法 adj. 野自助法的
+wild-cluster	adj. 野聚类（自助法）的
 willingness	n. 意愿；乐意
+willingness-to-pay	adj. 支付意愿的
 win-win	adj. 双赢的
 windfall	n. 意外之财；暴利
+winner-take-all	adj. 赢家通吃的
 winsorization	n. 缩尾处理；温莎化
 winsorize	v. 缩尾处理；温莎化
 withdraw	v. 撤回；退出；提取
@@ -6033,6 +6754,7 @@ withheld	v. 扣留；保留（withhold 的过去式和过去分词）
 withhold	v. 扣留；保留；代扣
 withholding	n. 预扣；代扣
 within-group	adj. 组内的
+within-subject	adj. 被试内的
 withstand	v. 承受；经受住
 witness	v. 见证；目睹 n. 证人；目击者
 WLS	abbr. 加权最小二乘法
@@ -6054,19 +6776,26 @@ worthy	adj. 值得的；有价值的
 write-down	n. 减记
 write-off	n. 核销；冲销
 WTA	abbr. 受偿意愿
+WTO	abbr. 世界贸易组织
 WTP	abbr. 支付意愿
 x-axis	n. 横轴
+x-inefficiency	n. X非效率；X低效率
 xenophobia	n. 仇外心理；排外情绪
 xenophobic	adj. 仇外的；排外的
+xiagang	n. 下岗
 y-axis	n. 纵轴
 yardstick	n. 衡量标准；尺度
 yearly	adj. 每年的；年度的 adv. 每年
 yet	adv. 尚未；还；仍然 conj. 然而；但是
 yield	n. 收益率；产量；收益 v. 产生；得出；屈服
 youth	n. 青年；青年时期
+z-score	n. z分数；标准分数
 zero-coupon	adj. 零息的
 zero-inflated	adj. 零膨胀的
+zero-lower-bound	adj. 零利率下限的
 zero-sum	adj. 零和的
+zipf	adj. 齐普夫（定律）的
 ZLB	abbr. 零利率下限
+zombification	n. 僵尸化
 zone	n. 区域；地带；区
 zoning	n. 区划；分区规划

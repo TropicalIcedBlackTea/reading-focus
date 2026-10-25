@@ -42,12 +42,24 @@ namespace ReadingFocus
         public string Notes = "";
         public List<WordRecord> Words = new List<WordRecord>();
     }
+    // One entry per word ever looked up, kept across sessions and restarts.
+    public sealed class VocabularyRecord
+    {
+        public string Word { get; set; }
+        public string Meaning { get; set; }
+        public string Status { get; set; }
+        public DateTime FirstSeen { get; set; }
+        public DateTime LastSeen { get; set; }
+        public int Lookups { get; set; }
+    }
     public sealed class ReadingData
     {
         public string DraftNotes = "";
         public List<DayRecord> Days = new List<DayRecord>();
         public List<PaperRecord> Papers = new List<PaperRecord>();
         public List<SessionRecord> Sessions = new List<SessionRecord>();
+        public List<VocabularyRecord> Vocabulary = new List<VocabularyRecord>();
+        public bool VocabularyImported;
         [XmlIgnore] public PaperRecord CurrentPaper
         {
             get { if (Papers.Count == 0) Papers.Add(new PaperRecord { Number = 1 }); return Papers[Papers.Count - 1]; }
@@ -89,26 +101,60 @@ namespace ReadingFocus
             return true;
         }
         public void NextPaper() { Papers.Add(new PaperRecord { Number = CurrentPaper.Number + 1 }); }
-        public WordRecord AddWord(SessionRecord session, string word, string meaning, DateTime now)
+        public WordRecord AddWord(SessionRecord session, DictionaryHit hit, DateTime now)
         {
-            WordRecord existing = session.Words.Find(w => w.Word == word);
+            Remember(hit, now, 1);
+            WordRecord existing = session.Words.Find(w => w.Word == hit.Word);
             if (existing != null) { existing.Copies++; return null; }
-            WordRecord item = new WordRecord { Word = word, Status = meaning != null ? "ok" : "missing", Meaning = meaning ?? "", Paper = CurrentPaper.Number, CollectedAt = now, Copies = 1 };
+            WordRecord item = new WordRecord { Word = hit.Word, Status = hit.Status, Meaning = hit.Meaning ?? "", Paper = CurrentPaper.Number, CollectedAt = now, Copies = 1 };
             session.Words.Add(item);
             return item;
         }
+        private VocabularyRecord Remember(DictionaryHit hit, DateTime when, int lookups)
+        {
+            VocabularyRecord entry = Vocabulary.Find(v => v.Word == hit.Word);
+            if (entry == null)
+            {
+                entry = new VocabularyRecord { Word = hit.Word, FirstSeen = when, LastSeen = when };
+                Vocabulary.Add(entry);
+            }
+            if (when < entry.FirstSeen) entry.FirstSeen = when;
+            if (when > entry.LastSeen) entry.LastSeen = when;
+            entry.Lookups += lookups;
+            if (entry.Status != "ok" || hit.Status == "ok") { entry.Status = hit.Status; entry.Meaning = hit.Meaning ?? ""; }
+            return entry;
+        }
+        public bool Forget(string word) { return Vocabulary.RemoveAll(v => v.Word == word) > 0; }
         // Older records and words the dictionary did not know are looked up
-        // again, so a larger dictionary fills them in.
+        // again, so a larger dictionary fills them in. Words collected before
+        // the permanent vocabulary existed are folded into it once.
         public void Resolve(AcademicDictionary dictionary)
         {
             foreach (SessionRecord s in Sessions)
                 foreach (WordRecord w in s.Words)
                 {
                     if (w.Status == "ok") continue;
-                    DictionaryHit hit = dictionary.Lookup(w.Word);
-                    w.Status = hit != null ? "ok" : "missing";
-                    w.Meaning = hit != null ? hit.Meaning : "";
+                    DictionaryHit hit = dictionary.Describe(w.Word) ?? DictionaryHit.Unknown(w.Word);
+                    w.Status = hit.Status;
+                    w.Meaning = hit.Meaning ?? "";
                 }
+            foreach (VocabularyRecord v in Vocabulary)
+            {
+                if (v.Status == "ok") continue;
+                DictionaryHit hit = dictionary.Describe(v.Word) ?? DictionaryHit.Unknown(v.Word);
+                v.Status = hit.Status;
+                v.Meaning = hit.Meaning ?? "";
+            }
+            if (VocabularyImported) return;
+            foreach (IGrouping<string, WordRecord> group in Sessions.SelectMany(s => s.Words).GroupBy(w => w.Word))
+            {
+                WordRecord latest = group.OrderBy(w => w.CollectedAt).Last();
+                DictionaryHit hit = new DictionaryHit { Word = group.Key, Meaning = latest.Status == "missing" ? null : latest.Meaning, Derived = latest.Status == "derived" };
+                VocabularyRecord entry = Remember(hit, group.Min(w => w.CollectedAt), 0);
+                if (latest.CollectedAt > entry.LastSeen) entry.LastSeen = latest.CollectedAt;
+                entry.Lookups = Math.Max(entry.Lookups, group.Sum(w => Math.Max(1, w.Copies)));
+            }
+            VocabularyImported = true;
         }
     }
     internal sealed class DataStore
@@ -181,8 +227,8 @@ namespace ReadingFocus
             StringBuilder summary = new StringBuilder("文献专注 · 本轮词表\r\n" + session.StartedAt.ToString("yyyy-MM-dd HH:mm") + "\r\n专注 " + (session.Milliseconds / 60000.0).ToString("0.0") + " 分钟\r\n\r\n");
             foreach (WordRecord w in session.Words)
             {
-                bool found = w.Status == "ok";
-                csv.AppendLine(Csv(w.Word) + "," + Csv(found ? w.Meaning : "") + "," + Csv(found ? "已收录" : "未收录") + "," + w.Paper + "," + Csv(w.CollectedAt.ToString("s")));
+                bool found = w.Status != "missing";
+                csv.AppendLine(Csv(w.Word) + "," + Csv(found ? w.Meaning : "") + "," + Csv(Source(w.Status)) + "," + w.Paper + "," + Csv(w.CollectedAt.ToString("s")));
                 if (found) tsv.AppendLine(Flat(w.Word) + "\t" + Flat(w.Meaning));
                 words.AppendLine(w.Word);
                 summary.AppendLine(found ? w.Word + " — " + w.Meaning : w.Word);
@@ -196,6 +242,22 @@ namespace ReadingFocus
             AtomicText(System.IO.Path.Combine(folder, "本轮汇总.txt"), summary.ToString(), true);
             return folder;
         }
+        // The permanent vocabulary as files next to the session folders,
+        // most recent lookups first.
+        public static void ExportVocabulary(IEnumerable<VocabularyRecord> vocabulary, string root)
+        {
+            Directory.CreateDirectory(root);
+            StringBuilder csv = new StringBuilder("单词,中文释义,词典,查询次数,首次查询,最近查询\r\n");
+            StringBuilder words = new StringBuilder();
+            foreach (VocabularyRecord v in vocabulary.OrderByDescending(v => v.LastSeen))
+            {
+                csv.AppendLine(Csv(v.Word) + "," + Csv(v.Status == "missing" ? "" : v.Meaning) + "," + Csv(Source(v.Status)) + "," + v.Lookups + "," + Csv(v.FirstSeen.ToString("s")) + "," + Csv(v.LastSeen.ToString("s")));
+                words.AppendLine(v.Word);
+            }
+            AtomicText(System.IO.Path.Combine(root, "生词本.csv"), csv.ToString(), true);
+            AtomicText(System.IO.Path.Combine(root, "生词本-扇贝用.txt"), words.ToString(), false);
+        }
+        private static string Source(string status) { return status == "ok" ? "已收录" : status == "derived" ? "构词推测" : "未收录"; }
         private static void AtomicText(string file, string text, bool bom)
         {
             string temp = file + ".tmp";
